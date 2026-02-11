@@ -38,7 +38,7 @@ yarn-error.log*
 
 #markdown
 DESIGN.md
-
+REQUIREMENTS.md
 
 # typescript
 *.tsbuildinfo
