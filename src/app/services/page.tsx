@@ -1,0 +1,432 @@
+﻿"use client";
+
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
+import Image from "next/image";
+import Navbar from "@/components/Navbar";
+
+export default function ServicesPage() {
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      once: true,
+      easing: "ease-out-cubic",
+    });
+  }, []);
+
+  const services = [
+    {
+      id: "baby-care",
+      title: "Baby & Child Care",
+      slug: "baby-care",
+      description:
+        "Professional babysitters and nannies for infants, toddlers, and children of all ages.",
+      image:
+        "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&h=600&fit=crop",
+      caregivers: 12500,
+      priceRange: "$15-25/hr",
+      category: "childcare",
+      features: [
+        "Meal preparation",
+        "Educational activities",
+        "Bedtime routines",
+        "Light housekeeping",
+      ],
+    },
+    {
+      id: "senior-care",
+      title: "Senior Care",
+      slug: "senior-care",
+      description:
+        "Compassionate care for elderly loved ones including companionship and daily assistance.",
+      image:
+        "https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?w=800&h=600&fit=crop",
+      caregivers: 8900,
+      priceRange: "$20-35/hr",
+      category: "senior",
+      features: [
+        "Medication reminders",
+        "Mobility assistance",
+        "Companionship",
+        "Meal preparation",
+      ],
+    },
+    {
+      id: "special-needs",
+      title: "Special Needs Care",
+      slug: "special-needs",
+      description:
+        "Specialized care for individuals with physical, developmental, or cognitive disabilities.",
+      image:
+        "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&h=600&fit=crop",
+      caregivers: 4200,
+      priceRange: "$25-40/hr",
+      category: "special",
+      features: [
+        "Behavioral support",
+        "Therapy assistance",
+        "ADL support",
+        "Communication aid",
+      ],
+    },
+    {
+      id: "pet-care",
+      title: "Pet Care",
+      slug: "pet-care",
+      description:
+        "Reliable pet sitters and dog walkers to care for your furry family members.",
+      image:
+        "https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&h=600&fit=crop",
+      caregivers: 6700,
+      priceRange: "$12-20/hr",
+      category: "pet",
+      features: [
+        "Dog walking",
+        "Pet sitting",
+        "Feeding & medication",
+        "Playtime & exercise",
+      ],
+    },
+    {
+      id: "housekeeping",
+      title: "Housekeeping",
+      slug: "housekeeping",
+      description:
+        "Professional house cleaners and housekeepers for a spotless home.",
+      image:
+        "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&h=600&fit=crop",
+      caregivers: 9800,
+      priceRange: "$18-30/hr",
+      category: "housekeeping",
+      features: [
+        "Deep cleaning",
+        "Laundry services",
+        "Organization",
+        "Regular maintenance",
+      ],
+    },
+    {
+      id: "tutoring",
+      title: "Tutoring & Education",
+      slug: "tutoring",
+      description:
+        "Qualified tutors for academic support, homework help, and skill development.",
+      image:
+        "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop",
+      caregivers: 7300,
+      priceRange: "$20-45/hr",
+      category: "education",
+      features: [
+        "Subject tutoring",
+        "Test preparation",
+        "Homework help",
+        "Language learning",
+      ],
+    },
+  ];
+
+  const categories = [
+    { id: "all", name: "All Services", icon: "apps" },
+    { id: "childcare", name: "Child Care", icon: "child_care" },
+    { id: "senior", name: "Senior Care", icon: "elderly" },
+    { id: "special", name: "Special Needs", icon: "accessible" },
+    { id: "pet", name: "Pet Care", icon: "pets" },
+    { id: "housekeeping", name: "Housekeeping", icon: "cleaning_services" },
+    { id: "education", name: "Education", icon: "school" },
+  ];
+
+  const filteredServices =
+    selectedCategory === "all"
+      ? services
+      : services.filter((service) => service.category === selectedCategory);
+
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <Navbar />
+
+      <div className="bg-white border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center gap-2 text-sm">
+            <Link href="/" className="text-slate-500 hover:text-teal-600">
+              Home
+            </Link>
+            <span className="material-icons text-slate-400 text-sm">
+              chevron_right
+            </span>
+            <span className="text-slate-900 font-medium">Services</span>
+          </div>
+        </div>
+      </div>
+
+      <section className="bg-linear-to-br from-teal-600 to-teal-700 py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div
+            style={{
+              backgroundImage: `radial-linear(circle at 2px 2px, white 1px, transparent 0)`,
+              backgroundSize: "40px 40px",
+              height: "100%",
+            }}
+          ></div>
+        </div>
+        <div className="max-w-7xl mx-auto relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-center text-white"
+          >
+            <h1 className="text-5xl font-bold mb-4">Our Care Services</h1>
+            <p className="text-xl text-teal-100 max-w-2xl mx-auto">
+              Professional, verified caregivers for every stage of life. Find
+              the perfect match for your family&apos;s needs.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="py-8 px-4 sm:px-6 lg:px-8 bg-white border-b border-slate-200 sticky top-16 z-40">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => setSelectedCategory(category.id)}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all ${
+                  selectedCategory === category.id
+                    ? "bg-teal-600 text-white shadow-lg"
+                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                }`}
+              >
+                <span className="material-icons text-lg">{category.icon}</span>
+                {category.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredServices.map((service, i) => (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                data-aos="fade-up"
+                data-aos-delay={i * 100}
+                className="group"
+              >
+                <Link href={`/services/${service.slug}`}>
+                  <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-100 h-full flex flex-col">
+                    <div className="relative h-56 overflow-hidden">
+                      <img
+                        src={service.image}
+                        alt={service.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        width={800}
+                        height={600}
+                      />
+                      <div className="absolute inset-0 bg-linear-to-t from-slate-900/60 to-transparent"></div>
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <div className="flex items-center justify-between">
+                          <span className="bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm font-bold text-slate-900">
+                            {service.caregivers.toLocaleString()} caregivers
+                          </span>
+                          <span className="bg-teal-600 text-white px-3 py-1.5 rounded-full text-sm font-bold">
+                            {service.priceRange}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="p-6 flex-1 flex flex-col">
+                      <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-teal-600 transition-colors">
+                        {service.title}
+                      </h3>
+                      <p className="text-slate-600 mb-4 flex-1">
+                        {service.description}
+                      </p>
+                      <div className="space-y-2 mb-6">
+                        {service.features.slice(0, 3).map((feature, idx) => (
+                          <div
+                            key={idx}
+                            className="flex items-center gap-2 text-sm text-slate-600"
+                          >
+                            <span className="material-icons text-teal-600 text-sm">
+                              check_circle
+                            </span>
+                            {feature}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                        <span className="text-sm font-semibold text-slate-500">
+                          Learn More
+                        </span>
+                        <span className="material-icons text-teal-600 group-hover:translate-x-2 transition-transform">
+                          arrow_forward
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+          {filteredServices.length === 0 && (
+            <div className="text-center py-16">
+              <div className="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="material-icons text-slate-400 text-5xl">
+                  search_off
+                </span>
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-2">
+                No services found
+              </h3>
+              <p className="text-slate-600">
+                Try selecting a different category
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-4xl font-bold text-slate-900 mb-4">
+            Can&apos;t find what you&apos;re looking for?
+          </h2>
+          <p className="text-xl text-slate-600 mb-8">
+            Contact our support team and we&apos;ll help you find the perfect
+            caregiver
+          </p>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-bold px-8 py-4 rounded-full transition-all shadow-lg"
+          >
+            Contact Support
+            <span className="material-icons">arrow_forward</span>
+          </Link>
+        </div>
+      </section>
+      <footer className="bg-slate-900 py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+            <div>
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 bg-teal-600 rounded-lg flex items-center justify-center">
+                  <span className="material-icons text-white text-xl">
+                    health_and_safety
+                  </span>
+                </div>
+                <span className="text-xl font-bold text-white">Care.xyz</span>
+              </div>
+              <p className="text-slate-400 text-sm leading-relaxed">
+                Transforming the way families find trusted, professional care
+                for their loved ones across the globe.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-bold text-white mb-4">Services</h4>
+              <ul className="space-y-3 text-sm text-slate-400">
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-teal-400 transition-colors"
+                  >
+                    Senior Care
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-teal-400 transition-colors"
+                  >
+                    Specialized Nursing
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-teal-400 transition-colors"
+                  >
+                    Dementia Care
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-teal-400 transition-colors"
+                  >
+                    Child Care
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold text-white mb-4">Company</h4>
+              <ul className="space-y-3 text-sm text-slate-400">
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-teal-400 transition-colors"
+                  >
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-teal-400 transition-colors"
+                  >
+                    Careers
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-teal-400 transition-colors"
+                  >
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="hover:text-teal-400 transition-colors"
+                  >
+                    Contact
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-bold text-white mb-4">Newsletter</h4>
+              <div className="flex gap-2">
+                <input
+                  type="email"
+                  placeholder="Your email"
+                  className="flex-1 px-4 py-2.5 bg-slate-800 border border-slate-700 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent text-sm"
+                />
+                <button className="px-6 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-lg transition-all text-sm">
+                  Join
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="border-t border-slate-800 pt-8 text-center">
+            <p className="text-sm text-slate-500">
+              © 2026 Care.xyz Inc. All rights reserved. Providing compassionate
+              care nationwide.
+            </p>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}

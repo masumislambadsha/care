@@ -1,0 +1,185 @@
+"use client";
+
+import { useSession, signOut } from "next-auth/react";
+import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  const pathname = usePathname();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login");
+    }
+  }, [status, router]);
+
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-slate-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const isCaregiver = session?.user?.role === "CAREGIVER";
+
+  const clientMenuItems = [
+    { icon: "dashboard", label: "Dashboard", href: "/dashboard" },
+    { icon: "event_note", label: "My Bookings", href: "/my-bookings" },
+    { icon: "search", label: "Find Caregivers", href: "/caregivers" },
+    { icon: "medical_services", label: "Services", href: "/services" },
+    { icon: "person", label: "Profile", href: "/profile" },
+    { icon: "settings", label: "Settings", href: "/settings" },
+  ];
+
+  const caregiverMenuItems = [
+    { icon: "dashboard", label: "Dashboard", href: "/dashboard" },
+    { icon: "event_note", label: "My Bookings", href: "/my-bookings" },
+    { icon: "calendar_month", label: "Schedule", href: "/caregiver/schedule" },
+    { icon: "payments", label: "Earnings", href: "/caregiver/earnings" },
+    { icon: "star", label: "Reviews", href: "/caregiver/reviews" },
+    { icon: "person", label: "Profile", href: "/profile" },
+    { icon: "settings", label: "Settings", href: "/settings" },
+  ];
+
+  const menuItems = isCaregiver ? caregiverMenuItems : clientMenuItems;
+
+  const handleSignOut = async () => {
+    await signOut({ redirect: false });
+    toast.success("Signed out successfully");
+    router.push("/");
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 flex">
+      {/* Sidebar */}
+      <aside
+        className={`fixed left-0 top-0 h-full bg-white border-r border-slate-200 transition-all duration-300 z-40 ${
+          isSidebarOpen ? "w-64" : "w-20"
+        }`}
+      >
+        {/* Logo */}
+        <div className="h-16 border-b border-slate-200 flex items-center justify-between px-4">
+          {isSidebarOpen ? (
+            <Link href="/" className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-teal-600 rounded-lg flex items-center justify-center">
+                <span className="material-icons text-white text-xl">
+                  health_and_safety
+                </span>
+              </div>
+              <span className="text-lg font-bold text-slate-900">Care.xyz</span>
+            </Link>
+          ) : (
+            <div className="w-8 h-8 bg-teal-600 rounded-lg flex items-center justify-center mx-auto">
+              <span className="material-icons text-white text-xl">
+                health_and_safety
+              </span>
+            </div>
+          )}
+        </div>
+
+        {/* Navigation */}
+        <nav className="p-4 space-y-2">
+          {menuItems.map((item) => {
+            const isActive = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
+                  isActive
+                    ? "bg-teal-600 text-white"
+                    : "text-slate-700 hover:bg-slate-100"
+                }`}
+                title={!isSidebarOpen ? item.label : ""}
+              >
+                <span className="material-icons text-xl">{item.icon}</span>
+                {isSidebarOpen && (
+                  <span className="font-medium">{item.label}</span>
+                )}
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* User Section */}
+        <div className="absolute bottom-0 left-0 right-0 border-t border-slate-200 p-4">
+          <div
+            className={`flex items-center gap-3 mb-3 ${
+              !isSidebarOpen && "justify-center"
+            }`}
+          >
+            <div className="w-10 h-10 bg-teal-600 rounded-full flex items-center justify-center text-white font-bold">
+              {session?.user?.name?.charAt(0).toUpperCase()}
+            </div>
+            {isSidebarOpen && (
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold text-slate-900 truncate">
+                  {session?.user?.name}
+                </p>
+                <p className="text-xs text-slate-500">{session?.user?.role}</p>
+              </div>
+            )}
+          </div>
+          <button
+            onClick={handleSignOut}
+            className={`flex items-center gap-3 px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-all w-full ${
+              !isSidebarOpen && "justify-center"
+            }`}
+            title={!isSidebarOpen ? "Sign Out" : ""}
+          >
+            <span className="material-icons text-xl">logout</span>
+            {isSidebarOpen && <span className="font-medium">Sign Out</span>}
+          </button>
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <div
+        className={`flex-1 transition-all duration-300 ${
+          isSidebarOpen ? "ml-64" : "ml-20"
+        }`}
+      >
+        {/* Top Bar */}
+        <header className="h-16 bg-white border-b border-slate-200 sticky top-0 z-30 flex items-center justify-between px-6">
+          <button
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="p-2 hover:bg-slate-100 rounded-lg transition-all"
+          >
+            <span className="material-icons text-slate-600">menu</span>
+          </button>
+
+          <div className="flex items-center gap-4">
+            <button className="p-2 hover:bg-slate-100 rounded-lg transition-all relative">
+              <span className="material-icons text-slate-600">
+                notifications
+              </span>
+              <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            </button>
+            <Link
+              href="/"
+              className="px-4 py-2 text-slate-600 hover:text-teal-600 font-medium transition-all"
+            >
+              Back to Home
+            </Link>
+          </div>
+        </header>
+
+        {/* Page Content */}
+        <main className="p-6">{children}</main>
+      </div>
+    </div>
+  );
+}

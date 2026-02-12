@@ -1,36 +1,208 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Care.xyz - Baby Sitting & Elderly Care Service Platform
 
-## Getting Started
+A full-stack web application connecting families with trusted, verified caregivers for children, elderly, and special-needs individuals.
 
-First, run the development server:
+## 🚀 Tech Stack
+
+- **Framework:** Next.js 15+ (App Router, Server Components, Server Actions)
+- **Language:** TypeScript (strict mode)
+- **Styling:** Tailwind CSS + daisyUI + shadcn/ui
+- **Database:** PostgreSQL (Supabase)
+- **Authentication:** NextAuth.js (Google OAuth + Credentials)
+- **Payment:** Stripe Checkout (test mode)
+- **Email:** Resend + React Email
+- **File Upload:** Cloudinary
+- **Forms:** React Hook Form + Zod
+- **Animations:** Framer Motion
+
+## 📋 Prerequisites
+
+- Node.js 18+ and npm
+- Supabase account
+- Google OAuth credentials
+- Stripe account (test mode)
+- Resend account
+- Cloudinary account
+
+## 🛠️ Setup Instructions
+
+### 1. Clone and Install
+
+```bash
+git clone <repository-url>
+cd care-xyz
+npm install
+```
+
+### 2. Environment Variables
+
+Create a `.env.local` file in the root directory and add the following:
+
+```env
+# Supabase
+DATABASE_URL=your_supabase_database_url
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+
+# NextAuth
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your_nextauth_secret
+
+# Google OAuth
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+
+# Stripe
+STRIPE_SECRET_KEY=your_stripe_secret_key
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=your_stripe_publishable_key
+STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
+
+# Resend
+RESEND_API_KEY=your_resend_api_key
+
+# Cloudinary
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=your_upload_preset
+
+# App
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
+
+### 3. Database Setup
+
+1. Create a new Supabase project
+2. Run the schema SQL:
+   ```bash
+   # Copy contents of supabase/schema.sql and run in Supabase SQL Editor
+   ```
+3. Run the seed data:
+   ```bash
+   # Copy contents of supabase/seed.sql and run in Supabase SQL Editor
+   ```
+
+### 4. Generate NextAuth Secret
+
+```bash
+openssl rand -base64 32
+```
+
+Add the output to `NEXTAUTH_SECRET` in `.env.local`
+
+### 5. Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📁 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/
+│   ├── (auth)/          # Authentication pages
+│   ├── (main)/          # Public pages
+│   ├── (protected)/     # Protected client pages
+│   ├── (caregiver)/     # Caregiver dashboard
+│   ├── (admin)/         # Admin dashboard
+│   ├── api/             # API routes
+│   └── providers.tsx    # Context providers
+├── components/          # Reusable components
+├── lib/                 # Utilities and configs
+│   ├── auth.ts         # NextAuth configuration
+│   ├── supabase.ts     # Supabase client
+│   └── validators/     # Zod schemas
+├── types/              # TypeScript types
+└── server/
+    └── actions/        # Server Actions
+```
 
-## Learn More
+## 🎯 Features Implemented
 
-To learn more about Next.js, take a look at the following resources:
+### Phase 1 - Foundation ✅
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [x] Project setup with Next.js 15 + TypeScript
+- [x] Tailwind CSS + daisyUI configuration
+- [x] Homepage with all sections
+- [x] Services listing and detail pages
+- [x] Caregiver browse and profile pages
+- [x] Custom UI components
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Phase 2 - Authentication & Core Features 🚧
 
-## Deploy on Vercel
+- [x] NextAuth.js setup with Google OAuth
+- [x] Login and registration pages
+- [x] Database schema and seed data
+- [ ] Booking flow (4-step process)
+- [ ] My Bookings page
+- [ ] User profile management
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Phase 3 - Integrations 📋
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [ ] Stripe Checkout integration
+- [ ] Email system with Resend
+- [ ] Cloudinary file uploads
+- [ ] Server Actions for CRUD operations
+
+### Phase 4 - Dashboards 📋
+
+- [ ] Caregiver dashboard
+- [ ] Admin dashboard
+- [ ] Review and rating system
+- [ ] Dark mode support
+
+## 🔐 Demo Credentials
+
+After running the seed data:
+
+**Admin:**
+
+- Email: admin@care.xyz
+- Password: Admin123!
+
+**Client:**
+
+- Email: john@example.com
+- Password: Client123!
+
+**Caregiver:**
+
+- Email: sarah@example.com
+- Password: Caregiver123!
+
+## 🧪 Testing
+
+```bash
+npm run test
+```
+
+## 📦 Build for Production
+
+```bash
+npm run build
+npm start
+```
+
+## 🚀 Deployment
+
+Deploy to Vercel:
+
+```bash
+vercel
+```
+
+## 📝 License
+
+This project is for educational/portfolio purposes.
+
+## 🤝 Contributing
+
+This is a portfolio project. Feel free to fork and customize for your own use.
+
+## 📧 Contact
+
+For questions or feedback, please open an issue in the repository.

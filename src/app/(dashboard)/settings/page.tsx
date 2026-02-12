@@ -1,0 +1,236 @@
+"use client";
+
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
+export default function SettingsPage() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  const [settings, setSettings] = useState({
+    emailNotifications: true,
+    smsNotifications: false,
+    bookingReminders: true,
+    marketingEmails: false,
+    twoFactorAuth: false,
+  });
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login");
+    }
+  }, [status, router]);
+
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-slate-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const toggleSetting = (key: keyof typeof settings) => {
+    setSettings({ ...settings, [key]: !settings[key] });
+  };
+
+  return (
+    <>
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-slate-900 mb-2">Settings</h1>
+        <p className="text-slate-600">Manage your account preferences</p>
+      </div>
+
+      {/* Notifications */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
+        <h2 className="text-xl font-bold text-slate-900 mb-6">Notifications</h2>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between p-4 border-2 border-slate-200 rounded-lg">
+            <div className="flex items-center gap-3">
+              <span className="material-icons text-teal-600">email</span>
+              <div>
+                <p className="font-semibold text-slate-900">
+                  Email Notifications
+                </p>
+                <p className="text-sm text-slate-600">
+                  Receive booking updates via email
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => toggleSetting("emailNotifications")}
+              className={`relative w-14 h-8 rounded-full transition-all ${
+                settings.emailNotifications ? "bg-teal-600" : "bg-slate-300"
+              }`}
+            >
+              <div
+                className={`absolute top-1 left-1 w-6 h-6 bg-white rounded-full transition-transform ${
+                  settings.emailNotifications ? "translate-x-6" : ""
+                }`}
+              />
+            </button>
+          </div>
+
+          <div className="flex items-center justify-between p-4 border-2 border-slate-200 rounded-lg">
+            <div className="flex items-center gap-3">
+              <span className="material-icons text-teal-600">sms</span>
+              <div>
+                <p className="font-semibold text-slate-900">
+                  SMS Notifications
+                </p>
+                <p className="text-sm text-slate-600">
+                  Get text messages for important updates
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => toggleSetting("smsNotifications")}
+              className={`relative w-14 h-8 rounded-full transition-all ${
+                settings.smsNotifications ? "bg-teal-600" : "bg-slate-300"
+              }`}
+            >
+              <div
+                className={`absolute top-1 left-1 w-6 h-6 bg-white rounded-full transition-transform ${
+                  settings.smsNotifications ? "translate-x-6" : ""
+                }`}
+              />
+            </button>
+          </div>
+
+          <div className="flex items-center justify-between p-4 border-2 border-slate-200 rounded-lg">
+            <div className="flex items-center gap-3">
+              <span className="material-icons text-teal-600">
+                notifications_active
+              </span>
+              <div>
+                <p className="font-semibold text-slate-900">
+                  Booking Reminders
+                </p>
+                <p className="text-sm text-slate-600">
+                  Reminders before scheduled bookings
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => toggleSetting("bookingReminders")}
+              className={`relative w-14 h-8 rounded-full transition-all ${
+                settings.bookingReminders ? "bg-teal-600" : "bg-slate-300"
+              }`}
+            >
+              <div
+                className={`absolute top-1 left-1 w-6 h-6 bg-white rounded-full transition-transform ${
+                  settings.bookingReminders ? "translate-x-6" : ""
+                }`}
+              />
+            </button>
+          </div>
+
+          <div className="flex items-center justify-between p-4 border-2 border-slate-200 rounded-lg">
+            <div className="flex items-center gap-3">
+              <span className="material-icons text-teal-600">campaign</span>
+              <div>
+                <p className="font-semibold text-slate-900">Marketing Emails</p>
+                <p className="text-sm text-slate-600">
+                  Receive news and promotional offers
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => toggleSetting("marketingEmails")}
+              className={`relative w-14 h-8 rounded-full transition-all ${
+                settings.marketingEmails ? "bg-teal-600" : "bg-slate-300"
+              }`}
+            >
+              <div
+                className={`absolute top-1 left-1 w-6 h-6 bg-white rounded-full transition-transform ${
+                  settings.marketingEmails ? "translate-x-6" : ""
+                }`}
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Security */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
+        <h2 className="text-xl font-bold text-slate-900 mb-6">Security</h2>
+        <div className="space-y-4">
+          <div className="flex items-center justify-between p-4 border-2 border-slate-200 rounded-lg">
+            <div className="flex items-center gap-3">
+              <span className="material-icons text-teal-600">security</span>
+              <div>
+                <p className="font-semibold text-slate-900">
+                  Two-Factor Authentication
+                </p>
+                <p className="text-sm text-slate-600">
+                  Add an extra layer of security
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => toggleSetting("twoFactorAuth")}
+              className={`relative w-14 h-8 rounded-full transition-all ${
+                settings.twoFactorAuth ? "bg-teal-600" : "bg-slate-300"
+              }`}
+            >
+              <div
+                className={`absolute top-1 left-1 w-6 h-6 bg-white rounded-full transition-transform ${
+                  settings.twoFactorAuth ? "translate-x-6" : ""
+                }`}
+              />
+            </button>
+          </div>
+
+          <button className="w-full flex items-center justify-between p-4 border-2 border-slate-200 rounded-lg hover:border-teal-600 hover:bg-teal-50 transition-all group">
+            <div className="flex items-center gap-3">
+              <span className="material-icons text-slate-600 group-hover:text-teal-600">
+                vpn_key
+              </span>
+              <span className="font-semibold text-slate-900 group-hover:text-teal-700">
+                Change Password
+              </span>
+            </div>
+            <span className="material-icons text-slate-400 group-hover:text-teal-600">
+              arrow_forward
+            </span>
+          </button>
+        </div>
+      </div>
+
+      {/* Danger Zone */}
+      <div className="bg-white rounded-xl shadow-sm border border-red-200 p-6">
+        <h2 className="text-xl font-bold text-red-600 mb-6">Danger Zone</h2>
+        <div className="space-y-4">
+          <button className="w-full flex items-center justify-between p-4 border-2 border-red-200 rounded-lg hover:border-red-600 hover:bg-red-50 transition-all group">
+            <div className="flex items-center gap-3">
+              <span className="material-icons text-red-600">
+                delete_forever
+              </span>
+              <div className="text-left">
+                <p className="font-semibold text-slate-900 group-hover:text-red-700">
+                  Delete Account
+                </p>
+                <p className="text-sm text-slate-600">
+                  Permanently delete your account and data
+                </p>
+              </div>
+            </div>
+            <span className="material-icons text-red-400 group-hover:text-red-600">
+              arrow_forward
+            </span>
+          </button>
+        </div>
+      </div>
+
+      {/* Save Button */}
+      <div className="mt-6">
+        <button className="w-full px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg transition-all">
+          Save All Changes
+        </button>
+      </div>
+    </>
+  );
+}

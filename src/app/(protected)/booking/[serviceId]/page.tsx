@@ -1,0 +1,863 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useParams, useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
+import Navbar from "@/components/Navbar";
+import toast from "react-hot-toast";
+
+type Step = 1 | 2 | 3 | 4;
+
+export default function BookingPage() {
+  const params = useParams();
+  const router = useRouter();
+  const { data: session, status } = useSession();
+  const serviceId = params.serviceId as string;
+
+  const [currentStep, setCurrentStep] = useState<Step>(1);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [bookingData, setBookingData] = useState({
+    serviceId: serviceId,
+    caregiverId: "",
+    startDate: "",
+    startTime: "",
+    endDate: "",
+    durationType: "HOURLY" as "HOURLY" | "DAILY" | "WEEKLY",
+    durationValue: 1,
+    division: "",
+    district: "",
+    city: "",
+    area: "",
+    address: "",
+    specialInstructions: "",
+  });
+
+  // Redirect if not authenticated
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push(`/login?callbackUrl=/booking/${serviceId}`);
+    }
+  }, [status, router, serviceId]);
+
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-slate-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const steps = [
+    { number: 1, title: "Choose Caregiver" },
+    { number: 2, title: "Schedule" },
+    { number: 3, title: "Location" },
+    { number: 4, title: "Review & Pay" },
+  ];
+
+  const nextStep = () => {
+    if (currentStep < 4) {
+      setCurrentStep((currentStep + 1) as Step);
+    }
+  };
+
+  const prevStep = () => {
+    if (currentStep > 1) {
+      setCurrentStep((currentStep - 1) as Step);
+    }
+  };
+
+  const handlePayment = async () => {
+    setIsProcessing(true);
+
+    try {
+      // Calculate amounts
+      const baseAmount = 25 * bookingData.durationValue;
+      const platformFee = baseAmount * 0.1;
+      const totalAmount = baseAmount + platformFee;
+
+      // Combine date and time
+      const startDateTime = `${bookingData.startDate}T${bookingData.startTime}`;
+
+      // Store booking data in session storage for success page
+      sessionStorage.setItem(
+        "pendingBooking",
+        JSON.stringify({
+          ...bookingData,
+          startDate: startDateTime,
+          baseAmount,
+          platformFee,
+          totalAmount,
+        }),
+      );
+
+      toast.loading("Creating checkout session...");
+
+      // Create checkout session
+      const response = await fetch("/api/bookings/create-checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...bookingData,
+          startDate: startDateTime,
+          baseAmount,
+          platformFee,
+          totalAmount,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to create checkout session");
+      }
+
+      // Redirect to Stripe Checkout URL directly
+      if (data.url) {
+        toast.dismiss();
+        toast.success("Redirecting to payment...");
+        window.location.href = data.url;
+      } else {
+        throw new Error("No checkout URL received");
+      }
+    } catch (error: unknown) {
+      console.error("Payment error:", error);
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "Failed to process payment. Please try again.";
+      toast.error(errorMessage);
+      setIsProcessing(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <Navbar />
+
+      {/* Progress Steps */}
+      <div className="bg-white border-b border-slate-200 py-8">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="flex items-center justify-between">
+            {steps.map((step, index) => (
+              <div key={step.number} className="flex items-center flex-1">
+                <div className="flex flex-col items-center flex-1">
+                  <div
+                    className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg transition-all ${
+                      currentStep >= step.number
+                        ? "bg-teal-600 text-white shadow-lg"
+                        : "bg-slate-200 text-slate-500"
+                    }`}
+                  >
+                    {currentStep > step.number ? (
+                      <span className="material-icons">check</span>
+                    ) : (
+                      step.number
+                    )}
+                  </div>
+                  <span
+                    className={`mt-2 text-sm font-semibold ${
+                      currentStep >= step.number
+                        ? "text-teal-600"
+                        : "text-slate-500"
+                    }`}
+                  >
+                    {step.title}
+                  </span>
+                </div>
+                {index < steps.length - 1 && (
+                  <div
+                    className={`h-1 flex-1 mx-4 transition-all ${
+                      currentStep > step.number ? "bg-teal-600" : "bg-slate-200"
+                    }`}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <main className="max-w-4xl mx-auto px-4 py-12">
+        <motion.div
+          key={currentStep}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.3 }}
+        >
+          {currentStep === 1 && (
+            <div className="bg-white rounded-2xl shadow-lg border border-slate-100 p-8">
+              <h2 className="text-3xl font-bold text-slate-900 mb-6">
+                Choose Your Caregiver
+              </h2>
+              <p className="text-slate-600 mb-8">
+                Select a caregiver for this service
+              </p>
+
+              {/* Caregiver Cards */}
+              <div className="space-y-4">
+                {[
+                  {
+                    id: "00000000-0000-0000-0000-000000000004",
+                    name: "Sarah Johnson",
+                    image:
+                      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
+                    rating: 4.9,
+                    reviews: 127,
+                    hourlyRate: 25,
+                    experience: "8 years",
+                    specialties: ["Baby & Child Care", "CPR Certified"],
+                  },
+                  {
+                    id: "00000000-0000-0000-0000-000000000005",
+                    name: "Michael Chen",
+                    image:
+                      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
+                    rating: 5.0,
+                    reviews: 94,
+                    hourlyRate: 22,
+                    experience: "6 years",
+                    specialties: ["Senior Care", "Dementia Care"],
+                  },
+                  {
+                    id: "00000000-0000-0000-0000-000000000006",
+                    name: "Emily Rodriguez",
+                    image:
+                      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
+                    rating: 4.8,
+                    reviews: 156,
+                    hourlyRate: 28,
+                    experience: "10 years",
+                    specialties: ["Special Needs Care", "ABA Therapy"],
+                  },
+                ].map((caregiver) => (
+                  <div
+                    key={caregiver.id}
+                    onClick={() =>
+                      setBookingData({
+                        ...bookingData,
+                        caregiverId: caregiver.id,
+                      })
+                    }
+                    className={`border-2 rounded-xl p-6 cursor-pointer transition-all hover:shadow-lg ${
+                      bookingData.caregiverId === caregiver.id
+                        ? "border-teal-600 bg-teal-50"
+                        : "border-slate-200 hover:border-teal-300"
+                    }`}
+                  >
+                    <div className="flex items-start gap-6">
+                      {/* Avatar */}
+                      <img
+                        src={caregiver.image}
+                        alt={caregiver.name}
+                        className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg"
+                      />
+
+                      {/* Info */}
+                      <div className="flex-1">
+                        <div className="flex items-start justify-between mb-2">
+                          <div>
+                            <h3 className="text-xl font-bold text-slate-900">
+                              {caregiver.name}
+                            </h3>
+                            <p className="text-sm text-slate-600">
+                              {caregiver.experience} experience
+                            </p>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-2xl font-bold text-teal-600">
+                              ${caregiver.hourlyRate}
+                              <span className="text-sm text-slate-500">
+                                /hr
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Rating */}
+                        <div className="flex items-center gap-2 mb-3">
+                          <div className="flex items-center gap-1">
+                            {[...Array(5)].map((_, i) => (
+                              <span
+                                key={i}
+                                className={`material-icons text-sm ${
+                                  i < Math.floor(caregiver.rating)
+                                    ? "text-yellow-400"
+                                    : "text-slate-300"
+                                }`}
+                              >
+                                star
+                              </span>
+                            ))}
+                          </div>
+                          <span className="text-sm font-semibold text-slate-700">
+                            {caregiver.rating}
+                          </span>
+                          <span className="text-sm text-slate-500">
+                            ({caregiver.reviews} reviews)
+                          </span>
+                        </div>
+
+                        {/* Specialties */}
+                        <div className="flex flex-wrap gap-2">
+                          {caregiver.specialties.map((specialty, idx) => (
+                            <span
+                              key={idx}
+                              className="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-semibold rounded-full"
+                            >
+                              {specialty}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Selection Indicator */}
+                      <div className="flex items-center">
+                        <div
+                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                            bookingData.caregiverId === caregiver.id
+                              ? "border-teal-600 bg-teal-600"
+                              : "border-slate-300"
+                          }`}
+                        >
+                          {bookingData.caregiverId === caregiver.id && (
+                            <span className="material-icons text-white text-sm">
+                              check
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {currentStep === 2 && (
+            <div className="bg-white rounded-2xl shadow-lg border border-slate-100 p-8">
+              <h2 className="text-3xl font-bold text-slate-900 mb-6">
+                Schedule Your Service
+              </h2>
+              <p className="text-slate-600 mb-8">
+                Choose date, time, and duration
+              </p>
+
+              <div className="space-y-6">
+                {/* Duration Type */}
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-3">
+                    Duration Type
+                  </label>
+                  <div className="grid grid-cols-3 gap-4">
+                    {(["HOURLY", "DAILY", "WEEKLY"] as const).map((type) => (
+                      <button
+                        key={type}
+                        onClick={() =>
+                          setBookingData({ ...bookingData, durationType: type })
+                        }
+                        className={`p-4 border-2 rounded-xl font-semibold transition-all ${
+                          bookingData.durationType === type
+                            ? "border-teal-600 bg-teal-50 text-teal-700"
+                            : "border-slate-200 text-slate-700 hover:border-teal-300"
+                        }`}
+                      >
+                        {type}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Start Date & Time */}
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                      Start Date
+                    </label>
+                    <div className="relative">
+                      <span className="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-teal-600 z-10 pointer-events-none">
+                        calendar_today
+                      </span>
+                      <input
+                        type="date"
+                        value={bookingData.startDate}
+                        onChange={(e) =>
+                          setBookingData({
+                            ...bookingData,
+                            startDate: e.target.value,
+                          })
+                        }
+                        min={new Date().toISOString().split("T")[0]}
+                        className="w-full px-4 py-3 pl-11 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none text-slate-900 cursor-pointer"
+                        style={{ colorScheme: "light" }}
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                      Start Time
+                    </label>
+                    <div className="relative">
+                      <span className="material-icons absolute left-3 top-1/2 -translate-y-1/2 text-teal-600 z-10 pointer-events-none">
+                        schedule
+                      </span>
+                      <input
+                        type="time"
+                        value={bookingData.startTime}
+                        onChange={(e) =>
+                          setBookingData({
+                            ...bookingData,
+                            startTime: e.target.value,
+                          })
+                        }
+                        className="w-full px-4 py-3 pl-11 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none text-slate-900 cursor-pointer"
+                        style={{ colorScheme: "light" }}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Duration Value */}
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">
+                    Duration (
+                    {bookingData.durationType === "HOURLY"
+                      ? "hours"
+                      : bookingData.durationType === "DAILY"
+                        ? "days"
+                        : "weeks"}
+                    )
+                  </label>
+                  <div className="flex items-center gap-4">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setBookingData({
+                          ...bookingData,
+                          durationValue: Math.max(
+                            1,
+                            bookingData.durationValue - 1,
+                          ),
+                        })
+                      }
+                      className="w-12 h-12 flex items-center justify-center border-2 border-slate-200 rounded-lg hover:border-teal-600 hover:bg-teal-50 transition-all"
+                    >
+                      <span className="material-icons text-slate-700">
+                        remove
+                      </span>
+                    </button>
+                    <input
+                      type="number"
+                      min="1"
+                      value={bookingData.durationValue}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (value === "" || parseInt(value) >= 1) {
+                          setBookingData({
+                            ...bookingData,
+                            durationValue: value === "" ? 1 : parseInt(value),
+                          });
+                        }
+                      }}
+                      className="flex-1 px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none text-slate-900 text-center text-xl font-semibold"
+                    />
+                    <button
+                      type="button"
+                      onClick={() =>
+                        setBookingData({
+                          ...bookingData,
+                          durationValue: bookingData.durationValue + 1,
+                        })
+                      }
+                      className="w-12 h-12 flex items-center justify-center border-2 border-slate-200 rounded-lg hover:border-teal-600 hover:bg-teal-50 transition-all"
+                    >
+                      <span className="material-icons text-slate-700">add</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Summary */}
+                <div className="bg-teal-50 border-2 border-teal-200 rounded-xl p-4">
+                  <div className="flex items-center gap-2 text-teal-700">
+                    <span className="material-icons">info</span>
+                    <span className="font-semibold">
+                      Service will be provided for {bookingData.durationValue}{" "}
+                      {bookingData.durationType === "HOURLY"
+                        ? bookingData.durationValue === 1
+                          ? "hour"
+                          : "hours"
+                        : bookingData.durationType === "DAILY"
+                          ? bookingData.durationValue === 1
+                            ? "day"
+                            : "days"
+                          : bookingData.durationValue === 1
+                            ? "week"
+                            : "weeks"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {currentStep === 3 && (
+            <div className="bg-white rounded-2xl shadow-lg border border-slate-100 p-8">
+              <h2 className="text-3xl font-bold text-slate-900 mb-6">
+                Service Location
+              </h2>
+              <p className="text-slate-600 mb-8">
+                Where should the caregiver provide service?
+              </p>
+
+              <div className="space-y-6">
+                {/* Division */}
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">
+                    Division
+                  </label>
+                  <select
+                    value={bookingData.division}
+                    onChange={(e) =>
+                      setBookingData({
+                        ...bookingData,
+                        division: e.target.value,
+                        district: "",
+                        city: "",
+                        area: "",
+                      })
+                    }
+                    className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none text-slate-900"
+                  >
+                    <option value="">Select Division</option>
+                    <option value="Dhaka">Dhaka</option>
+                    <option value="Chittagong">Chittagong</option>
+                    <option value="Rajshahi">Rajshahi</option>
+                    <option value="Khulna">Khulna</option>
+                    <option value="Barisal">Barisal</option>
+                    <option value="Sylhet">Sylhet</option>
+                    <option value="Rangpur">Rangpur</option>
+                    <option value="Mymensingh">Mymensingh</option>
+                  </select>
+                </div>
+
+                {/* District */}
+                {bookingData.division && (
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                      District
+                    </label>
+                    <select
+                      value={bookingData.district}
+                      onChange={(e) =>
+                        setBookingData({
+                          ...bookingData,
+                          district: e.target.value,
+                          city: "",
+                          area: "",
+                        })
+                      }
+                      className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none text-slate-900"
+                    >
+                      <option value="">Select District</option>
+                      {bookingData.division === "Dhaka" && (
+                        <>
+                          <option value="Dhaka">Dhaka</option>
+                          <option value="Gazipur">Gazipur</option>
+                          <option value="Narayanganj">Narayanganj</option>
+                          <option value="Tangail">Tangail</option>
+                        </>
+                      )}
+                      {bookingData.division === "Chittagong" && (
+                        <>
+                          <option value="Chittagong">Chittagong</option>
+                          <option value="Cox's Bazar">Cox's Bazar</option>
+                          <option value="Comilla">Comilla</option>
+                        </>
+                      )}
+                      {/* Add more districts for other divisions as needed */}
+                    </select>
+                  </div>
+                )}
+
+                {/* City */}
+                {bookingData.district && (
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                      City/Upazila
+                    </label>
+                    <input
+                      type="text"
+                      value={bookingData.city}
+                      onChange={(e) =>
+                        setBookingData({ ...bookingData, city: e.target.value })
+                      }
+                      placeholder="Enter city or upazila"
+                      className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none text-slate-900"
+                    />
+                  </div>
+                )}
+
+                {/* Area */}
+                {bookingData.city && (
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                      Area/Thana
+                    </label>
+                    <input
+                      type="text"
+                      value={bookingData.area}
+                      onChange={(e) =>
+                        setBookingData({ ...bookingData, area: e.target.value })
+                      }
+                      placeholder="Enter area or thana"
+                      className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none text-slate-900"
+                    />
+                  </div>
+                )}
+
+                {/* Full Address */}
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">
+                    Full Address
+                  </label>
+                  <textarea
+                    value={bookingData.address}
+                    onChange={(e) =>
+                      setBookingData({
+                        ...bookingData,
+                        address: e.target.value,
+                      })
+                    }
+                    placeholder="House/Flat number, Road, Block, etc."
+                    rows={3}
+                    className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none text-slate-900 resize-none"
+                  />
+                </div>
+
+                {/* Special Instructions */}
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-2">
+                    Special Instructions (Optional)
+                  </label>
+                  <textarea
+                    value={bookingData.specialInstructions}
+                    onChange={(e) =>
+                      setBookingData({
+                        ...bookingData,
+                        specialInstructions: e.target.value,
+                      })
+                    }
+                    placeholder="Any special requirements or instructions for the caregiver"
+                    rows={3}
+                    className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none text-slate-900 resize-none"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {currentStep === 4 && (
+            <div className="bg-white rounded-2xl shadow-lg border border-slate-100 p-8">
+              <h2 className="text-3xl font-bold text-slate-900 mb-6">
+                Review & Payment
+              </h2>
+              <p className="text-slate-600 mb-8">
+                Review your booking and proceed to payment
+              </p>
+
+              <div className="space-y-6">
+                {/* Booking Summary */}
+                <div className="bg-slate-50 rounded-xl p-6 space-y-4">
+                  <h3 className="text-lg font-bold text-slate-900 mb-4">
+                    Booking Summary
+                  </h3>
+
+                  {/* Caregiver Info */}
+                  <div className="flex items-center gap-4 pb-4 border-b border-slate-200">
+                    <img
+                      src="https://i.pravatar.cc/150?img=1"
+                      alt="Caregiver"
+                      className="w-16 h-16 rounded-full"
+                    />
+                    <div>
+                      <p className="font-semibold text-slate-900">
+                        Sarah Johnson
+                      </p>
+                      <p className="text-sm text-slate-600">
+                        8 years experience
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Schedule */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-slate-700">
+                      <span className="material-icons text-teal-600 text-sm">
+                        calendar_today
+                      </span>
+                      <span className="text-sm">
+                        {bookingData.startDate && bookingData.startTime
+                          ? `${bookingData.startDate} at ${bookingData.startTime}`
+                          : "Not selected"}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 text-slate-700">
+                      <span className="material-icons text-teal-600 text-sm">
+                        schedule
+                      </span>
+                      <span className="text-sm">
+                        {bookingData.durationValue}{" "}
+                        {bookingData.durationType.toLowerCase()}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Location */}
+                  <div className="pt-4 border-t border-slate-200">
+                    <div className="flex items-start gap-2 text-slate-700">
+                      <span className="material-icons text-teal-600 text-sm">
+                        location_on
+                      </span>
+                      <div className="text-sm">
+                        <p>
+                          {bookingData.area}, {bookingData.city}
+                        </p>
+                        <p>
+                          {bookingData.district}, {bookingData.division}
+                        </p>
+                        <p className="text-slate-600 mt-1">
+                          {bookingData.address}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Price Breakdown */}
+                <div className="bg-slate-50 rounded-xl p-6">
+                  <h3 className="text-lg font-bold text-slate-900 mb-4">
+                    Price Breakdown
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="flex justify-between text-slate-700">
+                      <span>
+                        Base Rate ($25/hr × {bookingData.durationValue})
+                      </span>
+                      <span className="font-semibold">
+                        ${25 * bookingData.durationValue}
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-slate-700">
+                      <span>Platform Fee (10%)</span>
+                      <span className="font-semibold">
+                        ${(25 * bookingData.durationValue * 0.1).toFixed(2)}
+                      </span>
+                    </div>
+                    <div className="pt-3 border-t-2 border-slate-300 flex justify-between text-lg font-bold text-slate-900">
+                      <span>Total Amount</span>
+                      <span className="text-teal-600">
+                        ${(25 * bookingData.durationValue * 1.1).toFixed(2)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Payment Method */}
+                <div className="bg-slate-50 rounded-xl p-6">
+                  <h3 className="text-lg font-bold text-slate-900 mb-4">
+                    Payment Method
+                  </h3>
+                  <div className="flex items-center gap-3 p-4 bg-white border-2 border-teal-600 rounded-lg">
+                    <span className="material-icons text-teal-600">
+                      credit_card
+                    </span>
+                    <div>
+                      <p className="font-semibold text-slate-900">
+                        Stripe Checkout
+                      </p>
+                      <p className="text-sm text-slate-600">
+                        Secure payment via Stripe
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Terms */}
+                <div className="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-4">
+                  <div className="flex items-start gap-2">
+                    <span className="material-icons text-yellow-600 text-sm">
+                      info
+                    </span>
+                    <p className="text-sm text-yellow-800">
+                      By proceeding, you agree to our Terms of Service and
+                      Cancellation Policy. Payment will be processed securely
+                      through Stripe.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </motion.div>
+
+        {/* Navigation Buttons */}
+        <div className="flex items-center justify-between mt-8">
+          <button
+            onClick={prevStep}
+            disabled={currentStep === 1}
+            className="flex items-center gap-2 px-6 py-3 border-2 border-slate-200 text-slate-700 font-bold rounded-lg hover:border-teal-600 hover:text-teal-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span className="material-icons">arrow_back</span>
+            Back
+          </button>
+
+          {currentStep < 4 ? (
+            <button
+              onClick={nextStep}
+              disabled={
+                (currentStep === 1 && !bookingData.caregiverId) ||
+                (currentStep === 2 &&
+                  (!bookingData.startDate ||
+                    !bookingData.startTime ||
+                    !bookingData.durationValue)) ||
+                (currentStep === 3 &&
+                  (!bookingData.division ||
+                    !bookingData.district ||
+                    !bookingData.address))
+              }
+              className="flex items-center gap-2 px-8 py-3 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-lg transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-slate-400"
+            >
+              Continue
+              <span className="material-icons">arrow_forward</span>
+            </button>
+          ) : (
+            <button
+              onClick={handlePayment}
+              disabled={isProcessing}
+              className="flex items-center gap-2 px-8 py-3 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-lg transition-all shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isProcessing ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  Processing...
+                </>
+              ) : (
+                <>
+                  Proceed to Payment
+                  <span className="material-icons">payment</span>
+                </>
+              )}
+            </button>
+          )}
+        </div>
+      </main>
+    </div>
+  );
+}
