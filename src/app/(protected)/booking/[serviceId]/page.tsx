@@ -9,6 +9,17 @@ import toast from "react-hot-toast";
 
 type Step = 1 | 2 | 3 | 4;
 
+type Caregiver = {
+  id: string;
+  name: string;
+  image: string;
+  avg_rating: number;
+  total_reviews: number;
+  hourly_rate: number;
+  experience: number;
+  certifications: string[];
+};
+
 export default function BookingPage() {
   const params = useParams();
   const router = useRouter();
@@ -17,6 +28,8 @@ export default function BookingPage() {
 
   const [currentStep, setCurrentStep] = useState<Step>(1);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [caregivers, setCaregivers] = useState<Caregiver[]>([]);
+  const [loadingCaregivers, setLoadingCaregivers] = useState(true);
   const [bookingData, setBookingData] = useState({
     serviceId: serviceId,
     caregiverId: "",
@@ -32,6 +45,30 @@ export default function BookingPage() {
     address: "",
     specialInstructions: "",
   });
+
+  // Fetch caregivers
+  useEffect(() => {
+    fetchCaregivers();
+  }, []);
+
+  const fetchCaregivers = async () => {
+    try {
+      setLoadingCaregivers(true);
+      const response = await fetch("/api/caregivers");
+      const data = await response.json();
+
+      if (response.ok) {
+        setCaregivers(data.caregivers || []);
+      } else {
+        toast.error("Failed to load caregivers");
+      }
+    } catch (error) {
+      console.error("Error fetching caregivers:", error);
+      toast.error("Failed to load caregivers");
+    } finally {
+      setLoadingCaregivers(false);
+    }
+  };
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -203,140 +240,124 @@ export default function BookingPage() {
 
               {/* Caregiver Cards */}
               <div className="space-y-4">
-                {[
-                  {
-                    id: "00000000-0000-0000-0000-000000000004",
-                    name: "Sarah Johnson",
-                    image:
-                      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
-                    rating: 4.9,
-                    reviews: 127,
-                    hourlyRate: 25,
-                    experience: "8 years",
-                    specialties: ["Baby & Child Care", "CPR Certified"],
-                  },
-                  {
-                    id: "00000000-0000-0000-0000-000000000005",
-                    name: "Michael Chen",
-                    image:
-                      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
-                    rating: 5.0,
-                    reviews: 94,
-                    hourlyRate: 22,
-                    experience: "6 years",
-                    specialties: ["Senior Care", "Dementia Care"],
-                  },
-                  {
-                    id: "00000000-0000-0000-0000-000000000006",
-                    name: "Emily Rodriguez",
-                    image:
-                      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
-                    rating: 4.8,
-                    reviews: 156,
-                    hourlyRate: 28,
-                    experience: "10 years",
-                    specialties: ["Special Needs Care", "ABA Therapy"],
-                  },
-                ].map((caregiver) => (
-                  <div
-                    key={caregiver.id}
-                    onClick={() =>
-                      setBookingData({
-                        ...bookingData,
-                        caregiverId: caregiver.id,
-                      })
-                    }
-                    className={`border-2 rounded-xl p-6 cursor-pointer transition-all hover:shadow-lg ${
-                      bookingData.caregiverId === caregiver.id
-                        ? "border-teal-600 bg-teal-50"
-                        : "border-slate-200 hover:border-teal-300"
-                    }`}
-                  >
-                    <div className="flex items-start gap-6">
-                      {/* Avatar */}
-                      <img
-                        src={caregiver.image}
-                        alt={caregiver.name}
-                        className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg"
-                      />
+                {loadingCaregivers ? (
+                  <div className="text-center py-12">
+                    <div className="w-12 h-12 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                    <p className="text-slate-600">Loading caregivers...</p>
+                  </div>
+                ) : caregivers.length === 0 ? (
+                  <div className="text-center py-12">
+                    <p className="text-slate-600">
+                      No caregivers available at the moment
+                    </p>
+                  </div>
+                ) : (
+                  caregivers.map((caregiver) => (
+                    <div
+                      key={caregiver.id}
+                      onClick={() =>
+                        setBookingData({
+                          ...bookingData,
+                          caregiverId: caregiver.id,
+                        })
+                      }
+                      className={`border-2 rounded-xl p-6 cursor-pointer transition-all hover:shadow-lg ${
+                        bookingData.caregiverId === caregiver.id
+                          ? "border-teal-600 bg-teal-50"
+                          : "border-slate-200 hover:border-teal-300"
+                      }`}
+                    >
+                      <div className="flex items-start gap-6">
+                        {/* Avatar */}
+                        <img
+                          src={
+                            caregiver.image ||
+                            `https://ui-avatars.com/api/?name=${encodeURIComponent(caregiver.name)}&size=96&background=0d9488&color=fff`
+                          }
+                          alt={caregiver.name}
+                          className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg"
+                        />
 
-                      {/* Info */}
-                      <div className="flex-1">
-                        <div className="flex items-start justify-between mb-2">
-                          <div>
-                            <h3 className="text-xl font-bold text-slate-900">
-                              {caregiver.name}
-                            </h3>
-                            <p className="text-sm text-slate-600">
-                              {caregiver.experience} experience
-                            </p>
-                          </div>
-                          <div className="text-right">
-                            <div className="text-2xl font-bold text-teal-600">
-                              ${caregiver.hourlyRate}
-                              <span className="text-sm text-slate-500">
-                                /hr
-                              </span>
+                        {/* Info */}
+                        <div className="flex-1">
+                          <div className="flex items-start justify-between mb-2">
+                            <div>
+                              <h3 className="text-xl font-bold text-slate-900">
+                                {caregiver.name}
+                              </h3>
+                              <p className="text-sm text-slate-600">
+                                {caregiver.experience} years experience
+                              </p>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-2xl font-bold text-teal-600">
+                                ${caregiver.hourly_rate}
+                                <span className="text-sm text-slate-500">
+                                  /hr
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </div>
 
-                        {/* Rating */}
-                        <div className="flex items-center gap-2 mb-3">
-                          <div className="flex items-center gap-1">
-                            {[...Array(5)].map((_, i) => (
-                              <span
-                                key={i}
-                                className={`material-icons text-sm ${
-                                  i < Math.floor(caregiver.rating)
-                                    ? "text-yellow-400"
-                                    : "text-slate-300"
-                                }`}
-                              >
-                                star
-                              </span>
-                            ))}
+                          {/* Rating */}
+                          <div className="flex items-center gap-2 mb-3">
+                            <div className="flex items-center gap-1">
+                              {[...Array(5)].map((_, i) => (
+                                <span
+                                  key={i}
+                                  className={`material-icons text-sm ${
+                                    i < Math.floor(caregiver.avg_rating)
+                                      ? "text-yellow-400"
+                                      : "text-slate-300"
+                                  }`}
+                                >
+                                  star
+                                </span>
+                              ))}
+                            </div>
+                            <span className="text-sm font-semibold text-slate-700">
+                              {caregiver.avg_rating.toFixed(1)}
+                            </span>
+                            <span className="text-sm text-slate-500">
+                              ({caregiver.total_reviews} reviews)
+                            </span>
                           </div>
-                          <span className="text-sm font-semibold text-slate-700">
-                            {caregiver.rating}
-                          </span>
-                          <span className="text-sm text-slate-500">
-                            ({caregiver.reviews} reviews)
-                          </span>
+
+                          {/* Certifications */}
+                          <div className="flex flex-wrap gap-2">
+                            {caregiver.certifications
+                              .slice(0, 3)
+                              .map((cert, idx) => (
+                                <span
+                                  key={idx}
+                                  className="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-semibold rounded-full"
+                                >
+                                  {cert}
+                                </span>
+                              ))}
+                          </div>
                         </div>
 
-                        {/* Specialties */}
-                        <div className="flex flex-wrap gap-2">
-                          {caregiver.specialties.map((specialty, idx) => (
-                            <span
-                              key={idx}
-                              className="px-3 py-1 bg-teal-100 text-teal-700 text-xs font-semibold rounded-full"
-                            >
-                              {specialty}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {/* Selection Indicator */}
-                      <div className="flex items-center">
-                        <div
-                          className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                            bookingData.caregiverId === caregiver.id
-                              ? "border-teal-600 bg-teal-600"
-                              : "border-slate-300"
-                          }`}
-                        >
-                          {bookingData.caregiverId === caregiver.id && (
-                            <span className="material-icons text-white text-sm">
-                              check
-                            </span>
-                          )}
+                        {/* Selection Indicator */}
+                        <div className="flex items-center">
+                          <div
+                            className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                              bookingData.caregiverId === caregiver.id
+                                ? "border-teal-600 bg-teal-600"
+                                : "border-slate-300"
+                            }`}
+                          >
+                            {bookingData.caregiverId === caregiver.id && (
+                              <span className="material-icons text-white text-sm">
+                                check
+                              </span>
+                            )}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             </div>
           )}

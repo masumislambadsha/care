@@ -5,118 +5,81 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import Image from "next/image";
 import Navbar from "@/components/Navbar";
+import toast from "react-hot-toast";
+
+type Caregiver = {
+  id: string;
+  name: string;
+  image: string;
+  bio: string;
+  experience: number;
+  hourly_rate: number;
+  certifications: string[];
+  languages: string[];
+  services_offered: string[];
+  verification_status: string;
+  avg_rating: number;
+  total_reviews: number;
+  total_bookings: number;
+};
 
 export default function CaregiversPage() {
   const [selectedService, setSelectedService] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const [caregivers, setCaregivers] = useState<Caregiver[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     AOS.init({ duration: 800, once: true, easing: "ease-out-cubic" });
+    fetchCaregivers();
   }, []);
 
-  const caregivers = [
-    {
-      id: 1,
-      name: "Sarah Johnson",
-      specialty: "Baby & Child Care",
-      rating: 4.9,
-      reviews: 127,
-      experience: "8 years",
-      hourlyRate: 18,
-      location: "New York, NY",
-      verified: true,
-      image:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
-      bio: "Certified nanny with CPR training and early childhood education background.",
-      availability: "Available",
-    },
-    {
-      id: 2,
-      name: "Michael Chen",
-      specialty: "Senior Care",
-      rating: 5.0,
-      reviews: 94,
-      experience: "6 years",
-      hourlyRate: 22,
-      location: "Los Angeles, CA",
-      verified: true,
-      image:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
-      bio: "Compassionate senior care specialist with dementia care certification.",
-      availability: "Available",
-    },
-    {
-      id: 3,
-      name: "Emily Rodriguez",
-      specialty: "Special Needs Care",
-      rating: 4.8,
-      reviews: 156,
-      experience: "10 years",
-      hourlyRate: 28,
-      location: "Chicago, IL",
-      verified: true,
-      image:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
-      bio: "Special education teacher with autism spectrum disorder expertise.",
-      availability: "Available",
-    },
-    {
-      id: 4,
-      name: "David Thompson",
-      specialty: "Pet Care",
-      rating: 4.7,
-      reviews: 82,
-      experience: "5 years",
-      hourlyRate: 15,
-      location: "Austin, TX",
-      verified: true,
-      image:
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
-      bio: "Professional pet sitter with veterinary assistant background.",
-      availability: "Busy",
-    },
-    {
-      id: 5,
-      name: "Jessica Martinez",
-      specialty: "Housekeeping",
-      rating: 4.9,
-      reviews: 203,
-      experience: "12 years",
-      hourlyRate: 20,
-      location: "Miami, FL",
-      verified: true,
-      image:
-        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop",
-      bio: "Detail-oriented housekeeper with eco-friendly cleaning expertise.",
-      availability: "Available",
-    },
-    {
-      id: 6,
-      name: "Robert Kim",
-      specialty: "Tutoring",
-      rating: 5.0,
-      reviews: 67,
-      experience: "7 years",
-      hourlyRate: 25,
-      location: "Seattle, WA",
-      verified: true,
-      image:
-        "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=400&fit=crop",
-      bio: "Math and science tutor with Master's degree in Education.",
-      availability: "Available",
-    },
-  ];
+  const fetchCaregivers = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("/api/caregivers");
+      const data = await response.json();
+
+      if (response.ok) {
+        setCaregivers(data.caregivers || []);
+      } else {
+        toast.error("Failed to load caregivers");
+      }
+    } catch (error) {
+      console.error("Error fetching caregivers:", error);
+      toast.error("Failed to load caregivers");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const filteredCaregivers = caregivers.filter((caregiver) => {
     const matchesService =
-      selectedService === "all" || caregiver.specialty === selectedService;
+      selectedService === "all" ||
+      caregiver.services_offered.some((service) =>
+        service.toLowerCase().includes(selectedService.toLowerCase()),
+      );
     const matchesSearch =
+      searchQuery === "" ||
       caregiver.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      caregiver.specialty.toLowerCase().includes(searchQuery.toLowerCase());
+      caregiver.bio.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesService && matchesSearch;
   });
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-50">
+        <Navbar />
+        <div className="flex items-center justify-center py-20">
+          <div className="text-center">
+            <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-slate-600">Loading caregivers...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -265,7 +228,7 @@ export default function CaregiversPage() {
                     {caregiver.name}
                   </h3>
                   <p className="text-sm text-teal-600 font-semibold mb-2">
-                    {caregiver.specialty}
+                    {caregiver.services_offered.join(", ")}
                   </p>
                   <p className="text-sm text-slate-600 mb-4 line-clamp-2">
                     {caregiver.bio}
@@ -274,15 +237,15 @@ export default function CaregiversPage() {
                   <div className="flex items-center gap-4 text-sm text-slate-600 mb-4">
                     <div className="flex items-center gap-1">
                       <span className="material-icons text-slate-400 text-sm">
-                        location_on
+                        verified
                       </span>
-                      <span>{caregiver.location}</span>
+                      <span>{caregiver.verification_status}</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <span className="material-icons text-slate-400 text-sm">
                         work
                       </span>
-                      <span>{caregiver.experience}</span>
+                      <span>{caregiver.experience} years</span>
                     </div>
                   </div>
 
@@ -290,14 +253,16 @@ export default function CaregiversPage() {
                     <span className="material-icons text-amber-400 text-sm">
                       star
                     </span>
-                    <span className="font-semibold">{caregiver.rating}</span>
-                    <span>({caregiver.reviews} reviews)</span>
+                    <span className="font-semibold">
+                      {caregiver.avg_rating.toFixed(1)}
+                    </span>
+                    <span>({caregiver.total_reviews} reviews)</span>
                   </div>
 
                   <div className="flex items-center justify-between pt-4 border-t border-slate-100">
                     <div>
                       <span className="text-2xl font-bold text-slate-900">
-                        ${caregiver.hourlyRate}
+                        ${caregiver.hourly_rate}
                       </span>
                       <span className="text-slate-600 text-sm">/hr</span>
                     </div>

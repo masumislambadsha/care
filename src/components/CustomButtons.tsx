@@ -12,8 +12,8 @@ const CustomButton: React.FC<AnimatedButtonProps> = ({
   className = "",
   showUnderline = false,
   ...props
-}) => {
-  return (
+}) => { 
+  return ( 
     <div
       className={`
         relative inline-flex items-center justify-center
@@ -51,7 +51,6 @@ const CustomButton: React.FC<AnimatedButtonProps> = ({
           />
         </>
       )}
-
 
       <span
         aria-hidden="true"

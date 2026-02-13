@@ -1,45 +1,56 @@
-// app/components/BlobBorderCard.tsx
+// app/components/MovingBorderCard.tsx
 "use client";
 
 import React from "react";
 
-type BlobBorderCardProps = {
+type MovingBorderCardProps = {
   children: React.ReactNode;
-  blobColor?: string;
+  borderColor?: string;
+  borderWidth?: number;
+  radius?: number;
 };
 
-const BlobBorderCard: React.FC<BlobBorderCardProps> = ({
+const MovingBorderCard: React.FC<MovingBorderCardProps> = ({
   children,
-  blobColor = "#ff0000",
+  borderColor = "#06b6d4",
+  borderWidth = 3,
+  radius = 18,
 }) => {
   return (
-    <div className="relative inline-flex items-center justify-center">
-      {/* outer shadow + rounded container (like .card) */}
-      <div className="relative w-full h-full rounded-[14px] shadow-[20px_20px_60px_#bebebe,-20px_-20px_60px_#ffffff] overflow-hidden">
-        {/* inner white glass background (.bg) */}
-        <div className="absolute top-[5px] left-[5px] right-[5px] bottom-[5px] z-20 rounded-[10px] bg-white/95 backdrop-blur-[24px] outline outline-2 outline-white overflow-hidden">
-          {/* real card content goes here */}
-          <div className="relative z-30 h-full w-full">{children}</div>
-        </div>
-
-        {/* animated blob under the card (.blob) */}
+    <div className="relative">
+      {/* animated border ring */}
+      <div
+        className="pointer-events-none absolute inset-0 rounded-2xl overflow-hidden"
+        style={{ borderRadius: radius }}
+      >
+        {/* gradient background that spins */}
         <div
           className="
-            absolute z-10
-            h-[150px] w-[150px]
-            rounded-full
-            blur-[12px]
-            animate-blobBounce
+            absolute inset-[-50%]
+            bg-[conic-gradient(from_0deg,transparent_0deg,transparent_120deg,rgba(6,182,212,1)_180deg,transparent_240deg,transparent_360deg)]
+            animate-spin-slow
           "
-          style={{
-            top: "50%",
-            left: "50%",
-            backgroundColor: blobColor,
-          }}
+          style={{}}
         />
+      </div>
+
+      {/* inner white card that leaves space for the ring */}
+      <div
+        className="relative bg-white rounded-2xl"
+        style={{
+          borderRadius: radius,
+          padding: borderWidth,
+        }}
+      >
+        <div
+          className="bg-white rounded-2xl h-full w-full"
+          style={{ borderRadius: radius - borderWidth }}
+        >
+          {children}
+        </div>
       </div>
     </div>
   );
 };
 
-export default BlobBorderCard;
+export default MovingBorderCard;

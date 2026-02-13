@@ -5,11 +5,26 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import Image from "next/image";
 import Navbar from "@/components/Navbar";
+import toast from "react-hot-toast";
+
+type Service = {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  short_description: string;
+  image: string;
+  base_hourly_rate: number;
+  base_daily_rate: number;
+  features: string[];
+  is_active: boolean;
+};
 
 export default function ServicesPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     AOS.init({
@@ -17,118 +32,41 @@ export default function ServicesPage() {
       once: true,
       easing: "ease-out-cubic",
     });
+    fetchServices();
   }, []);
 
-  const services = [
-    {
-      id: "baby-care",
-      title: "Baby & Child Care",
-      slug: "baby-care",
-      description:
-        "Professional babysitters and nannies for infants, toddlers, and children of all ages.",
-      image:
-        "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&h=600&fit=crop",
-      caregivers: 12500,
-      priceRange: "$15-25/hr",
-      category: "childcare",
-      features: [
-        "Meal preparation",
-        "Educational activities",
-        "Bedtime routines",
-        "Light housekeeping",
-      ],
-    },
-    {
-      id: "senior-care",
-      title: "Senior Care",
-      slug: "senior-care",
-      description:
-        "Compassionate care for elderly loved ones including companionship and daily assistance.",
-      image:
-        "https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?w=800&h=600&fit=crop",
-      caregivers: 8900,
-      priceRange: "$20-35/hr",
-      category: "senior",
-      features: [
-        "Medication reminders",
-        "Mobility assistance",
-        "Companionship",
-        "Meal preparation",
-      ],
-    },
-    {
-      id: "special-needs",
-      title: "Special Needs Care",
-      slug: "special-needs",
-      description:
-        "Specialized care for individuals with physical, developmental, or cognitive disabilities.",
-      image:
-        "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=800&h=600&fit=crop",
-      caregivers: 4200,
-      priceRange: "$25-40/hr",
-      category: "special",
-      features: [
-        "Behavioral support",
-        "Therapy assistance",
-        "ADL support",
-        "Communication aid",
-      ],
-    },
-    {
-      id: "pet-care",
-      title: "Pet Care",
-      slug: "pet-care",
-      description:
-        "Reliable pet sitters and dog walkers to care for your furry family members.",
-      image:
-        "https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800&h=600&fit=crop",
-      caregivers: 6700,
-      priceRange: "$12-20/hr",
-      category: "pet",
-      features: [
-        "Dog walking",
-        "Pet sitting",
-        "Feeding & medication",
-        "Playtime & exercise",
-      ],
-    },
-    {
-      id: "housekeeping",
-      title: "Housekeeping",
-      slug: "housekeeping",
-      description:
-        "Professional house cleaners and housekeepers for a spotless home.",
-      image:
-        "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&h=600&fit=crop",
-      caregivers: 9800,
-      priceRange: "$18-30/hr",
-      category: "housekeeping",
-      features: [
-        "Deep cleaning",
-        "Laundry services",
-        "Organization",
-        "Regular maintenance",
-      ],
-    },
-    {
-      id: "tutoring",
-      title: "Tutoring & Education",
-      slug: "tutoring",
-      description:
-        "Qualified tutors for academic support, homework help, and skill development.",
-      image:
-        "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&h=600&fit=crop",
-      caregivers: 7300,
-      priceRange: "$20-45/hr",
-      category: "education",
-      features: [
-        "Subject tutoring",
-        "Test preparation",
-        "Homework help",
-        "Language learning",
-      ],
-    },
-  ];
+  const fetchServices = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch("/api/services");
+      const data = await response.json();
+
+      if (response.ok) {
+        setServices(data.services || []);
+      } else {
+        toast.error("Failed to load services");
+      }
+    } catch (error) {
+      console.error("Error fetching services:", error);
+      toast.error("Failed to load services");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Map service names to categories for filtering
+  const getCategoryFromService = (serviceName: string) => {
+    const name = serviceName.toLowerCase();
+    if (name.includes("baby") || name.includes("child")) return "childcare";
+    if (name.includes("senior") || name.includes("elderly")) return "senior";
+    if (name.includes("special")) return "special";
+    if (name.includes("pet")) return "pet";
+    if (name.includes("housekeeping") || name.includes("cleaning"))
+      return "housekeeping";
+    if (name.includes("tutor") || name.includes("education"))
+      return "education";
+    return "other";
+  };
 
   const categories = [
     { id: "all", name: "All Services", icon: "apps" },
@@ -143,7 +81,24 @@ export default function ServicesPage() {
   const filteredServices =
     selectedCategory === "all"
       ? services
-      : services.filter((service) => service.category === selectedCategory);
+      : services.filter(
+          (service) =>
+            getCategoryFromService(service.name) === selectedCategory,
+        );
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-50">
+        <Navbar />
+        <div className="flex items-center justify-center py-20">
+          <div className="text-center">
+            <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-slate-600">Loading services...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -228,7 +183,7 @@ export default function ServicesPage() {
                     <div className="relative h-56 overflow-hidden">
                       <img
                         src={service.image}
-                        alt={service.title}
+                        alt={service.name}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         width={800}
                         height={600}
@@ -237,17 +192,17 @@ export default function ServicesPage() {
                       <div className="absolute bottom-4 left-4 right-4">
                         <div className="flex items-center justify-between">
                           <span className="bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full text-sm font-bold text-slate-900">
-                            {service.caregivers.toLocaleString()} caregivers
+                            Available
                           </span>
                           <span className="bg-teal-600 text-white px-3 py-1.5 rounded-full text-sm font-bold">
-                            {service.priceRange}
+                            ${service.base_hourly_rate}/hr
                           </span>
                         </div>
                       </div>
                     </div>
                     <div className="p-6 flex-1 flex flex-col">
                       <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-teal-600 transition-colors">
-                        {service.title}
+                        {service.name}
                       </h3>
                       <p className="text-slate-600 mb-4 flex-1">
                         {service.description}

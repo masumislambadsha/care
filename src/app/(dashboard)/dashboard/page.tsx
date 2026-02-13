@@ -14,6 +14,7 @@ export default function DashboardPage() {
     completedBookings: 0,
     totalSpent: 0,
   });
+  const [recentBookings, setRecentBookings] = useState<any[]>([]);
   const [isLoadingStats, setIsLoadingStats] = useState(true);
 
   useEffect(() => {
@@ -46,6 +47,8 @@ export default function DashboardPage() {
                 0,
               ),
             });
+            // Get the 3 most recent bookings
+            setRecentBookings(bookings.slice(0, 3));
           }
         } catch (error) {
           console.error("Error fetching stats:", error);
@@ -186,31 +189,107 @@ export default function DashboardPage() {
               </Link>
             </div>
 
-            {/* Empty State */}
-            <div className="text-center py-12">
-              <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="material-icons text-slate-400 text-4xl">
-                  event_busy
-                </span>
+            {/* Recent Bookings List */}
+            {isLoadingStats ? (
+              <div className="space-y-4">
+                {[1, 2, 3].map((i) => (
+                  <div
+                    key={i}
+                    className="border border-slate-200 rounded-lg p-4 animate-pulse"
+                  >
+                    <div className="h-4 bg-slate-200 rounded w-1/3 mb-2"></div>
+                    <div className="h-3 bg-slate-200 rounded w-1/2"></div>
+                  </div>
+                ))}
               </div>
-              <h3 className="text-lg font-semibold text-slate-900 mb-2">
-                No bookings yet
-              </h3>
-              <p className="text-slate-600 mb-6">
-                {isCaregiver
-                  ? "You'll see your bookings here once clients book your services"
-                  : "Start by finding a caregiver for your needs"}
-              </p>
-              {!isCaregiver && (
-                <Link
-                  href="/caregivers"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg transition-all"
-                >
-                  <span className="material-icons">search</span>
-                  Find Caregivers
-                </Link>
-              )}
-            </div>
+            ) : recentBookings.length > 0 ? (
+              <div className="space-y-4">
+                {recentBookings.map((booking) => (
+                  <div
+                    key={booking.id}
+                    className="border border-slate-200 rounded-lg p-4 hover:border-teal-600 transition-all"
+                  >
+                    <div className="flex items-start justify-between mb-2">
+                      <div>
+                        <h4 className="font-semibold text-slate-900">
+                          {booking.service_name}
+                        </h4>
+                        <p className="text-sm text-slate-600">
+                          Booking #{booking.id.slice(0, 8)}
+                        </p>
+                      </div>
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                          booking.status === "CONFIRMED"
+                            ? "bg-blue-100 text-blue-700"
+                            : booking.status === "ONGOING"
+                              ? "bg-yellow-100 text-yellow-700"
+                              : booking.status === "COMPLETED"
+                                ? "bg-green-100 text-green-700"
+                                : "bg-slate-100 text-slate-700"
+                        }`}
+                      >
+                        {booking.status}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-4 text-sm text-slate-600">
+                      <div className="flex items-center gap-1">
+                        <span className="material-icons text-sm">person</span>
+                        <span>{booking.caregiver_name}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className="material-icons text-sm">
+                          calendar_today
+                        </span>
+                        <span>
+                          {new Date(booking.start_date).toLocaleDateString()}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <span className="material-icons text-sm">schedule</span>
+                        <span>{booking.duration}</span>
+                      </div>
+                    </div>
+                    <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+                      <span className="text-lg font-bold text-teal-600">
+                        ${parseFloat(booking.total_amount).toFixed(2)}
+                      </span>
+                      <Link
+                        href="/my-bookings"
+                        className="text-sm font-semibold text-teal-600 hover:text-teal-700"
+                      >
+                        View Details →
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-12">
+                <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="material-icons text-slate-400 text-4xl">
+                    event_busy
+                  </span>
+                </div>
+                <h3 className="text-lg font-semibold text-slate-900 mb-2">
+                  No bookings yet
+                </h3>
+                <p className="text-slate-600 mb-6">
+                  {isCaregiver
+                    ? "You'll see your bookings here once clients book your services"
+                    : "Start by finding a caregiver for your needs"}
+                </p>
+                {!isCaregiver && (
+                  <Link
+                    href="/caregivers"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white font-semibold rounded-lg transition-all"
+                  >
+                    <span className="material-icons">search</span>
+                    Find Caregivers
+                  </Link>
+                )}
+              </div>
+            )}
           </div>
         </div>
 

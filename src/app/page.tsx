@@ -4,24 +4,105 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade, Pagination } from "swiper/modules";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AOS from "aos";
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 import "aos/dist/aos.css";
-import Image from "next/image";
 import CustomButton from "@/components/CustomButtons";
 import Navbar from "@/components/Navbar";
 
+type Service = {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  short_description: string;
+  image: string;
+  base_hourly_rate: number;
+  base_daily_rate: number;
+  features: string[];
+  is_active: boolean;
+};
+
+type Caregiver = {
+  id: string;
+  name: string;
+  image: string;
+  bio: string;
+  experience: number;
+  hourly_rate: number;
+  certifications: string[];
+  languages: string[];
+  services_offered: string[];
+  verification_status: string;
+  avg_rating: number;
+  total_reviews: number;
+  total_bookings: number;
+};
+
 export default function HomePage() {
+  const [services, setServices] = useState<Service[]>([]);
+  const [caregivers, setCaregivers] = useState<Caregiver[]>([]);
+
   useEffect(() => {
     AOS.init({
       duration: 800,
       once: true,
       easing: "ease-out-cubic",
     });
+    fetchServices();
+    fetchCaregivers();
   }, []);
+
+  const fetchServices = async () => {
+    try {
+      const response = await fetch("/api/services");
+      const data = await response.json();
+      if (response.ok) {
+        setServices(data.services || []);
+      }
+    } catch (error) {
+      console.error("Error fetching services:", error);
+    }
+  };
+
+  const fetchCaregivers = async () => {
+    try {
+      const response = await fetch("/api/caregivers");
+      const data = await response.json();
+      if (response.ok) {
+        setCaregivers(data.caregivers || []);
+      }
+    } catch (error) {
+      console.error("Error fetching caregivers:", error);
+    }
+  };
+
+  const getServiceIcon = (serviceName: string) => {
+    const name = serviceName.toLowerCase();
+    if (name.includes("baby") || name.includes("child")) return "child_care";
+    if (name.includes("senior") || name.includes("elderly")) return "elderly";
+    if (name.includes("pet")) return "pets";
+    if (name.includes("tutor") || name.includes("education")) return "school";
+    if (name.includes("housekeeping") || name.includes("cleaning"))
+      return "cleaning_services";
+    if (name.includes("special")) return "accessible";
+    return "favorite";
+  };
+
+  const getServiceColor = (index: number) => {
+    const colors = [
+      "bg-blue-100 text-blue-600",
+      "bg-teal-100 text-teal-600",
+      "bg-amber-100 text-amber-600",
+      "bg-purple-100 text-purple-600",
+      "bg-cyan-100 text-cyan-600",
+      "bg-pink-100 text-pink-600",
+    ];
+    return colors[index % colors.length];
+  };
 
   const heroSlides = [
     {
@@ -188,54 +269,26 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-            {[
-              {
-                icon: "child_care",
-                name: "Child Care",
-                color: "bg-blue-100 text-blue-600",
-              },
-              {
-                icon: "elderly",
-                name: "Senior Care",
-                color: "bg-teal-100 text-teal-600",
-              },
-              {
-                icon: "pets",
-                name: "Pet Care",
-                color: "bg-amber-100 text-amber-600",
-              },
-              {
-                icon: "school",
-                name: "Tutoring",
-                color: "bg-purple-100 text-purple-600",
-              },
-              {
-                icon: "cleaning_services",
-                name: "Housekeeping",
-                color: "bg-cyan-100 text-cyan-600",
-              },
-              {
-                icon: "accessible",
-                name: "Special Needs",
-                color: "bg-pink-100 text-pink-600",
-              },
-            ].map((service, i) => (
-              <motion.div
-                key={i}
-                whileHover={{ y: -5 }}
-                data-aos="fade-up"
-                data-aos-delay={i * 50}
-                className="bg-white border border-slate-200 rounded-2xl p-6 text-center hover:shadow-lg transition-all cursor-pointer"
-              >
-                <div
-                  className={`w-16 h-16 ${service.color} rounded-2xl flex items-center justify-center mx-auto mb-4`}
+            {services.slice(0, 6).map((service, i) => (
+              <Link key={service.id} href={`/services/${service.slug}`}>
+                <motion.div
+                  whileHover={{ y: -5 }}
+                  data-aos="fade-up"
+                  data-aos-delay={i * 50}
+                  className="bg-white border border-slate-200 rounded-2xl p-6 text-center hover:shadow-lg transition-all cursor-pointer"
                 >
-                  <span className="material-icons text-3xl">
-                    {service.icon}
-                  </span>
-                </div>
-                <h3 className="font-semibold text-slate-900">{service.name}</h3>
-              </motion.div>
+                  <div
+                    className={`w-16 h-16 ${getServiceColor(i)} rounded-2xl flex items-center justify-center mx-auto mb-4`}
+                  >
+                    <span className="material-icons text-3xl">
+                      {getServiceIcon(service.name)}
+                    </span>
+                  </div>
+                  <h3 className="font-semibold text-slate-900">
+                    {service.name}
+                  </h3>
+                </motion.div>
+              </Link>
             ))}
           </div>
         </div>
@@ -260,68 +313,70 @@ export default function HomePage() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                name: "Sarah Johnson",
-                specialty: "Senior Care Specialist",
-                rating: 4.9,
-                reviews: 127,
-                experience: "8 years",
-                rate: "$25/hr",
-                image:
-                  "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop",
-              },
-              {
-                name: "Michael Chen",
-                specialty: "Child Care Expert",
-                rating: 5.0,
-                reviews: 94,
-                experience: "6 years",
-                rate: "$22/hr",
-                image:
-                  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop",
-              },
-              {
-                name: "Emily Rodriguez",
-                specialty: "Special Needs Care",
-                rating: 4.8,
-                reviews: 156,
-                experience: "10 years",
-                rate: "$28/hr",
-                image:
-                  "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop",
-              },
-              {
-                name: "David Thompson",
-                specialty: "Dementia Care",
-                rating: 4.9,
-                reviews: 103,
-                experience: "12 years",
-                rate: "$30/hr",
-                image:
-                  "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop",
-              },
-            ].map((caregiver, i) => (
+            {caregivers.slice(0, 4).map((caregiver, i) => (
               <motion.div
-                key={i}
+                key={caregiver.id}
                 whileHover={{ y: -10 }}
                 data-aos="fade-up"
                 data-aos-delay={i * 100}
+                className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all border border-slate-100"
               >
-                <div className="bg-transparent rounded-[10px] overflow-hidden h-full w-full">
-                  <div className="relative h-64">
-                    <Image
-                      src={caregiver.image}
-                      alt={caregiver.name}
-                      className="w-full h-full object-cover"
-                      width={400}
-                      height={256}
-                    />
-                    {/* badges here */}
+                <div className="relative h-64 bg-gradient-to-br from-teal-100 to-blue-100">
+                  <img
+                    src={
+                      caregiver.image ||
+                      `https://ui-avatars.com/api/?name=${encodeURIComponent(caregiver.name)}&size=400&background=0d9488&color=fff`
+                    }
+                    alt={caregiver.name}
+                    className="w-full h-full object-cover"
+                    width={400}
+                    height={600}
+                  />
+                  <div className="absolute top-4 right-4 bg-white px-3 py-1.5 rounded-full flex items-center gap-1 shadow-lg">
+                    <span className="material-icons text-amber-400 text-sm">
+                      star
+                    </span>
+                    <span className="font-bold text-slate-900 text-sm">
+                      {caregiver.avg_rating.toFixed(1)}
+                    </span>
                   </div>
-
-                  <div className="p-6 bg-white">
-                    {/* name, specialty, stats, button exactly like before */}
+                  {caregiver.verification_status === "APPROVED" && (
+                    <div className="absolute top-4 left-4 bg-teal-600 text-white px-3 py-1 rounded-full text-xs font-bold">
+                      ✓ Verified
+                    </div>
+                  )}
+                </div>
+                <div className="p-6">
+                  <h3 className="font-bold text-lg text-slate-900 mb-1">
+                    {caregiver.name}
+                  </h3>
+                  <p className="text-sm text-teal-600 font-semibold mb-3">
+                    {caregiver.services_offered[0] || "Caregiver"}
+                  </p>
+                  <div className="flex items-center justify-between text-sm text-slate-600 mb-4">
+                    <span className="flex items-center gap-1">
+                      <span className="material-icons text-sm">work</span>
+                      {caregiver.experience} years
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <span className="material-icons text-sm">reviews</span>
+                      {caregiver.total_reviews} reviews
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between pt-4 border-t border-slate-100">
+                    <span className="text-2xl font-bold text-slate-900">
+                      ${caregiver.hourly_rate}/hr
+                    </span>
+                    <Link href={`/caregivers/${caregiver.id}`}>
+                      <button className="bg-teal-600 hover:bg-teal-700 text-white rounded-lg font-semibold text-sm transition-all">
+                        <CustomButton
+                          className="bg-teal-600 hover:text-black text-white px-3 py-2 font-semibold text-[12px] transition-all hover:border-teal-600
+                        border-teal-600 rounded-xl"
+                        >
+                          View Profile
+                        </CustomButton>
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </motion.div>
@@ -332,7 +387,7 @@ export default function HomePage() {
               href="/caregivers"
               className="flex items-center justify-center mx-auto hover:text-black"
             >
-              <CustomButton className="hover:text-black rounded-2xl">
+              <CustomButton className="hover:text-black rounded-2xl px-5 py-4">
                 <span className="flex items-center gap-2">
                   <span>Browse All Caregivers</span>
                   <span className="material-icons text-base leading-none">
