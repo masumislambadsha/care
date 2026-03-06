@@ -709,19 +709,33 @@ export default function BookingPage() {
 
                   {/* Caregiver Info */}
                   <div className="flex items-center gap-4 pb-4 border-b border-slate-200">
-                    <img
-                      src="https://i.pravatar.cc/150?img=1"
-                      alt="Caregiver"
-                      className="w-16 h-16 rounded-full"
-                    />
-                    <div>
-                      <p className="font-semibold text-slate-900">
-                        Sarah Johnson
-                      </p>
-                      <p className="text-sm text-slate-600">
-                        8 years experience
-                      </p>
-                    </div>
+                    {(() => {
+                      const selectedCaregiver = caregivers.find(
+                        (c) => c.id === bookingData.caregiverId,
+                      );
+                      return selectedCaregiver ? (
+                        <>
+                          <img
+                            src={
+                              selectedCaregiver.image ||
+                              `https://ui-avatars.com/api/?name=${encodeURIComponent(selectedCaregiver.name)}&size=64&background=0d9488&color=fff`
+                            }
+                            alt={selectedCaregiver.name}
+                            className="w-16 h-16 rounded-full object-cover"
+                          />
+                          <div>
+                            <p className="font-semibold text-slate-900">
+                              {selectedCaregiver.name}
+                            </p>
+                            <p className="text-sm text-slate-600">
+                              {selectedCaregiver.experience} years experience
+                            </p>
+                          </div>
+                        </>
+                      ) : (
+                        <p className="text-slate-600">No caregiver selected</p>
+                      );
+                    })()}
                   </div>
 
                   {/* Schedule */}
@@ -844,6 +858,30 @@ export default function BookingPage() {
                   <h3 className="text-lg font-bold text-slate-900 mb-4">
                     Payment Method
                   </h3>
+
+                  {/* Test Card Info Banner */}
+                  <div className="bg-blue-50 border-2 border-blue-200 rounded-lg p-4 mb-4">
+                    <div className="flex items-start gap-3">
+                      <span className="material-icons text-blue-600">info</span>
+                      <div className="flex-1">
+                        <p className="font-semibold text-blue-900 mb-2">
+                          Test Mode - Use Test Card
+                        </p>
+                        <div className="text-sm text-blue-800 space-y-1">
+                          <p className="font-mono bg-white px-2 py-1 rounded inline-block">
+                            Card: 5555 5555 5555 4444
+                          </p>
+                          <p className="font-mono bg-white px-2 py-1 rounded inline-block ml-2">
+                            Expiry: 12/32
+                          </p>
+                          <p className="font-mono bg-white px-2 py-1 rounded inline-block ml-2">
+                            CVC: 633
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   <div className="flex items-center gap-3 p-4 bg-white border-2 border-teal-600 rounded-lg">
                     <span className="material-icons text-teal-600">
                       credit_card
