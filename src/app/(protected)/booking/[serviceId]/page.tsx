@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import Navbar from "@/components/Navbar";
 import toast from "react-hot-toast";
+import { PromoCodeInput } from "@/components/booking/PromoCodeInput";
 
 type Step = 1 | 2 | 3 | 4;
 
@@ -30,6 +31,8 @@ export default function BookingPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [caregivers, setCaregivers] = useState<Caregiver[]>([]);
   const [loadingCaregivers, setLoadingCaregivers] = useState(true);
+  const [promoDiscount, setPromoDiscount] = useState(0);
+  const [promoCode, setPromoCode] = useState("");
   const [bookingData, setBookingData] = useState({
     serviceId: serviceId,
     caregiverId: "",
@@ -114,7 +117,7 @@ export default function BookingPage() {
       // Calculate amounts
       const baseAmount = 25 * bookingData.durationValue;
       const platformFee = baseAmount * 0.1;
-      const totalAmount = baseAmount + platformFee;
+      const totalAmount = baseAmount + platformFee - promoDiscount;
 
       // Combine date and time
       const startDateTime = `${bookingData.startDate}T${bookingData.startTime}`;
@@ -127,7 +130,9 @@ export default function BookingPage() {
           startDate: startDateTime,
           baseAmount,
           platformFee,
+          discount: promoDiscount,
           totalAmount,
+          promoCode: promoCode || null,
         }),
       );
 
@@ -144,7 +149,9 @@ export default function BookingPage() {
           startDate: startDateTime,
           baseAmount,
           platformFee,
+          discount: promoDiscount,
           totalAmount,
+          promoCode: promoCode || null,
         }),
       });
 
@@ -781,13 +788,55 @@ export default function BookingPage() {
                         ${(25 * bookingData.durationValue * 0.1).toFixed(2)}
                       </span>
                     </div>
+                    {promoDiscount > 0 && (
+                      <div className="flex justify-between text-green-600">
+                        <span>Promo Discount ({promoCode})</span>
+                        <span className="font-semibold">
+                          -${promoDiscount.toFixed(2)}
+                        </span>
+                      </div>
+                    )}
                     <div className="pt-3 border-t-2 border-slate-300 flex justify-between text-lg font-bold text-slate-900">
                       <span>Total Amount</span>
                       <span className="text-teal-600">
-                        ${(25 * bookingData.durationValue * 1.1).toFixed(2)}
+                        $
+                        {(
+                          25 * bookingData.durationValue * 1.1 -
+                          promoDiscount
+                        ).toFixed(2)}
                       </span>
                     </div>
                   </div>
+                </div>
+
+                {/* Promo Code */}
+                <div className="bg-slate-50 rounded-xl p-6">
+                  {/* Promo Banner */}
+                  <div className="bg-gradient-to-r from-teal-500 to-teal-600 rounded-lg p-4 mb-4 text-white">
+                    <div className="flex items-center gap-3">
+                      <span className="material-icons text-3xl">
+                        local_offer
+                      </span>
+                      <div>
+                        <p className="font-bold text-lg">New User Offer!</p>
+                        <p className="text-sm text-teal-50">
+                          Use code{" "}
+                          <span className="font-mono font-bold bg-white/20 px-2 py-1 rounded">
+                            WELCOME10
+                          </span>{" "}
+                          to get ৳10 off your first booking
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <PromoCodeInput
+                    bookingAmount={25 * bookingData.durationValue * 1.1}
+                    onApply={(discount, code) => {
+                      setPromoDiscount(discount);
+                      setPromoCode(code);
+                    }}
+                  />
                 </div>
 
                 {/* Payment Method */}
