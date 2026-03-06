@@ -64,8 +64,8 @@ export async function POST(req: NextRequest) {
       .from("reviews")
       .insert({
         booking_id: bookingId,
-        caregiver_id: caregiverId,
-        client_id: session.user.id,
+        author_id: session.user.id,
+        target_id: caregiverId,
         rating,
         comment,
       })
@@ -84,7 +84,7 @@ export async function POST(req: NextRequest) {
     const { data: reviews } = await supabaseAdmin
       .from("reviews")
       .select("rating")
-      .eq("caregiver_id", caregiverId);
+      .eq("target_id", caregiverId);
 
     if (reviews && reviews.length > 0) {
       const avgRating =
@@ -129,10 +129,10 @@ export async function GET(req: NextRequest) {
       .select(
         `
         *,
-        client:users!reviews_client_id_fkey(name, image)
+        author:users!reviews_author_id_fkey(name, image)
       `,
       )
-      .eq("caregiver_id", caregiverId)
+      .eq("target_id", caregiverId)
       .order("created_at", { ascending: false });
 
     if (error) {
