@@ -75,6 +75,10 @@ function SuccessContent() {
     return () => clearInterval(timer);
   }, [sessionId, router, bookingCreated]);
 
+  if (!sessionId) {
+    return null;
+  }
+
   return (
     <div className="min-h-screen bg-linear-to-br from-teal-50 to-blue-50 flex items-center justify-center p-4">
       <motion.div

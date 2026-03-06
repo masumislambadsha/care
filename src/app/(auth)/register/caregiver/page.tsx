@@ -10,6 +10,8 @@ export default function RegisterCaregiverPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [step, setStep] = useState(1);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -241,11 +243,13 @@ export default function RegisterCaregiverPage() {
                     <input
                       type="number"
                       min="0"
-                      value={formData.experience}
+                      value={formData.experience || ""}
                       onChange={(e) =>
                         setFormData({
                           ...formData,
-                          experience: parseInt(e.target.value),
+                          experience: e.target.value
+                            ? parseInt(e.target.value)
+                            : 0,
                         })
                       }
                       className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none text-slate-900"
@@ -258,11 +262,13 @@ export default function RegisterCaregiverPage() {
                     <input
                       type="number"
                       min="1"
-                      value={formData.hourly_rate}
+                      value={formData.hourly_rate || ""}
                       onChange={(e) =>
                         setFormData({
                           ...formData,
-                          hourly_rate: parseInt(e.target.value),
+                          hourly_rate: e.target.value
+                            ? parseInt(e.target.value)
+                            : 15,
                         })
                       }
                       className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none text-slate-900"
@@ -288,29 +294,65 @@ export default function RegisterCaregiverPage() {
               {step === 3 && (
                 <div className="space-y-5">
                   <h2 className="text-xl font-bold text-slate-900">Security</h2>
-                  <input
-                    type="password"
-                    placeholder="Password"
-                    value={formData.password}
-                    onChange={(e) =>
-                      setFormData({ ...formData, password: e.target.value })
-                    }
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none text-slate-900"
-                    required
-                  />
-                  <input
-                    type="password"
-                    placeholder="Confirm Password"
-                    value={formData.confirmPassword}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        confirmPassword: e.target.value,
-                      })
-                    }
-                    className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none text-slate-900"
-                    required
-                  />
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                      Password
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Password"
+                        value={formData.password}
+                        onChange={(e) =>
+                          setFormData({ ...formData, password: e.target.value })
+                        }
+                        className="w-full px-4 py-3 pr-12 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none text-slate-900"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                      >
+                        <span className="material-icons text-xl">
+                          {showPassword ? "visibility_off" : "visibility"}
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                      Confirm Password
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showConfirmPassword ? "text" : "password"}
+                        placeholder="Confirm Password"
+                        value={formData.confirmPassword}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            confirmPassword: e.target.value,
+                          })
+                        }
+                        className="w-full px-4 py-3 pr-12 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none text-slate-900"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setShowConfirmPassword(!showConfirmPassword)
+                        }
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                      >
+                        <span className="material-icons text-xl">
+                          {showConfirmPassword
+                            ? "visibility_off"
+                            : "visibility"}
+                        </span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
               )}
 
@@ -349,4 +391,3 @@ export default function RegisterCaregiverPage() {
     </div>
   );
 }
-

@@ -54,10 +54,44 @@ const districtsByDivision: Record<string, string[]> = {
 };
 
 const citiesByDistrict: Record<string, string[]> = {
-  Dhaka: ["Dhaka City", "Savar", "Keraniganj", "Dhamrai"],
-  Gazipur: ["Gazipur City", "Tongi", "Kaliakair"],
-  Chittagong: ["Chittagong City", "Hathazari", "Rangunia"],
-  Rajshahi: ["Rajshahi City", "Paba", "Godagari"],
+  Dhaka: ["Dhaka City", "Savar", "Keraniganj", "Dhamrai", "Nawabganj"],
+  Gazipur: ["Gazipur City", "Tongi", "Kaliakair", "Kapasia"],
+  Narayanganj: ["Narayanganj City", "Rupganj", "Sonargaon", "Bandar"],
+  Tangail: ["Tangail City", "Madhupur", "Gopalpur"],
+  Manikganj: ["Manikganj City", "Singair", "Saturia"],
+  Chittagong: ["Chittagong City", "Hathazari", "Rangunia", "Sitakunda"],
+  "Cox's Bazar": ["Cox's Bazar City", "Teknaf", "Ramu", "Ukhia"],
+  Comilla: ["Comilla City", "Daudkandi", "Chandina"],
+  Feni: ["Feni City", "Chhagalnaiya", "Sonagazi"],
+  Noakhali: ["Noakhali City", "Begumganj", "Companiganj"],
+  Rajshahi: ["Rajshahi City", "Paba", "Godagari", "Tanore"],
+  Bogra: ["Bogra City", "Shibganj", "Sherpur"],
+  Pabna: ["Pabna City", "Ishwardi", "Bera"],
+  Sirajganj: ["Sirajganj City", "Kamarkhand", "Belkuchi"],
+  Natore: ["Natore City", "Baraigram", "Lalpur"],
+  Khulna: ["Khulna City", "Daulatpur", "Khalishpur"],
+  Jessore: ["Jessore City", "Benapole", "Jhikargachha"],
+  Satkhira: ["Satkhira City", "Kaliganj", "Shyamnagar"],
+  Bagerhat: ["Bagerhat City", "Mongla", "Rampal"],
+  Kushtia: ["Kushtia City", "Kumarkhali", "Bheramara"],
+  Barisal: ["Barisal City", "Bakerganj", "Mehendiganj"],
+  Patuakhali: ["Patuakhali City", "Kuakata", "Galachipa"],
+  Bhola: ["Bhola City", "Daulatkhan", "Charfasson"],
+  Pirojpur: ["Pirojpur City", "Mathbaria", "Nazirpur"],
+  Jhalokati: ["Jhalokati City", "Rajapur", "Kathalia"],
+  Sylhet: ["Sylhet City", "Companiganj", "Gowainghat"],
+  Moulvibazar: ["Moulvibazar City", "Sreemangal", "Kulaura"],
+  Habiganj: ["Habiganj City", "Nabiganj", "Chunarughat"],
+  Sunamganj: ["Sunamganj City", "Tahirpur", "Jagannathpur"],
+  Rangpur: ["Rangpur City", "Badarganj", "Mithapukur"],
+  Dinajpur: ["Dinajpur City", "Birampur", "Parbatipur"],
+  Kurigram: ["Kurigram City", "Ulipur", "Nageshwari"],
+  Lalmonirhat: ["Lalmonirhat City", "Patgram", "Aditmari"],
+  Nilphamari: ["Nilphamari City", "Saidpur", "Domar"],
+  Mymensingh: ["Mymensingh City", "Trishal", "Muktagachha"],
+  Jamalpur: ["Jamalpur City", "Dewanganj", "Islampur"],
+  Netrokona: ["Netrokona City", "Kendua", "Atpara"],
+  Sherpur: ["Sherpur City", "Nalitabari", "Jhenaigati"],
 };
 
 const areasByCity: Record<string, string[]> = {
@@ -69,9 +103,47 @@ const areasByCity: Record<string, string[]> = {
     "Uttara",
     "Mohammadpur",
     "Bashundhara",
+    "Motijheel",
+    "Tejgaon",
+    "Badda",
+    "Rampura",
+    "Khilgaon",
+    "Malibagh",
+    "Shantinagar",
+    "Paltan",
+    "Farmgate",
+    "Kawran Bazar",
+    "Shahbag",
+    "Azimpur",
+    "New Market",
+    "Old Dhaka",
+    "Jatrabari",
+    "Sayedabad",
   ],
-  "Chittagong City": ["Agrabad", "Panchlaish", "Khulshi", "Halishahar"],
-  "Rajshahi City": ["Shaheb Bazar", "Boalia", "Motihar"],
+  "Chittagong City": [
+    "Agrabad",
+    "Panchlaish",
+    "Khulshi",
+    "Halishahar",
+    "Nasirabad",
+    "GEC Circle",
+    "Chawkbazar",
+    "Kotwali",
+  ],
+  "Rajshahi City": [
+    "Shaheb Bazar",
+    "Boalia",
+    "Motihar",
+    "Rajpara",
+    "Uposhohor",
+  ],
+  "Khulna City": ["Khalishpur", "Sonadanga", "Daulatpur", "Boyra", "Rupsha"],
+  "Sylhet City": ["Zindabazar", "Ambarkhana", "Bandar Bazar", "Uposhohor"],
+  "Barisal City": ["Sadar Road", "Nathullabad", "Kashipur", "Rupatoli"],
+  "Rangpur City": ["Jahaj Company", "Dhap", "Satmatha", "Mahiganj"],
+  "Mymensingh City": ["Charpara", "Ganginarpar", "Kachari", "Shombhuganj"],
+  "Gazipur City": ["Tongi", "Joydebpur", "Board Bazar", "Chandna Chowrasta"],
+  "Narayanganj City": ["Chashara", "Fatullah", "Siddhirganj", "Bandar"],
 };
 
 export default function AddressesPage() {
@@ -167,6 +239,25 @@ export default function AddressesPage() {
     });
     setSelectedDivision("");
     setSelectedDistrict("");
+    setSelectedCity("");
+    setShowModal(true);
+  };
+
+  const openEditModal = (address: Address) => {
+    setEditingAddress(address);
+    reset({
+      label: address.label,
+      division: address.division,
+      district: address.district,
+      city: address.city,
+      area: address.area,
+      address: address.address,
+      is_default: address.is_default,
+    });
+    setSelectedDivision(address.division);
+    setSelectedDistrict(address.district);
+    setSelectedCity(address.city);
+    setShowModal(true);
   };
 
   const onSubmit = async (data: AddressForm) => {
@@ -492,18 +583,29 @@ export default function AddressesPage() {
                 <label className="block text-sm font-semibold text-slate-700 mb-2">
                   Area *
                 </label>
-                <select
-                  {...register("area")}
-                  disabled={!selectedCity}
-                  className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none transition-colors text-slate-900 disabled:bg-slate-100"
-                >
-                  <option value="">Select Area</option>
-                  {availableAreas.map((area) => (
-                    <option key={area} value={area}>
-                      {area}
-                    </option>
-                  ))}
-                </select>
+                {availableAreas.length > 0 ? (
+                  <select
+                    {...register("area")}
+                    disabled={!selectedCity}
+                    className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none transition-colors text-slate-900 disabled:bg-slate-100"
+                  >
+                    <option value="">Select Area</option>
+                    {availableAreas.map((area) => (
+                      <option key={area} value={area}>
+                        {area}
+                      </option>
+                    ))}
+                    <option value="__other__">Other (Type manually)</option>
+                  </select>
+                ) : (
+                  <input
+                    type="text"
+                    {...register("area")}
+                    disabled={!selectedCity}
+                    className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none transition-colors text-slate-900 disabled:bg-slate-100"
+                    placeholder="Enter your area"
+                  />
+                )}
                 {errors.area && (
                   <p className="text-red-600 text-sm mt-1">
                     {errors.area.message}

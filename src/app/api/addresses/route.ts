@@ -15,8 +15,7 @@ export async function GET() {
       .from("addresses")
       .select("*")
       .eq("user_id", session.user.id)
-      .order("is_default", { ascending: false })
-      .order("created_at", { ascending: false });
+      .order("is_default", { ascending: false });
 
     if (error) {
       console.error("Addresses fetch error:", error);

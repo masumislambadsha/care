@@ -1,22 +1,11 @@
 "use client";
 
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 export default function TestThemePage() {
-  const [mounted, setMounted] = useState(false);
-  const { theme, systemTheme } = useTheme();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return <div>Loading...</div>;
-  }
-
-  const currentTheme = theme === "system" ? systemTheme : theme;
+  const theme = useSelector((state: RootState) => state.theme.theme);
 
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950 p-8 transition-colors">
@@ -33,9 +22,17 @@ export default function TestThemePage() {
             Current Theme Info
           </h2>
           <div className="space-y-2 text-slate-700 dark:text-slate-300">
-            <p>Theme: {theme}</p>
-            <p>System Theme: {systemTheme}</p>
-            <p>Current Theme: {currentTheme}</p>
+            <p>
+              Current Theme: <strong>{theme}</strong>
+            </p>
+            <p>
+              HTML has dark class:{" "}
+              <strong>
+                {typeof window !== "undefined"
+                  ? String(document.documentElement.classList.contains("dark"))
+                  : "N/A"}
+              </strong>
+            </p>
           </div>
         </div>
 
@@ -70,8 +67,21 @@ export default function TestThemePage() {
 
         <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 p-4 rounded-lg">
           <p className="text-amber-900 dark:text-amber-200">
-            If you can see this message change colors, dark mode is working!
+            ✅ If you can see this message change colors, dark mode is working!
           </p>
+        </div>
+
+        <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 p-4 rounded-lg">
+          <h3 className="font-semibold text-green-900 dark:text-green-200 mb-2">
+            Instructions:
+          </h3>
+          <ol className="list-decimal list-inside space-y-1 text-green-800 dark:text-green-300">
+            <li>Click the theme toggle button above</li>
+            <li>Watch the background change from white to dark</li>
+            <li>Watch the cards change from white to slate-800</li>
+            <li>Watch text colors invert</li>
+            <li>Reload the page - theme should persist</li>
+          </ol>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 @import "tailwindcss";
-@plugin "daisyui";
 
 @theme {
+  /* Custom colors */
   --color-teal-600: #0d9488;
   --color-teal-700: #0f766e;
   --color-teal-100: #ccfbf1;
@@ -13,7 +13,10 @@
   --animate-move-up-alternate: move-up-alternate 0.3s forwards;
 }
 
-/* Dark mode support */
+/* Dark mode configuration for Tailwind v4 */
+@variant dark (&:where(.dark, .dark *));
+
+/* Base styles */
 :root {
   color-scheme: light;
 }
