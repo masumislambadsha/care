@@ -17,7 +17,7 @@ type Service = {
   image: string;
   base_hourly_rate: number;
   base_daily_rate: number;
-  features: string[];
+  features?: string[];
   is_active: boolean;
 };
 
@@ -208,7 +208,7 @@ export default function ServicesPage() {
                         {service.description}
                       </p>
                       <div className="space-y-2 mb-6">
-                        {service.features.slice(0, 3).map((feature, idx) => (
+                        {service.features?.slice(0, 3).map((feature, idx) => (
                           <div
                             key={idx}
                             className="flex items-center gap-2 text-sm text-slate-600"

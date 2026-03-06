@@ -10,6 +10,7 @@ export default function ProfilePage() {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -94,6 +95,48 @@ export default function ProfilePage() {
     }
   };
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith("image/")) {
+      toast.error("Please upload an image file");
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error("Image size should be less than 5MB");
+      return;
+    }
+
+    setUploadingImage(true);
+    const uploadFormData = new FormData();
+    uploadFormData.append("file", file);
+
+    try {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: uploadFormData,
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setFormData((prev) => ({ ...prev, image: data.url }));
+        toast.success("Image uploaded successfully");
+      } else {
+        toast.error(data.error || "Failed to upload image");
+      }
+    } catch (error) {
+      console.error("Image upload error:", error);
+      toast.error("Failed to upload image");
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
   return (
     <>
       {/* Header */}
@@ -111,17 +154,44 @@ export default function ProfilePage() {
         <div className="px-8 pb-8">
           <div className="flex items-end justify-between -mt-16 mb-6">
             <div className="flex items-end gap-4">
-              <div className="w-32 h-32 bg-white rounded-full border-4 border-white shadow-lg overflow-hidden">
-                {formData.image ? (
-                  <img
-                    src={formData.image}
-                    alt={formData.name}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center text-4xl font-bold text-teal-600 bg-teal-50">
-                    {formData.name?.charAt(0).toUpperCase()}
-                  </div>
+              <div className="relative group">
+                <div className="w-32 h-32 bg-white rounded-full border-4 border-white shadow-lg overflow-hidden">
+                  {formData.image ? (
+                    <img
+                      src={formData.image}
+                      alt={formData.name}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-4xl font-bold text-teal-600 bg-teal-50">
+                      {formData.name?.charAt(0).toUpperCase()}
+                    </div>
+                  )}
+                </div>
+                {isEditing && (
+                  <label className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full cursor-pointer opacity-0 group-hover:opacity-100 transition-opacity">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageUpload}
+                      disabled={uploadingImage}
+                      className="hidden"
+                    />
+                    <div className="text-center">
+                      {uploadingImage ? (
+                        <div className="w-8 h-8 border-2 border-white border-t-transparent rounded-full animate-spin mx-auto"></div>
+                      ) : (
+                        <>
+                          <span className="material-icons text-white text-3xl">
+                            camera_alt
+                          </span>
+                          <p className="text-white text-xs mt-1">
+                            Change Photo
+                          </p>
+                        </>
+                      )}
+                    </div>
+                  </label>
                 )}
               </div>
               <div className="mb-4">
@@ -167,11 +237,8 @@ export default function ProfilePage() {
                 <input
                   type="email"
                   value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  disabled={!isEditing}
-                  className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none text-slate-900 disabled:bg-slate-50"
+                  disabled
+                  className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg text-slate-900 bg-slate-50 cursor-not-allowed"
                 />
               </div>
 
@@ -202,22 +269,6 @@ export default function ProfilePage() {
                   className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg text-slate-900 bg-slate-50"
                 />
               </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2">
-                Bio
-              </label>
-              <textarea
-                value={formData.bio}
-                onChange={(e) =>
-                  setFormData({ ...formData, bio: e.target.value })
-                }
-                disabled={!isEditing}
-                rows={4}
-                placeholder="Tell us about yourself..."
-                className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none text-slate-900 disabled:bg-slate-50 resize-none"
-              />
             </div>
 
             {isEditing && (

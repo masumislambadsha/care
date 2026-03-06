@@ -54,8 +54,8 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user, account }) {
       if (user) {
-        token.id = user.id;
-        token.role = user.role;
+        token.id = user.id as string;
+        token.role = user.role as string;
       }
 
       // Handle Google OAuth
@@ -73,7 +73,7 @@ export const authOptions: NextAuthOptions = {
             .insert({
               email: token.email,
               name: token.name,
-              image: token.picture,
+              image: token.picture || null,
               email_verified: new Date().toISOString(),
               role: "CLIENT",
             })

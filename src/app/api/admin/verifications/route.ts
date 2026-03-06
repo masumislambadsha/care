@@ -31,7 +31,6 @@ export async function GET() {
       .order("created_at", { ascending: false });
 
     if (error) {
-      console.error("Caregivers fetch error:", error);
       return NextResponse.json(
         { error: "Failed to fetch caregivers" },
         { status: 500 },
@@ -52,11 +51,13 @@ export async function GET() {
       services_offered: caregiver.services_offered || [],
       verification_status: caregiver.verification_status,
       created_at: caregiver.user?.created_at || caregiver.created_at,
+      nid_document_url: caregiver.nid_document_url || null,
+      certificate_urls: caregiver.certificate_urls || [],
+      profile_image_url: caregiver.profile_image_url || null,
     }));
 
     return NextResponse.json({ caregivers: transformedCaregivers });
   } catch (error) {
-    console.error("Caregivers fetch error:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 },
@@ -108,7 +109,6 @@ export async function PUT(req: NextRequest) {
         .eq("user_id", caregiverId);
 
       if (updateError) {
-        console.error("Approval error:", updateError);
         return NextResponse.json(
           { error: "Failed to approve caregiver" },
           { status: 500 },
@@ -117,17 +117,11 @@ export async function PUT(req: NextRequest) {
 
       // Send approval email
       try {
-        console.log(
-          "Attempting to send approval email to:",
-          caregiver.user.email,
-        );
         await sendVerificationApprovedEmail(
           caregiver.user.email,
           caregiver.user.name,
         );
-        console.log("Approval email sent successfully");
       } catch (emailError) {
-        console.error("Email send error:", emailError);
         // Don't fail the request if email fails
       }
 
@@ -159,7 +153,6 @@ export async function PUT(req: NextRequest) {
         .eq("user_id", caregiverId);
 
       if (updateError) {
-        console.error("Rejection error:", updateError);
         return NextResponse.json(
           { error: "Failed to reject caregiver" },
           { status: 500 },
@@ -182,7 +175,6 @@ export async function PUT(req: NextRequest) {
           reason,
         );
       } catch (emailError) {
-        console.error("Email send error:", emailError);
         // Don't fail the request if email fails
       }
 
@@ -193,7 +185,6 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ error: "Invalid action" }, { status: 400 });
     }
   } catch (error) {
-    console.error("Verification update error:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 },

@@ -42,7 +42,6 @@ export async function PUT(req: NextRequest) {
     const body = await req.json();
     const { settings } = body;
 
-    console.log("Settings saved (client-side only):", settings);
 
     // Settings will be stored in localStorage on the client side
     return NextResponse.json({

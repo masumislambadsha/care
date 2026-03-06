@@ -17,6 +17,9 @@ export async function POST(request: Request) {
       experience,
       hourly_rate,
       bio,
+      nid_document_url,
+      certificate_urls,
+      profile_image_url,
     } = body;
 
     // Validate required fields
@@ -60,7 +63,6 @@ export async function POST(request: Request) {
       .single();
 
     if (userError) {
-      console.error("User creation error:", userError);
       return NextResponse.json(
         { error: "Failed to create user" },
         { status: 500 },
@@ -78,21 +80,28 @@ export async function POST(request: Request) {
           hourly_rate: hourly_rate || 15,
           services_offered: services_offered || [],
           verification_status: "PENDING",
+          nid_document_url: nid_document_url || null,
+          certificate_urls: certificate_urls || [],
+          profile_image_url: profile_image_url || null,
         });
 
       if (profileError) {
-        console.error("Profile creation error:", profileError);
         // Don't fail the registration, just log the error
       }
     }
 
+    // Update user profile image if provided
+    if (profile_image_url) {
+      await supabaseAdmin
+        .from("users")
+        .update({ profile_image_url })
+        .eq("id", user.id);
+    }
+
     // Send welcome email
     try {
-      console.log("Attempting to send welcome email to:", email);
       await sendWelcomeEmail(email, name, role);
-      console.log("Welcome email sent successfully to:", email);
     } catch (emailError) {
-      console.error("Welcome email error:", emailError);
       // Don't fail registration if email fails
     }
 
@@ -101,7 +110,6 @@ export async function POST(request: Request) {
       { status: 201 },
     );
   } catch (error) {
-    console.error("Registration error:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 },

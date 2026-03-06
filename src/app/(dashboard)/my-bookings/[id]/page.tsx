@@ -37,6 +37,7 @@ export default function BookingDetailPage() {
   const [cancelReason, setCancelReason] = useState("");
   const [reviewData, setReviewData] = useState({ rating: 5, comment: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isCancelling, setIsCancelling] = useState(false);
 
   useEffect(() => {
     if (status === "unauthenticated") {

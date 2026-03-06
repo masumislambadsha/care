@@ -24,7 +24,14 @@ export default function RegisterCaregiverPage() {
     experience: 0,
     hourly_rate: 15,
     bio: "",
+    nid_document_url: "",
+    certificate_urls: [] as string[],
+    profile_image_url: "",
   });
+
+  const [uploadingNID, setUploadingNID] = useState(false);
+  const [uploadingCertificate, setUploadingCertificate] = useState(false);
+  const [uploadingProfile, setUploadingProfile] = useState(false);
 
   const services = [
     "Baby & Child Care",
@@ -70,6 +77,107 @@ export default function RegisterCaregiverPage() {
       services_offered: prev.services_offered.includes(service)
         ? prev.services_offered.filter((s) => s !== service)
         : [...prev.services_offered, service],
+    }));
+  };
+
+  const handleNIDUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingNID(true);
+    const uploadFormData = new FormData();
+    uploadFormData.append("file", file);
+    uploadFormData.append("type", "nid");
+
+    try {
+      const response = await fetch("/api/upload/document", {
+        method: "POST",
+        body: uploadFormData,
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setFormData((prev) => ({ ...prev, nid_document_url: data.url }));
+      } else {
+        setError(data.error || "Failed to upload NID document");
+      }
+    } catch (err) {
+      setError("Failed to upload NID document");
+    } finally {
+      setUploadingNID(false);
+    }
+  };
+
+  const handleCertificateUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingCertificate(true);
+    const uploadFormData = new FormData();
+    uploadFormData.append("file", file);
+    uploadFormData.append("type", "certificate");
+
+    try {
+      const response = await fetch("/api/upload/document", {
+        method: "POST",
+        body: uploadFormData,
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setFormData((prev) => ({
+          ...prev,
+          certificate_urls: [...prev.certificate_urls, data.url],
+        }));
+      } else {
+        setError(data.error || "Failed to upload certificate");
+      }
+    } catch (err) {
+      setError("Failed to upload certificate");
+    } finally {
+      setUploadingCertificate(false);
+    }
+  };
+
+  const handleProfileImageUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingProfile(true);
+    const uploadFormData = new FormData();
+    uploadFormData.append("file", file);
+    uploadFormData.append("type", "profile");
+
+    try {
+      const response = await fetch("/api/upload/document", {
+        method: "POST",
+        body: uploadFormData,
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setFormData((prev) => ({ ...prev, profile_image_url: data.url }));
+      } else {
+        setError(data.error || "Failed to upload profile image");
+      }
+    } catch (err) {
+      setError("Failed to upload profile image");
+    } finally {
+      setUploadingProfile(false);
+    }
+  };
+
+  const removeCertificate = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      certificate_urls: prev.certificate_urls.filter((_, i) => i !== index),
     }));
   };
 
@@ -293,64 +401,172 @@ export default function RegisterCaregiverPage() {
 
               {step === 3 && (
                 <div className="space-y-5">
-                  <h2 className="text-xl font-bold text-slate-900">Security</h2>
+                  <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+                    Security & Documents
+                  </h2>
+
+                  {/* Profile Image */}
                   <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">
-                      Password
+                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                      Profile Picture (Optional)
                     </label>
-                    <div className="relative">
-                      <input
-                        type={showPassword ? "text" : "password"}
-                        placeholder="Password"
-                        value={formData.password}
-                        onChange={(e) =>
-                          setFormData({ ...formData, password: e.target.value })
-                        }
-                        className="w-full px-4 py-3 pr-12 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none text-slate-900"
-                        required
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
-                      >
-                        <span className="material-icons text-xl">
-                          {showPassword ? "visibility_off" : "visibility"}
-                        </span>
-                      </button>
-                    </div>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleProfileImageUpload}
+                      disabled={uploadingProfile}
+                      className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-50 file:text-teal-700 hover:file:bg-teal-100"
+                    />
+                    {uploadingProfile && (
+                      <p className="text-sm text-teal-600 mt-2">Uploading...</p>
+                    )}
+                    {formData.profile_image_url && (
+                      <div className="mt-3">
+                        <img
+                          src={formData.profile_image_url}
+                          alt="Profile preview"
+                          className="w-24 h-24 object-cover rounded-full border-2 border-teal-600"
+                        />
+                      </div>
+                    )}
                   </div>
+
+                  {/* NID Document */}
                   <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">
-                      Confirm Password
+                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                      NID/National ID Document *
                     </label>
-                    <div className="relative">
-                      <input
-                        type={showConfirmPassword ? "text" : "password"}
-                        placeholder="Confirm Password"
-                        value={formData.confirmPassword}
-                        onChange={(e) =>
-                          setFormData({
-                            ...formData,
-                            confirmPassword: e.target.value,
-                          })
-                        }
-                        className="w-full px-4 py-3 pr-12 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none text-slate-900"
-                        required
-                      />
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setShowConfirmPassword(!showConfirmPassword)
-                        }
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
-                      >
-                        <span className="material-icons text-xl">
-                          {showConfirmPassword
-                            ? "visibility_off"
-                            : "visibility"}
+                    <input
+                      type="file"
+                      accept="image/*,application/pdf"
+                      onChange={handleNIDUpload}
+                      disabled={uploadingNID}
+                      required
+                      className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-50 file:text-teal-700 hover:file:bg-teal-100"
+                    />
+                    {uploadingNID && (
+                      <p className="text-sm text-teal-600 mt-2">Uploading...</p>
+                    )}
+                    {formData.nid_document_url && (
+                      <p className="text-sm text-green-600 mt-2 flex items-center gap-2">
+                        <span className="material-icons text-sm">
+                          check_circle
                         </span>
-                      </button>
+                        NID document uploaded successfully
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Certificates */}
+                  <div>
+                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                      Certificates (Optional)
+                    </label>
+                    <input
+                      type="file"
+                      accept="image/*,application/pdf"
+                      onChange={handleCertificateUpload}
+                      disabled={uploadingCertificate}
+                      className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-50 file:text-teal-700 hover:file:bg-teal-100"
+                    />
+                    {uploadingCertificate && (
+                      <p className="text-sm text-teal-600 mt-2">Uploading...</p>
+                    )}
+                    {formData.certificate_urls.length > 0 && (
+                      <div className="mt-3 space-y-2">
+                        {formData.certificate_urls.map((url, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center justify-between p-2 bg-green-50 dark:bg-green-900/20 rounded-lg"
+                          >
+                            <span className="text-sm text-green-700 dark:text-green-300 flex items-center gap-2">
+                              <span className="material-icons text-sm">
+                                description
+                              </span>
+                              Certificate {index + 1}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => removeCertificate(index)}
+                              className="text-red-600 hover:text-red-700"
+                            >
+                              <span className="material-icons text-sm">
+                                delete
+                              </span>
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="border-t border-slate-200 dark:border-slate-700 pt-5 mt-5">
+                    <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">
+                      Password
+                    </h3>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                          Password
+                        </label>
+                        <div className="relative">
+                          <input
+                            type={showPassword ? "text" : "password"}
+                            placeholder="Password"
+                            value={formData.password}
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                password: e.target.value,
+                              })
+                            }
+                            className="w-full px-4 py-3 pr-12 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none text-slate-900 dark:text-white"
+                            required
+                          />
+                          <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                          >
+                            <span className="material-icons text-xl">
+                              {showPassword ? "visibility_off" : "visibility"}
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+                      <div>
+                        <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                          Confirm Password
+                        </label>
+                        <div className="relative">
+                          <input
+                            type={showConfirmPassword ? "text" : "password"}
+                            placeholder="Confirm Password"
+                            value={formData.confirmPassword}
+                            onChange={(e) =>
+                              setFormData({
+                                ...formData,
+                                confirmPassword: e.target.value,
+                              })
+                            }
+                            className="w-full px-4 py-3 pr-12 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-teal-500 outline-none text-slate-900 dark:text-white"
+                            required
+                          />
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setShowConfirmPassword(!showConfirmPassword)
+                            }
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                          >
+                            <span className="material-icons text-xl">
+                              {showConfirmPassword
+                                ? "visibility_off"
+                                : "visibility"}
+                            </span>
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

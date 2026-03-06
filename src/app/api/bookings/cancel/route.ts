@@ -8,16 +8,12 @@ export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
 
-    console.log("Cancel booking - Session:", session?.user);
-
     if (!session?.user?.id) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const body = await req.json();
     const { bookingId, reason } = body;
-
-    console.log("Cancel booking - Request body:", { bookingId, reason });
 
     if (!bookingId) {
       return NextResponse.json(
@@ -33,11 +29,6 @@ export async function POST(req: NextRequest) {
       .eq("id", bookingId)
       .eq("client_id", session.user.id)
       .single();
-
-    console.log("Cancel booking - Booking query result:", {
-      booking,
-      bookingError,
-    });
 
     if (bookingError || !booking) {
       console.error("Booking not found error:", bookingError);
@@ -64,11 +55,6 @@ export async function POST(req: NextRequest) {
       refundAmount = parseFloat(booking.total_amount) * 0.5; // 50% refund
     }
 
-    console.log("Cancel booking - Refund calculation:", {
-      hoursUntilStart,
-      refundAmount,
-    });
-
     // Update booking status
     const { error: updateError } = await supabaseAdmin
       .from("bookings")
@@ -86,8 +72,6 @@ export async function POST(req: NextRequest) {
         { status: 500 },
       );
     }
-
-    console.log("Cancel booking - Successfully cancelled");
 
     // Get user email and service details for email
     const { data: userData } = await supabaseAdmin

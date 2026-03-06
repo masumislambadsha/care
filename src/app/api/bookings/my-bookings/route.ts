@@ -7,18 +7,13 @@ export async function GET(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
 
-    console.log("=== MY BOOKINGS API ===");
-    console.log("Session:", JSON.stringify(session, null, 2));
 
     if (!session?.user) {
-      console.log("No session found - returning 401");
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const userId = session.user.id;
 
-    console.log("User ID:", userId);
-    console.log("Querying bookings where user is CLIENT");
 
     // ALWAYS fetch bookings where this user is the CLIENT
     // This is "My Bookings" - services I booked for myself
@@ -35,9 +30,6 @@ export async function GET(req: NextRequest) {
       .eq("client_id", userId)
       .order("created_at", { ascending: false });
 
-    console.log("Supabase query error:", error);
-    console.log("Bookings found:", bookings?.length || 0);
-    console.log("Bookings data:", JSON.stringify(bookings, null, 2));
 
     if (error) {
       console.error("Error fetching bookings:", error);
@@ -80,8 +72,6 @@ export async function GET(req: NextRequest) {
         .join(", "),
     }));
 
-    console.log("Transformed bookings:", transformedBookings.length);
-    console.log("=== END MY BOOKINGS API ===");
 
     return NextResponse.json({ bookings: transformedBookings });
   } catch (error: unknown) {

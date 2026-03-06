@@ -219,7 +219,7 @@ export default function FamilyMembersPage() {
                   </span>
                 </div>
                 <button
-                  onClick={() => handleDeleteMember(member.id)}
+                  onClick={() => deleteMember(member.id)}
                   className="p-2 hover:bg-red-50 rounded-lg transition-colors"
                 >
                   <span className="material-icons text-red-600 text-xl">

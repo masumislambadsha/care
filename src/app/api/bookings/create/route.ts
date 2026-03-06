@@ -7,16 +7,12 @@ export async function POST(req: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
 
-    console.log("=== CREATE BOOKING API ===");
-    console.log("Session:", JSON.stringify(session, null, 2));
 
     if (!session?.user) {
-      console.log("No session - returning 401");
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const body = await req.json();
-    console.log("Request body:", JSON.stringify(body, null, 2));
 
     const {
       serviceId,
@@ -44,7 +40,6 @@ export async function POST(req: NextRequest) {
       );
 
     if (!isUUID) {
-      console.log("ServiceId is a slug, looking up actual ID...");
       const { data: service, error: serviceError } = await supabaseAdmin
         .from("services")
         .select("id")
@@ -60,17 +55,11 @@ export async function POST(req: NextRequest) {
       }
 
       actualServiceId = service.id;
-      console.log("Found service ID:", actualServiceId);
     }
 
     // Generate booking number
     const bookingNumber = `BK${Date.now()}`;
 
-    console.log("Creating booking with:");
-    console.log("- Booking Number:", bookingNumber);
-    console.log("- Client ID:", session.user.id);
-    console.log("- Caregiver ID:", caregiverId);
-    console.log("- Service ID:", actualServiceId);
 
     // Create booking in database
     const { data: booking, error: bookingError } = await supabaseAdmin
@@ -100,8 +89,6 @@ export async function POST(req: NextRequest) {
       .select()
       .single();
 
-    console.log("Booking creation error:", bookingError);
-    console.log("Booking created:", JSON.stringify(booking, null, 2));
 
     if (bookingError) {
       console.error("Failed to create booking:", bookingError);
@@ -126,8 +113,6 @@ export async function POST(req: NextRequest) {
       .select()
       .single();
 
-    console.log("Payment creation error:", paymentError);
-    console.log("Payment created:", JSON.stringify(payment, null, 2));
 
     if (paymentError) {
       console.error("Warning: Failed to create payment record:", paymentError);
@@ -162,8 +147,6 @@ export async function POST(req: NextRequest) {
       // Don't fail the whole booking if notifications fail
     }
 
-    console.log("Booking created successfully!");
-    console.log("=== END CREATE BOOKING API ===");
 
     return NextResponse.json({ success: true, booking });
   } catch (error: unknown) {

@@ -194,8 +194,8 @@ export default function AdminUsersPage() {
           <p className="text-2xl font-bold text-green-600">{stats.active}</p>
         </div>
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
-          <p className="text-sm text-slate-600 mb-1">Inactive</p>
-          <p className="text-2xl font-bold text-slate-400">{stats.inactive}</p>
+          <p className="text-sm text-slate-600 mb-1">Suspended</p>
+          <p className="text-2xl font-bold text-slate-400">{stats.suspended}</p>
         </div>
       </div>
 

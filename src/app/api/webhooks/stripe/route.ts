@@ -105,7 +105,6 @@ export async function POST(req: NextRequest) {
         },
       ]);
 
-      console.log("Booking created successfully:", bookingNumber);
     }
 
     return NextResponse.json({ received: true });

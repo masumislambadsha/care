@@ -12,9 +12,9 @@ const CustomButton: React.FC<AnimatedButtonProps> = ({
   className = "",
   showUnderline = false,
   ...props
-}) => { 
-  return ( 
-    <div
+}) => {
+  return (
+    <button
       className={`
         relative inline-flex items-center justify-center
         gap-2
@@ -66,7 +66,7 @@ const CustomButton: React.FC<AnimatedButtonProps> = ({
       />
 
       <span className="relative z-10">{children}</span>
-    </div>
+    </button>
   );
 };
 
