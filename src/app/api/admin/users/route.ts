@@ -118,19 +118,111 @@ export async function DELETE(req: NextRequest) {
       );
     }
 
-    // Soft delete - update status to DELETED
+    // Hard delete - permanently remove from database
+    // Delete all related records first (in order)
+
+    console.log("=== Starting user deletion process ===");
+    console.log("User ID:", userId);
+
+    // 1. First, check what bookings exist
+    const { data: existingBookings } = await supabaseAdmin
+      .from("bookings")
+      .select("id, client_id, caregiver_id")
+      .or(`client_id.eq.${userId},caregiver_id.eq.${userId}`);
+
+    console.log("Found bookings:", existingBookings);
+
+    // 2. Delete payments for these bookings
+    if (existingBookings && existingBookings.length > 0) {
+      const bookingIds = existingBookings.map((b) => b.id);
+      const { error: paymentsError } = await supabaseAdmin
+        .from("payments")
+        .delete()
+        .in("booking_id", bookingIds);
+
+      console.log("Payments deleted:", paymentsError ? "ERROR" : "SUCCESS");
+      if (paymentsError) console.error("Payments error:", paymentsError);
+    }
+
+    // 3. Delete reviews where user is author or target
+    const { error: reviewsError } = await supabaseAdmin
+      .from("reviews")
+      .delete()
+      .or(`author_id.eq.${userId},target_id.eq.${userId}`);
+
+    console.log("Reviews deleted:", reviewsError ? "ERROR" : "SUCCESS");
+    if (reviewsError) console.error("Reviews error:", reviewsError);
+
+    // 4. Delete ALL bookings for this user (both as client and caregiver)
+    const { data: deletedBookings, error: bookingsError } = await supabaseAdmin
+      .from("bookings")
+      .delete()
+      .or(`client_id.eq.${userId},caregiver_id.eq.${userId}`)
+      .select();
+
+    console.log("Bookings deleted:", deletedBookings);
+    console.log("Bookings deletion:", bookingsError ? "ERROR" : "SUCCESS");
+    if (bookingsError) {
+      console.error("Bookings error:", bookingsError);
+      return NextResponse.json(
+        { error: "Failed to delete bookings: " + bookingsError.message },
+        { status: 500 },
+      );
+    }
+
+    // 5. Delete addresses
+    const { error: addressesError } = await supabaseAdmin
+      .from("addresses")
+      .delete()
+      .eq("user_id", userId);
+
+    console.log("Addresses deleted:", addressesError ? "ERROR" : "SUCCESS");
+
+    // 6. Delete family members
+    const { error: familyError } = await supabaseAdmin
+      .from("family_members")
+      .delete()
+      .eq("user_id", userId);
+
+    console.log("Family members deleted:", familyError ? "ERROR" : "SUCCESS");
+
+    // 7. Delete caregiver profile
+    const { error: profileError } = await supabaseAdmin
+      .from("caregiver_profiles")
+      .delete()
+      .eq("user_id", userId);
+
+    console.log(
+      "Caregiver profile deleted:",
+      profileError ? "ERROR" : "SUCCESS",
+    );
+
+    // 8. Delete notifications
+    const { error: notificationsError } = await supabaseAdmin
+      .from("notifications")
+      .delete()
+      .eq("user_id", userId);
+
+    console.log(
+      "Notifications deleted:",
+      notificationsError ? "ERROR" : "SUCCESS",
+    );
+
+    // 9. Finally delete the user
     const { error } = await supabaseAdmin
       .from("users")
-      .update({ status: "DELETED" })
+      .delete()
       .eq("id", userId);
 
     if (error) {
       console.error("User delete error:", error);
       return NextResponse.json(
-        { error: "Failed to delete user" },
+        { error: "Failed to delete user: " + error.message },
         { status: 500 },
       );
     }
+
+    console.log("=== User deleted successfully ===");
 
     return NextResponse.json({ message: "User deleted successfully" });
   } catch (error) {

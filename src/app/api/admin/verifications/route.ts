@@ -2,8 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { supabaseAdmin } from "@/lib/supabase";
-import { sendEmail } from "@/lib/email";
-import WelcomeEmail from "@/emails/WelcomeEmail";
+import {
+  sendVerificationApprovedEmail,
+  sendVerificationRejectedEmail,
+} from "@/lib/email";
 
 export async function GET() {
   try {
@@ -115,14 +117,15 @@ export async function PUT(req: NextRequest) {
 
       // Send approval email
       try {
-        await sendEmail({
-          to: caregiver.user.email,
-          subject: "Your Care.xyz Application Has Been Approved! 🎉",
-          react: WelcomeEmail({
-            name: caregiver.user.name,
-            role: "CAREGIVER",
-          }),
-        });
+        console.log(
+          "Attempting to send approval email to:",
+          caregiver.user.email,
+        );
+        await sendVerificationApprovedEmail(
+          caregiver.user.email,
+          caregiver.user.name,
+        );
+        console.log("Approval email sent successfully");
       } catch (emailError) {
         console.error("Email send error:", emailError);
         // Don't fail the request if email fails
@@ -170,6 +173,18 @@ export async function PUT(req: NextRequest) {
         title: "Application Update",
         message: `Your caregiver application has been reviewed. Reason: ${reason}`,
       });
+
+      // Send rejection email
+      try {
+        await sendVerificationRejectedEmail(
+          caregiver.user.email,
+          caregiver.user.name,
+          reason,
+        );
+      } catch (emailError) {
+        console.error("Email send error:", emailError);
+        // Don't fail the request if email fails
+      }
 
       return NextResponse.json({
         message: "Caregiver rejected successfully",

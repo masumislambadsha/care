@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
 import bcrypt from "bcryptjs";
+import { sendWelcomeEmail } from "@/lib/email";
 
 export async function POST(request: Request) {
   try {
@@ -83,6 +84,16 @@ export async function POST(request: Request) {
         console.error("Profile creation error:", profileError);
         // Don't fail the registration, just log the error
       }
+    }
+
+    // Send welcome email
+    try {
+      console.log("Attempting to send welcome email to:", email);
+      await sendWelcomeEmail(email, name, role);
+      console.log("Welcome email sent successfully to:", email);
+    } catch (emailError) {
+      console.error("Welcome email error:", emailError);
+      // Don't fail registration if email fails
     }
 
     return NextResponse.json(

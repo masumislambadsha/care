@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { supabaseAdmin } from "@/lib/supabase";
+import { sendBookingCancellationEmail } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   try {
@@ -87,6 +88,33 @@ export async function POST(req: NextRequest) {
     }
 
     console.log("Cancel booking - Successfully cancelled");
+
+    // Get user email and service details for email
+    const { data: userData } = await supabaseAdmin
+      .from("users")
+      .select("email")
+      .eq("id", session.user.id)
+      .single();
+
+    const { data: serviceData } = await supabaseAdmin
+      .from("services")
+      .select("name")
+      .eq("id", booking.service_id)
+      .single();
+
+    // Send cancellation email
+    if (userData?.email && serviceData?.name) {
+      try {
+        await sendBookingCancellationEmail(userData.email, {
+          bookingNumber: booking.booking_number,
+          serviceName: serviceData.name,
+          refundAmount,
+        });
+      } catch (emailError) {
+        console.error("Cancellation email error:", emailError);
+        // Don't fail the cancellation if email fails
+      }
+    }
 
     // Create notification for caregiver
     await supabaseAdmin.from("notifications").insert({
