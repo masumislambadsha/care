@@ -838,7 +838,7 @@ export default function BookingPage() {
                           <span className="font-mono font-bold bg-white/20 px-2 py-1 rounded">
                             WELCOME10
                           </span>{" "}
-                          to get ৳10 off your first booking
+                          to get $10 off your first booking
                         </p>
                       </div>
                     </div>

@@ -35,7 +35,7 @@ export function PromoCodeInput({
 
       if (response.ok && data.valid) {
         toast.success(
-          `Promo code applied! You saved ৳${data.discountAmount.toFixed(2)}`,
+          `Promo code applied! You saved $${data.discountAmount.toFixed(2)}`,
         );
         setAppliedCode(data.code);
         onApply(data.discountAmount, data.code);

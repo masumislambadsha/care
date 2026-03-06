@@ -1,11 +1,41 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 // Enable ISR with 60 second revalidation
 export const revalidate = 60;
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   try {
+    const { searchParams } = new URL(req.url);
+    const isAdmin = searchParams.get("admin") === "true";
+
+    // Check if admin request
+    if (isAdmin) {
+      const session = await getServerSession(authOptions);
+      if (session?.user?.role !== "ADMIN") {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      }
+
+      // Fetch all services for admin
+      const { data: services, error } = await supabaseAdmin
+        .from("services")
+        .select("*")
+        .order("name");
+
+      if (error) {
+        console.error("Error fetching services:", error);
+        return NextResponse.json(
+          { error: "Failed to fetch services" },
+          { status: 500 },
+        );
+      }
+
+      return NextResponse.json({ services });
+    }
+
+    // Fetch only active services for public
     const { data: services, error } = await supabaseAdmin
       .from("services")
       .select("*")

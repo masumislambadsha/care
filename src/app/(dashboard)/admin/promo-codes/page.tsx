@@ -157,7 +157,7 @@ export default function AdminPromoCodesPage() {
                       <span className="text-slate-900 dark:text-white font-semibold">
                         {promo.discount_type === "PERCENTAGE"
                           ? `${promo.discount_value}%`
-                          : `৳${promo.discount_value}`}
+                          : `$${promo.discount_value}`}
                       </span>
                     </td>
                     <td className="px-6 py-4">
