@@ -130,7 +130,7 @@ export default function CaregiversPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-teal-600 to-blue-600 text-white py-16">
+      <section className="bg-linear-to-br from-teal-600 to-teal-700 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -150,7 +150,7 @@ export default function CaregiversPage() {
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search by name or service..."
-                  className="w-full px-6 py-4 rounded-full text-slate-900 text-lg focus:outline-none focus:ring-4 focus:ring-white/30"
+                  className="w-full px-6 py-4 border rounded-2xl border-teal-400 text-white text-lg focus:outline-none focus:ring-4 focus:ring-white/30"
                 />
                 <span className="material-icons absolute right-6 top-1/2 -translate-y-1/2 text-slate-400">
                   search

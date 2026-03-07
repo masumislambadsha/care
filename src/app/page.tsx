@@ -139,7 +139,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-slate-50">
       <Navbar />
 
-      <section className="relative h-[700px] overflow-hidden">
+      <section className="relative h-[500px] sm:h-[600px] md:h-[700px] overflow-hidden">
         <Swiper
           modules={[Autoplay, EffectFade, Pagination]}
           effect="fade"
@@ -163,23 +163,23 @@ export default function HomePage() {
                     transition={{ duration: 0.8, delay: 0.2 }}
                     className="text-white max-w-2xl"
                   >
-                    <p className="text-white/90 font-semibold text-sm uppercase tracking-wider mb-4">
+                    <p className="text-white/90 font-semibold text-xs sm:text-sm uppercase tracking-wider mb-2 sm:mb-4">
                       TRUSTED BY 2M+ FAMILIES
                     </p>
-                    <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight">
                       {slide.title}
                     </h1>
-                    <p className="text-xl text-white/90 mb-8">
+                    <p className="text-base sm:text-lg md:text-xl text-white/90 mb-4 sm:mb-8">
                       {slide.subtitle}
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-4">
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                       <motion.div
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
                         <Link
                           href="/caregivers"
-                          className="inline-block bg-white text-teal-600 font-bold px-8 py-4 rounded-full hover:bg-slate-100 transition-all shadow-lg"
+                          className="inline-block bg-white text-teal-600 font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-full hover:bg-slate-100 transition-all shadow-lg text-center"
                         >
                           Find a Caregiver
                         </Link>
@@ -190,7 +190,7 @@ export default function HomePage() {
                       >
                         <Link
                           href="/register?role=caregiver"
-                          className="inline-block bg-transparent border-2 border-white text-white font-bold px-8 py-4 rounded-full hover:bg-white/10 transition-all"
+                          className="inline-block bg-transparent border-2 border-white text-white font-bold px-6 sm:px-8 py-3 sm:py-4 rounded-full hover:bg-white/10 transition-all text-center"
                         >
                           Become a Caregiver
                         </Link>
@@ -203,46 +203,46 @@ export default function HomePage() {
           ))}
         </Swiper>
 
-        <div className="absolute bottom-0 left-0 right-0 z-20 pb-12">
+        <div className="absolute bottom-0 left-0 right-0 z-20 pb-6 sm:pb-12">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
             className="max-w-4xl mx-auto px-4"
           >
-            <div className="bg-white rounded-2xl shadow-2xl p-6">
-              <div className="flex flex-col md:flex-row gap-4">
+            <div className="bg-white rounded-2xl shadow-2xl p-4 sm:p-6">
+              <div className="flex flex-col gap-3 sm:gap-4">
                 <div className="flex-1 flex items-center gap-3 px-4 py-3 bg-slate-50 rounded-xl">
-                  <span className="material-icons text-slate-400">search</span>
-                  <input
-                    type="text"
-                    placeholder="What care are you looking for?"
-                    className="flex-1 bg-transparent border-none outline-none text-slate-900 placeholder-slate-400"
-                  />
-                </div>
-                <div className="flex-1 flex items-center gap-3 px-4 py-3 bg-slate-50 rounded-xl">
-                  <span className="material-icons text-slate-400">
-                    location_on
+                  <span className="material-icons text-slate-400 text-xl">
+                    search
                   </span>
                   <input
                     type="text"
-                    placeholder="Zip code or City"
-                    className="flex-1 bg-transparent border-none outline-none text-slate-900 placeholder-slate-400"
+                    placeholder="What care are you looking for?"
+                    className="flex-1 bg-transparent border-none outline-none text-slate-900 placeholder-slate-400 text-sm sm:text-base"
                   />
                 </div>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className=""
-                >
-                  <CustomButton
-                    className="bg-teal-600 hover:text-black text-white   font-semibold text-[12px] transition-all hover:border-teal-600
-                        border-teal-600
-                        btn-active rounded-xl"
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                  <div className="flex-1 flex items-center gap-3 px-4 py-3 bg-slate-50 rounded-xl">
+                    <span className="material-icons text-slate-400 text-xl">
+                      location_on
+                    </span>
+                    <input
+                      type="text"
+                      placeholder="Zip code or City"
+                      className="flex-1 bg-transparent border-none outline-none text-slate-900 placeholder-slate-400 text-sm sm:text-base"
+                    />
+                  </div>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="w-full sm:w-auto"
                   >
-                    Find Care
-                  </CustomButton>
-                </motion.button>
+                    <CustomButton className="bg-teal-600 hover:text-black text-white font-semibold text-xs sm:text-sm transition-all hover:border-teal-600 border-teal-600 btn-active rounded-xl w-full sm:w-auto px-6 py-3">
+                      Find Care
+                    </CustomButton>
+                  </motion.button>
+                </div>
               </div>
             </div>
           </motion.div>

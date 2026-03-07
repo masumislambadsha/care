@@ -328,7 +328,7 @@ export default function AdminVerificationsPage() {
               </div>
 
               {/* Details Grid */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="bg-slate-50 rounded-lg p-4">
                   <p className="text-sm text-slate-600 mb-1">Experience</p>
                   <p className="font-semibold text-slate-900">

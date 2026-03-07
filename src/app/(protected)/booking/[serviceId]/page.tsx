@@ -384,7 +384,7 @@ export default function BookingPage() {
                   <label className="block text-sm font-semibold text-slate-700 mb-3">
                     Duration Type
                   </label>
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {(["HOURLY", "DAILY", "WEEKLY"] as const).map((type) => (
                       <button
                         key={type}
@@ -404,7 +404,7 @@ export default function BookingPage() {
                 </div>
 
                 {/* Start Date & Time */}
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-semibold text-slate-700 mb-2">
                       Start Date

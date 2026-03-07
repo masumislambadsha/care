@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import NotificationButton from "@/components/NotificationButton";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
-import { ThemeDebug } from "@/components/shared/ThemeDebug";
 
 export default function DashboardLayout({
   children,
@@ -218,9 +217,6 @@ export default function DashboardLayout({
           {children}
         </main>
       </div>
-
-      {/* Theme Debug - Remove in production */}
-      <ThemeDebug />
     </div>
   );
 }

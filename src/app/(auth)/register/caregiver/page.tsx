@@ -327,7 +327,7 @@ export default function RegisterCaregiverPage() {
                     <label className="block text-sm font-semibold text-slate-700 mb-2">
                       Services You Offer
                     </label>
-                    <div className="grid grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       {services.map((service) => (
                         <button
                           key={service}
