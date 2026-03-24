@@ -9,7 +9,7 @@ INSERT INTO services (name, slug, description, short_description, image, base_ho
 
 -- Seed Demo Admin User (password: Admin123!)
 INSERT INTO users (id, name, email, password, role, status, email_verified) VALUES
-('00000000-0000-0000-0000-000000000001', 'Admin User', 'admin@care.xyz', '$2a$10$YourHashedPasswordHere', 'ADMIN', 'ACTIVE', NOW());
+('00000000-0000-0000-0000-000000000001', 'Admin User', 'admin@care.io', '$2a$10$YourHashedPasswordHere', 'ADMIN', 'ACTIVE', NOW());
 
 -- Seed Demo Client Users
 INSERT INTO users (id, name, email, password, phone, role, status, email_verified) VALUES

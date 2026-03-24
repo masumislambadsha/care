@@ -128,7 +128,7 @@ export default function DashboardLayout({
                 </span>
               </div>
               <span className="text-lg font-bold text-slate-900 dark:text-white">
-                Care.xyz
+                Care.io
               </span>
             </Link>
           ) : (

@@ -191,7 +191,7 @@ export default function RegisterCaregiverPage() {
                 health_and_safety
               </span>
             </div>
-            <span className="text-xl font-bold text-slate-900">Care.xyz</span>
+            <span className="text-xl font-bold text-slate-900">Care.io</span>
           </Link>
         </div>
       </nav>

@@ -89,9 +89,9 @@ export default function BookingConfirmation({
           </Text>
 
           <Text style={text}>
-            Thank you for choosing Care.xyz!
+            Thank you for choosing Care.io!
             <br />
-            The Care.xyz Team
+            The Care.io Team
           </Text>
         </Container>
       </Body>

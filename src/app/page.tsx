@@ -448,7 +448,7 @@ export default function HomePage() {
               className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-3"
               data-aos="fade-up"
             >
-              Why Families Choose Care.xyz
+              Why Families Choose Care.io
             </h2>
             <p
               className="text-sm sm:text-base lg:text-lg text-slate-600 dark:text-slate-400"
@@ -591,7 +591,7 @@ export default function HomePage() {
                 name: "Jennifer Martinez",
                 role: "Mother of 2",
                 rating: 5,
-                text: "Care.xyz connected us with Maria, who has been incredible with our kids. The platform made it so easy to find someone trustworthy.",
+                text: "Care.io connected us with Maria, who has been incredible with our kids. The platform made it so easy to find someone trustworthy.",
                 image:
                   "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop",
               },
@@ -599,7 +599,7 @@ export default function HomePage() {
                 name: "Robert Williams",
                 role: "Son of Senior",
                 rating: 5,
-                text: "Finding care for my elderly father was stressful until I found Care.xyz. The caregiver we hired is professional and compassionate.",
+                text: "Finding care for my elderly father was stressful until I found Care.io. The caregiver we hired is professional and compassionate.",
                 image:
                   "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop",
               },
@@ -623,7 +623,7 @@ export default function HomePage() {
                 name: "Amanda Taylor",
                 role: "Daughter",
                 rating: 5,
-                text: "My mom needs special care and we found the perfect match through Care.xyz. The support team was amazing throughout.",
+                text: "My mom needs special care and we found the perfect match through Care.io. The support team was amazing throughout.",
                 image:
                   "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop",
               },
@@ -767,7 +767,7 @@ export default function HomePage() {
               data-aos="fade-up"
               data-aos-delay="100"
             >
-              Everything you need to know about Care.xyz
+              Everything you need to know about Care.io
             </p>
           </div>
           <div className="space-y-3 sm:space-y-4">
@@ -793,7 +793,7 @@ export default function HomePage() {
                   "We offer a satisfaction guarantee. If you're not happy with your caregiver, contact our support team and we'll help you find a better match or provide a refund.",
               },
               {
-                question: "How much does it cost to use Care.xyz?",
+                question: "How much does it cost to use Care.io?",
                 answer:
                   "Creating an account and browsing caregivers is completely free. We charge a small platform fee (5%) on bookings to maintain our secure platform and support services.",
               },
@@ -870,7 +870,7 @@ export default function HomePage() {
               </h2>
               <p className="text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-400 mb-6 sm:mb-8 italic">
                 &quot;Finding a sitter for my two energetic boys was stressful
-                until I used Care.xyz. The vetting process gave me confidence,
+                until I used Care.io. The vetting process gave me confidence,
                 and Sarah has been a blessing to our family for over a year
                 now.&quot;
               </p>
@@ -977,7 +977,7 @@ export default function HomePage() {
                   </span>
                 </div>
                 <span className="text-base sm:text-lg md:text-xl font-bold text-white">
-                  Care.xyz
+                  Care.io
                 </span>
               </div>
               <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
@@ -1048,7 +1048,7 @@ export default function HomePage() {
           </div>
           <div className="border-t border-slate-800 pt-6 sm:pt-8 text-center">
             <p className="text-xs sm:text-sm text-slate-500">
-              © 2026 Care.xyz Inc. All rights reserved. Providing compassionate
+              © 2026 Care.io Inc. All rights reserved. Providing compassionate
               care nationwide.
             </p>
           </div>

@@ -286,7 +286,7 @@ export default function ServicesPage() {
                     health_and_safety
                   </span>
                 </div>
-                <span className="text-xl font-bold text-white">Care.xyz</span>
+                <span className="text-xl font-bold text-white">Care.io</span>
               </div>
               <p className="text-slate-400 text-sm leading-relaxed">
                 Transforming the way families find trusted, professional care
@@ -383,7 +383,7 @@ export default function ServicesPage() {
           </div>
           <div className="border-t border-slate-800 pt-8 text-center">
             <p className="text-sm text-slate-500">
-              © 2026 Care.xyz Inc. All rights reserved. Providing compassionate
+              © 2026 Care.io Inc. All rights reserved. Providing compassionate
               care nationwide.
             </p>
           </div>

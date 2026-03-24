@@ -32,7 +32,7 @@ export default function RegisterPage() {
                 health_and_safety
               </span>
             </div>
-            <span className="text-xl font-bold text-slate-900">Care.xyz</span>
+            <span className="text-xl font-bold text-slate-900">Care.io</span>
           </Link>
           <div className="flex items-center gap-4">
             <span className="text-sm text-slate-600">
@@ -57,7 +57,7 @@ export default function RegisterPage() {
             className="text-center mb-12"
           >
             <h1 className="text-4xl font-bold text-slate-900 mb-4">
-              Join Care.xyz
+              Join Care.io
             </h1>
             <p className="text-xl text-slate-600">
               Choose how you&apos;d like to get started

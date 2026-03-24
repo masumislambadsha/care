@@ -19,13 +19,13 @@ export default function WelcomeEmail({ name, role }: WelcomeEmailProps) {
   return (
     <Html>
       <Head />
-      <Preview>Welcome to Care.xyz - Your trusted care service platform</Preview>
+      <Preview>Welcome to Care.io - Your trusted care service platform</Preview>
       <Body style={main}>
         <Container style={container}>
-          <Heading style={h1}>Welcome to Care.xyz! 🎉</Heading>
+          <Heading style={h1}>Welcome to Care.io! 🎉</Heading>
           <Text style={text}>Hi {name},</Text>
           <Text style={text}>
-            Thank you for joining Care.xyz as a {role.toLowerCase()}. We're
+            Thank you for joining Care.io as a {role.toLowerCase()}. We're
             excited to have you on board!
           </Text>
           {role === "CLIENT" && (
@@ -59,7 +59,7 @@ export default function WelcomeEmail({ name, role }: WelcomeEmailProps) {
           <Text style={text}>
             Best regards,
             <br />
-            The Care.xyz Team
+            The Care.io Team
           </Text>
         </Container>
       </Body>

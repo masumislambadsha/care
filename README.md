@@ -1,4 +1,4 @@
-# 🏥 Care.xyz - Professional Care Service Platform
+# 🏥 Care.io - Professional Care Service Platform
 
 A full-stack Next.js 15 platform connecting families with verified caregivers for children, elderly, and special-needs individuals.
 
@@ -13,7 +13,7 @@ A full-stack Next.js 15 platform connecting families with verified caregivers fo
 
 ## 🎯 Project Overview
 
-Care.xyz is a comprehensive care service platform featuring:
+Care.io is a comprehensive care service platform featuring:
 
 - **3 User Roles**: Client, Caregiver, Admin
 - **Complete Booking Workflow**: Browse → Book → Pay → Review
@@ -514,7 +514,7 @@ Built with ❤️ using Next.js, TypeScript, and modern web technologies.
 
 ## 📞 Support
 
-For support, email support@care.xyz
+For support, email support@care.io
 
 ---
 

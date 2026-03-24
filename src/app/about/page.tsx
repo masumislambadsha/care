@@ -74,7 +74,7 @@ export default function AboutPage() {
     {
       year: "2018",
       event:
-        "Care.xyz was founded by two healthcare professionals.",
+        "Care.io was founded by two healthcare professionals.",
     },
     {
       year: "2020",
@@ -126,7 +126,7 @@ export default function AboutPage() {
               Care built on trust, powered by people
             </h1>
             <p className="text-base sm:text-lg text-teal-100 max-w-2xl mx-auto">
-              We started Care.xyz because finding reliable, compassionate care
+              We started Care.io because finding reliable, compassionate care
               for loved ones shouldn&apos;t be hard. Today, we connect millions
               of families with verified caregivers they can truly trust.
             </p>
@@ -321,7 +321,7 @@ export default function AboutPage() {
               data-aos="fade-up"
               data-aos-delay="100"
             >
-              The people behind Care.xyz
+              The people behind Care.io
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -370,7 +370,7 @@ export default function AboutPage() {
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            Join millions of families who trust Care.xyz to connect them with
+            Join millions of families who trust Care.io to connect them with
             verified, compassionate caregivers.
           </p>
           <div
@@ -411,7 +411,7 @@ export default function AboutPage() {
                 </span>
               </div>
               <span className="text-xl font-bold text-white">
-                Care<span className="text-teal-400">.xyz</span>
+                Care<span className="text-teal-400">.io</span>
               </span>
             </div>
             <div className="flex flex-wrap gap-6 text-sm justify-center">
@@ -438,7 +438,7 @@ export default function AboutPage() {
               </Link>
             </div>
             <p className="text-xs text-slate-500">
-              © 2024 Care.xyz. All rights reserved.
+              © 2024 Care.io. All rights reserved.
             </p>
           </div>
         </div>

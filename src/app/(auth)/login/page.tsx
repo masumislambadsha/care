@@ -70,7 +70,7 @@ export default function LoginPage() {
                 health_and_safety
               </span>
             </div>
-            <span className="text-xl font-bold text-slate-900">Care.xyz</span>
+            <span className="text-xl font-bold text-slate-900">Care.io</span>
           </Link>
           <div className="flex items-center gap-4">
             <span className="text-sm text-slate-600">
@@ -99,7 +99,7 @@ export default function LoginPage() {
                 Welcome Back
               </h1>
               <p className="text-slate-600">
-                Sign in to access your Care.xyz account
+                Sign in to access your Care.io account
               </p>
             </div>
 

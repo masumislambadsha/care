@@ -69,7 +69,7 @@ export default function RegisterClientPage() {
                 health_and_safety
               </span>
             </div>
-            <span className="text-xl font-bold text-slate-900">Care.xyz</span>
+            <span className="text-xl font-bold text-slate-900">Care.io</span>
           </Link>
           <div className="flex items-center gap-4">
             <span className="text-sm text-slate-600">

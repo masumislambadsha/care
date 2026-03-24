@@ -75,7 +75,7 @@ export default function Navbar() {
                   health_and_safety
                 </span>
               </div>
-              <span className="text-xl font-bold text-slate-900 dark:text-white">Care.xyz</span>
+              <span className="text-xl font-bold text-slate-900 dark:text-white">Care.io</span>
             </Link>
 
             {/* Desktop Nav Links */}

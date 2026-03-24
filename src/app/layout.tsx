@@ -15,8 +15,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Care.xyz - Trusted Care for Your Loved Ones",
-    template: "%s | Care.xyz",
+    default: "Care.io - Trusted Care for Your Loved Ones",
+    template: "%s | Care.io",
   },
   description:
     "Connect with verified, trusted caregivers for children, elderly, and special-needs individuals. Professional home care services you can rely on.",
@@ -30,27 +30,27 @@ export const metadata: Metadata = {
     "special needs care",
     "professional caregiver",
   ],
-  authors: [{ name: "Care.xyz" }],
-  creator: "Care.xyz",
-  publisher: "Care.xyz",
+  authors: [{ name: "Care.io" }],
+  creator: "Care.io",
+  publisher: "Care.io",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://care.xyz"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://Care.io"),
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "/",
-    title: "Care.xyz - Trusted Care for Your Loved Ones",
+    title: "Care.io - Trusted Care for Your Loved Ones",
     description:
       "Connect with verified, trusted caregivers for children, elderly, and special-needs individuals.",
-    siteName: "Care.xyz",
+    siteName: "Care.io",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Care.xyz - Trusted Care for Your Loved Ones",
+    title: "Care.io - Trusted Care for Your Loved Ones",
     description:
       "Connect with verified, trusted caregivers for children, elderly, and special-needs individuals.",
   },

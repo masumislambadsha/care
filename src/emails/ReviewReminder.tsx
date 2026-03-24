@@ -26,7 +26,7 @@ export default function ReviewReminderEmail({
   caregiverName = "Sarah Johnson",
   serviceName = "Elderly Care",
   bookingDate = "March 5, 2026",
-  reviewUrl = "https://care.xyz/my-bookings/123",
+  reviewUrl = "https://care.io/my-bookings/123",
 }: ReviewReminderEmailProps) {
   return (
     <Html>
@@ -36,7 +36,7 @@ export default function ReviewReminderEmail({
         <Container style={container}>
           <Section style={header}>
             <Heading style={logo}>
-              Care<span style={logoAccent}>.xyz</span>
+              Care<span style={logoAccent}>.io</span>
             </Heading>
           </Section>
 
@@ -72,13 +72,13 @@ export default function ReviewReminderEmail({
             <Text style={footer}>
               If you have any concerns or issues, please contact our support
               team at{" "}
-              <Link href="mailto:support@care.xyz" style={link}>
-                support@care.xyz
+              <Link href="mailto:support@care.io" style={link}>
+                support@care.io
               </Link>
             </Text>
 
             <Text style={footer}>
-              © 2026 Care.xyz. All rights reserved.
+              © 2026 Care.io. All rights reserved.
               <br />
               Professional Care Service Platform
             </Text>
