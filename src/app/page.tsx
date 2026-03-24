@@ -123,7 +123,7 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 overflow-x-hidden">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 overflow-x-hidden">
       <Navbar />
       {/* Hero */}
       <section className="relative h-[480px] sm:h-[560px] md:h-[680px] overflow-hidden">
@@ -198,26 +198,26 @@ export default function HomePage() {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="max-w-3xl mx-auto px-3 sm:px-4"
           >
-            <div className="bg-white rounded-2xl shadow-2xl p-2.5 sm:p-4 md:p-5">
+            <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-2.5 sm:p-4 md:p-5">
               <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-                <div className="flex items-center gap-2 px-3 py-2 sm:py-2.5 bg-slate-50 rounded-xl flex-1">
+                <div className="flex items-center gap-2 px-3 py-2 sm:py-2.5 bg-slate-50 dark:bg-slate-700 rounded-xl flex-1">
                   <span className="material-icons text-slate-400 text-lg shrink-0">
                     search
                   </span>
                   <input
                     type="text"
                     placeholder="What care are you looking for?"
-                    className="flex-1 bg-transparent border-none outline-none text-slate-900 placeholder-slate-400 text-xs sm:text-sm min-w-0"
+                    className="flex-1 bg-transparent border-none outline-none text-slate-900 dark:text-white placeholder-slate-400 text-xs sm:text-sm min-w-0"
                   />
                 </div>
-                <div className="flex items-center gap-2 px-3 py-2 sm:py-2.5 bg-slate-50 rounded-xl sm:flex-shrink-0">
+                <div className="flex items-center gap-2 px-3 py-2 sm:py-2.5 bg-slate-50 dark:bg-slate-700 rounded-xl sm:flex-shrink-0">
                   <span className="material-icons text-slate-400 text-lg shrink-0">
                     location_on
                   </span>
                   <input
                     type="text"
                     placeholder="City or Zip"
-                    className="flex-1 sm:w-32 md:w-44 bg-transparent border-none outline-none text-slate-900 placeholder-slate-400 text-xs sm:text-sm min-w-0"
+                    className="flex-1 sm:w-32 md:w-44 bg-transparent border-none outline-none text-slate-900 dark:text-white placeholder-slate-400 text-xs sm:text-sm min-w-0"
                   />
                 </div>
                 <button className="bg-teal-600 text-white font-semibold text-xs sm:text-sm rounded-xl px-4 sm:px-5 py-2 sm:py-2.5 hover:bg-teal-700 transition-colors shrink-0">
@@ -230,14 +230,14 @@ export default function HomePage() {
       </section>
 
       {/* Services */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-800">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0 mb-8 sm:mb-12">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1">
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-1">
                 Our Services
               </h2>
-              <p className="text-sm sm:text-base text-slate-600">
+              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400">
                 Professional care for every stage of life.
               </p>
             </div>
@@ -256,7 +256,7 @@ export default function HomePage() {
                   whileHover={{ y: -4 }}
                   data-aos="fade-up"
                   data-aos-delay={i * 50}
-                  className="bg-white border border-slate-200 rounded-2xl p-3 sm:p-4 md:p-6 text-center hover:shadow-lg transition-all cursor-pointer h-full flex flex-col items-center justify-center"
+                  className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-3 sm:p-4 md:p-6 text-center hover:shadow-lg transition-all cursor-pointer h-full flex flex-col items-center justify-center"
                 >
                   <div
                     className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 ${getServiceColor(i)} rounded-2xl flex items-center justify-center mx-auto mb-2 sm:mb-3`}
@@ -265,7 +265,7 @@ export default function HomePage() {
                       {getServiceIcon(service.name)}
                     </span>
                   </div>
-                  <h3 className="font-semibold text-slate-900 text-xs sm:text-sm leading-tight">
+                  <h3 className="font-semibold text-slate-900 dark:text-white text-xs sm:text-sm leading-tight">
                     {service.name}
                   </h3>
                 </motion.div>
@@ -276,17 +276,17 @@ export default function HomePage() {
       </section>
 
       {/* Featured Caregivers */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-900">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8 sm:mb-12">
             <h2
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3"
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-3"
               data-aos="fade-up"
             >
               Meet Our Top-Rated Caregivers
             </h2>
             <p
-              className="text-sm sm:text-base lg:text-lg text-slate-600"
+              className="text-sm sm:text-base lg:text-lg text-slate-600 dark:text-slate-400"
               data-aos="fade-up"
               data-aos-delay="100"
             >
@@ -300,7 +300,7 @@ export default function HomePage() {
                 whileHover={{ y: -8 }}
                 data-aos="fade-up"
                 data-aos-delay={i * 100}
-                className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-slate-100"
+                className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700"
               >
                 <div className="relative h-48 sm:h-52 md:h-60 bg-linear-to-br from-teal-100 to-blue-100">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -312,11 +312,11 @@ export default function HomePage() {
                     alt={caregiver.name}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute top-2 sm:top-3 right-2 sm:right-3 bg-white px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full flex items-center gap-0.5 sm:gap-1 shadow-md">
+                  <div className="absolute top-2 sm:top-3 right-2 sm:right-3 bg-white dark:bg-slate-800 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full flex items-center gap-0.5 sm:gap-1 shadow-md">
                     <span className="material-icons text-amber-400 text-xs sm:text-sm">
                       star
                     </span>
-                    <span className="font-bold text-slate-900 text-xs sm:text-sm">
+                    <span className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm">
                       {caregiver.avg_rating.toFixed(1)}
                     </span>
                   </div>
@@ -327,13 +327,13 @@ export default function HomePage() {
                   )}
                 </div>
                 <div className="p-3 sm:p-4 md:p-5">
-                  <h3 className="font-bold text-sm sm:text-base md:text-lg text-slate-900 mb-0.5 truncate">
+                  <h3 className="font-bold text-sm sm:text-base md:text-lg text-slate-900 dark:text-white mb-0.5 truncate">
                     {caregiver.name}
                   </h3>
                   <p className="text-xs sm:text-sm text-teal-600 font-semibold mb-2 line-clamp-1">
                     {caregiver.services_offered[0] || "Caregiver"}
                   </p>
-                  <div className="flex items-center justify-between text-xs text-slate-600 mb-3 gap-1">
+                  <div className="flex items-center justify-between text-xs text-slate-600 dark:text-slate-400 mb-3 gap-1">
                     <span className="flex items-center gap-0.5 sm:gap-1 min-w-0">
                       <span className="material-icons text-xs">work</span>
                       <span className="truncate">
@@ -347,8 +347,8 @@ export default function HomePage() {
                       </span>
                     </span>
                   </div>
-                  <div className="flex items-center justify-between pt-3 border-t border-slate-100 gap-2">
-                    <span className="text-base sm:text-lg md:text-xl font-bold text-slate-900 shrink-0">
+                  <div className="flex items-center justify-between pt-3 border-t border-slate-100 dark:border-slate-700 gap-2">
+                    <span className="text-base sm:text-lg md:text-xl font-bold text-slate-900 dark:text-white shrink-0">
                       ${caregiver.hourly_rate}/hr
                     </span>
                     <Link href={`/caregivers/${caregiver.id}`}>
@@ -375,16 +375,16 @@ export default function HomePage() {
       </section>
 
       {/* How it Works */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-800 overflow-hidden">
         <div className="max-w-7xl mx-auto text-center">
           <h2
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3"
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-3"
             data-aos="fade-up"
           >
             How it Works
           </h2>
           <p
-            className="text-sm sm:text-base lg:text-lg text-slate-600 mb-10 sm:mb-14"
+            className="text-sm sm:text-base lg:text-lg text-slate-600 dark:text-slate-400 mb-10 sm:mb-14"
             data-aos="fade-up"
             data-aos-delay="100"
           >
@@ -418,7 +418,7 @@ export default function HomePage() {
                 data-aos-delay={i * 100}
                 className="relative w-full min-w-0"
               >
-                <div className="bg-white rounded-2xl p-4 sm:p-6 md:p-8 shadow-md hover:shadow-xl transition-all border border-slate-100 overflow-hidden">
+                <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 sm:p-6 md:p-8 shadow-md hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700 overflow-hidden">
                   <div className="absolute top-3 right-3 sm:top-4 sm:right-4 md:-right-2 md:-top-2 w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-amber-400 rounded-full flex items-center justify-center text-white font-bold text-xs sm:text-sm md:text-base shadow-lg shrink-0">
                     {step.step}
                   </div>
@@ -427,10 +427,10 @@ export default function HomePage() {
                       {step.icon}
                     </span>
                   </div>
-                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-slate-900 mb-2 break-words">
+                  <h3 className="text-base sm:text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-2 break-words">
                     {step.title}
                   </h3>
-                  <p className="text-xs sm:text-sm md:text-base text-slate-600 break-words">
+                  <p className="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400 break-words">
                     {step.desc}
                   </p>
                 </div>
@@ -441,17 +441,17 @@ export default function HomePage() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-900">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-10 sm:mb-14">
             <h2
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3"
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-3"
               data-aos="fade-up"
             >
               Why Families Choose Care.xyz
             </h2>
             <p
-              className="text-sm sm:text-base lg:text-lg text-slate-600"
+              className="text-sm sm:text-base lg:text-lg text-slate-600 dark:text-slate-400"
               data-aos="fade-up"
               data-aos-delay="100"
             >
@@ -499,10 +499,10 @@ export default function HomePage() {
                     {feature.icon}
                   </span>
                 </div>
-                <h3 className="text-base sm:text-lg md:text-xl font-bold text-slate-900 mb-2">
+                <h3 className="text-base sm:text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-xs sm:text-sm md:text-base text-slate-600">
+                <p className="text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-400">
                   {feature.desc}
                 </p>
               </motion.div>
@@ -557,17 +557,17 @@ export default function HomePage() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-800">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-8 sm:mb-12">
             <h2
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3"
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-3"
               data-aos="fade-up"
             >
               What Families Are Saying
             </h2>
             <p
-              className="text-sm sm:text-base lg:text-lg text-slate-600"
+              className="text-sm sm:text-base lg:text-lg text-slate-600 dark:text-slate-400"
               data-aos="fade-up"
               data-aos-delay="100"
             >
@@ -629,7 +629,7 @@ export default function HomePage() {
               },
             ].map((testimonial, i) => (
               <SwiperSlide key={i}>
-                <div className="bg-slate-50 rounded-2xl p-4 sm:p-5 md:p-7 shadow-sm h-full">
+                <div className="bg-slate-50 dark:bg-slate-700 rounded-2xl p-4 sm:p-5 md:p-7 shadow-sm h-full">
                   <div className="flex items-center gap-0.5 mb-3">
                     {[...Array(testimonial.rating)].map((_, j) => (
                       <span
@@ -640,7 +640,7 @@ export default function HomePage() {
                       </span>
                     ))}
                   </div>
-                  <p className="text-slate-600 mb-4 sm:mb-5 italic text-xs sm:text-sm md:text-base">
+                  <p className="text-slate-600 dark:text-slate-300 mb-4 sm:mb-5 italic text-xs sm:text-sm md:text-base">
                     &quot;{testimonial.text}&quot;
                   </p>
                   <div className="flex items-center gap-2 sm:gap-3">
@@ -651,10 +651,10 @@ export default function HomePage() {
                       className="w-8 h-8 sm:w-10 sm:h-10 rounded-full object-cover shrink-0"
                     />
                     <div className="min-w-0">
-                      <p className="font-bold text-slate-900 text-xs sm:text-sm truncate">
+                      <p className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm truncate">
                         {testimonial.name}
                       </p>
-                      <p className="text-xs text-slate-500 truncate">
+                      <p className="text-xs text-slate-500 dark:text-slate-400 truncate">
                         {testimonial.role}
                       </p>
                     </div>
@@ -667,7 +667,7 @@ export default function HomePage() {
       </section>
 
       {/* Caregiver CTA */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-900">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
             <motion.div
@@ -675,10 +675,10 @@ export default function HomePage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-4 sm:mb-6">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4 sm:mb-6">
                 Are you a professional caregiver?
               </h2>
-              <p className="text-sm sm:text-base lg:text-lg text-slate-600 mb-6 sm:mb-8">
+              <p className="text-sm sm:text-base lg:text-lg text-slate-600 dark:text-slate-400 mb-6 sm:mb-8">
                 Join thousands of caregivers who have found meaningful work
                 through our platform. Set your own rates, choose your schedule,
                 and connect with families who need your expertise.
@@ -698,7 +698,7 @@ export default function HomePage() {
                         check
                       </span>
                     </div>
-                    <span className="text-xs sm:text-sm md:text-base text-slate-700">
+                    <span className="text-xs sm:text-sm md:text-base text-slate-700 dark:text-slate-300">
                       {benefit}
                     </span>
                   </li>
@@ -728,7 +728,7 @@ export default function HomePage() {
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-slate-900/60 to-transparent" />
                 <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 md:bottom-8 md:left-8 md:right-8">
-                  <div className="bg-white/95 backdrop-blur-sm rounded-2xl p-3 sm:p-4 md:p-6">
+                  <div className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm rounded-2xl p-3 sm:p-4 md:p-6">
                     <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
                       <div className="w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-teal-600 rounded-full flex items-center justify-center shrink-0">
                         <span className="material-icons text-white text-base sm:text-lg md:text-xl">
@@ -736,10 +736,10 @@ export default function HomePage() {
                         </span>
                       </div>
                       <div>
-                        <p className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900">
+                        <p className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
                           $2,500+
                         </p>
-                        <p className="text-xs sm:text-sm text-slate-600">
+                        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
                           Average monthly earnings
                         </p>
                       </div>
@@ -753,17 +753,17 @@ export default function HomePage() {
       </section>
 
       {/* FAQ */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-800">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-8 sm:mb-12">
             <h2
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3"
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-3"
               data-aos="fade-up"
             >
               Frequently Asked Questions
             </h2>
             <p
-              className="text-sm sm:text-base lg:text-lg text-slate-600"
+              className="text-sm sm:text-base lg:text-lg text-slate-600 dark:text-slate-400"
               data-aos="fade-up"
               data-aos-delay="100"
             >
@@ -807,15 +807,15 @@ export default function HomePage() {
                 key={i}
                 data-aos="fade-up"
                 data-aos-delay={i * 50}
-                className="bg-slate-50 rounded-xl p-4 sm:p-5 md:p-6 shadow-sm hover:shadow-md transition-all group"
+                className="bg-slate-50 dark:bg-slate-700 rounded-xl p-4 sm:p-5 md:p-6 shadow-sm hover:shadow-md transition-all group"
               >
-                <summary className="font-bold text-slate-900 cursor-pointer flex items-center justify-between text-sm sm:text-base">
+                <summary className="font-bold text-slate-900 dark:text-white cursor-pointer flex items-center justify-between text-sm sm:text-base">
                   {faq.question}
                   <span className="material-icons text-teal-600 group-open:rotate-180 transition-transform shrink-0 ml-3">
                     expand_more
                   </span>
                 </summary>
-                <p className="mt-3 text-slate-600 leading-relaxed text-xs sm:text-sm md:text-base">
+                <p className="mt-3 text-slate-600 dark:text-slate-300 leading-relaxed text-xs sm:text-sm md:text-base">
                   {faq.answer}
                 </p>
               </motion.details>
@@ -825,7 +825,7 @@ export default function HomePage() {
       </section>
 
       {/* Trust Section */}
-      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
+      <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-900">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center">
             <motion.div
@@ -834,7 +834,7 @@ export default function HomePage() {
               viewport={{ once: true }}
               className="relative"
             >
-              <div className="bg-linear-to-br from-amber-50 to-teal-50 rounded-3xl p-5 sm:p-8 md:p-10 relative overflow-hidden">
+              <div className="bg-linear-to-br from-amber-50 to-teal-50 dark:from-amber-900/20 dark:to-teal-900/20 rounded-3xl p-5 sm:p-8 md:p-10 relative overflow-hidden">
                 <div className="w-full rounded-2xl flex items-center justify-center">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -865,10 +865,10 @@ export default function HomePage() {
                   </span>
                 ))}
               </div>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-4 sm:mb-6">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4 sm:mb-6">
                 Trust is our foundation for every care connection.
               </h2>
-              <p className="text-sm sm:text-base md:text-lg text-slate-600 mb-6 sm:mb-8 italic">
+              <p className="text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-400 mb-6 sm:mb-8 italic">
                 &quot;Finding a sitter for my two energetic boys was stressful
                 until I used Care.xyz. The vetting process gave me confidence,
                 and Sarah has been a blessing to our family for over a year
@@ -881,10 +881,10 @@ export default function HomePage() {
                   </span>
                 </div>
                 <div>
-                  <p className="font-bold text-slate-900 text-xs sm:text-sm md:text-base">
+                  <p className="font-bold text-slate-900 dark:text-white text-xs sm:text-sm md:text-base">
                     Jessica Miller
                   </p>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
                     Parent, San Francisco
                   </p>
                 </div>
@@ -894,7 +894,7 @@ export default function HomePage() {
                   <p className="text-lg sm:text-2xl md:text-3xl font-bold text-teal-600 mb-1">
                     98%
                   </p>
-                  <p className="text-xs sm:text-sm text-slate-600">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
                     Satisfaction Rate
                   </p>
                 </div>
@@ -902,7 +902,7 @@ export default function HomePage() {
                   <p className="text-lg sm:text-2xl md:text-3xl font-bold text-teal-600 mb-1">
                     50k+
                   </p>
-                  <p className="text-xs sm:text-sm text-slate-600">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
                     Verified Caregivers
                   </p>
                 </div>
@@ -910,7 +910,7 @@ export default function HomePage() {
                   <p className="text-lg sm:text-2xl md:text-3xl font-bold text-teal-600 mb-1">
                     24/7
                   </p>
-                  <p className="text-xs sm:text-sm text-slate-600">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
                     Support Team
                   </p>
                 </div>

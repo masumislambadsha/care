@@ -60,12 +60,14 @@ export default function CaregiverDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
         <Navbar />
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
             <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-slate-600">Loading caregiver...</p>
+            <p className="text-slate-600 dark:text-slate-400">
+              Loading caregiver...
+            </p>
           </div>
         </div>
       </div>
@@ -77,14 +79,17 @@ export default function CaregiverDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       <Navbar />
 
       {/* Breadcrumb */}
-      <div className="bg-white border-b border-slate-200">
+      <div className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center gap-2 text-sm">
-            <Link href="/" className="text-slate-500 hover:text-teal-600">
+            <Link
+              href="/"
+              className="text-slate-500 dark:text-slate-400 hover:text-teal-600"
+            >
               Home
             </Link>
             <span className="material-icons text-slate-400 text-sm">
@@ -92,14 +97,16 @@ export default function CaregiverDetailPage() {
             </span>
             <Link
               href="/caregivers"
-              className="text-slate-500 hover:text-teal-600"
+              className="text-slate-500 dark:text-slate-400 hover:text-teal-600"
             >
               Caregivers
             </Link>
             <span className="material-icons text-slate-400 text-sm">
               chevron_right
             </span>
-            <span className="text-slate-900 font-medium">{caregiver.name}</span>
+            <span className="text-slate-900 dark:text-white font-medium">
+              {caregiver.name}
+            </span>
           </div>
         </div>
       </div>
@@ -110,7 +117,7 @@ export default function CaregiverDetailPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left Column - Profile Card */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8 sticky top-24">
+              <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-8 sticky top-24">
                 <div className="text-center mb-6">
                   <img
                     src={
@@ -120,7 +127,7 @@ export default function CaregiverDetailPage() {
                     alt={caregiver.name}
                     className="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-teal-100 object-cover"
                   />
-                  <h1 className="text-2xl font-bold text-slate-900 mb-2">
+                  <h1 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
                     {caregiver.name}
                   </h1>
                   <p className="text-teal-600 font-semibold mb-4">
@@ -143,10 +150,10 @@ export default function CaregiverDetailPage() {
                         </span>
                       ))}
                     </div>
-                    <span className="font-semibold text-slate-900">
+                    <span className="font-semibold text-slate-900 dark:text-white">
                       {caregiver.avg_rating.toFixed(1)}
                     </span>
-                    <span className="text-slate-500 text-sm">
+                    <span className="text-slate-500 dark:text-slate-400 text-sm">
                       ({caregiver.total_reviews} reviews)
                     </span>
                   </div>
@@ -161,21 +168,27 @@ export default function CaregiverDetailPage() {
                 </div>
 
                 {/* Stats */}
-                <div className="space-y-4 mb-6 pb-6 border-b border-slate-200">
+                <div className="space-y-4 mb-6 pb-6 border-b border-slate-200 dark:border-slate-700">
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-600">Experience</span>
-                    <span className="font-semibold text-slate-900">
+                    <span className="text-slate-600 dark:text-slate-400">
+                      Experience
+                    </span>
+                    <span className="font-semibold text-slate-900 dark:text-white">
                       {caregiver.experience} years
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-600">Total Bookings</span>
-                    <span className="font-semibold text-slate-900">
+                    <span className="text-slate-600 dark:text-slate-400">
+                      Total Bookings
+                    </span>
+                    <span className="font-semibold text-slate-900 dark:text-white">
                       {caregiver.total_bookings}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-600">Hourly Rate</span>
+                    <span className="text-slate-600 dark:text-slate-400">
+                      Hourly Rate
+                    </span>
                     <span className="text-2xl font-bold text-teal-600">
                       ${caregiver.hourly_rate}
                     </span>
@@ -195,18 +208,18 @@ export default function CaregiverDetailPage() {
             {/* Right Column - Details */}
             <div className="lg:col-span-2 space-y-8">
               {/* About */}
-              <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
-                <h2 className="text-2xl font-bold text-slate-900 mb-4">
+              <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
                   About {caregiver.name}
                 </h2>
-                <p className="text-slate-600 leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
                   {caregiver.bio}
                 </p>
               </div>
 
               {/* Services */}
-              <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
-                <h2 className="text-2xl font-bold text-slate-900 mb-4">
+              <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
                   Services Offered
                 </h2>
                 <div className="flex flex-wrap gap-3">
@@ -222,9 +235,9 @@ export default function CaregiverDetailPage() {
               </div>
 
               {/* Certifications */}
-              <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
-                <h2 className="text-2xl font-bold text-slate-900 mb-4">
-                  Certifications & Skills
+              <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
+                  Certifications &amp; Skills
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {caregiver.certifications.map((cert, idx) => (
@@ -232,22 +245,24 @@ export default function CaregiverDetailPage() {
                       <span className="material-icons text-teal-600">
                         verified
                       </span>
-                      <span className="text-slate-700">{cert}</span>
+                      <span className="text-slate-700 dark:text-slate-300">
+                        {cert}
+                      </span>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Languages */}
-              <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
-                <h2 className="text-2xl font-bold text-slate-900 mb-4">
+              <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
                   Languages
                 </h2>
                 <div className="flex flex-wrap gap-3">
                   {caregiver.languages.map((language, idx) => (
                     <span
                       key={idx}
-                      className="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg font-semibold"
+                      className="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg font-semibold"
                     >
                       {language}
                     </span>

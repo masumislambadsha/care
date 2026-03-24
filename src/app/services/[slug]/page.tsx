@@ -59,12 +59,14 @@ export default function ServiceDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
         <Navbar />
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
             <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-slate-600">Loading service...</p>
+            <p className="text-slate-600 dark:text-slate-400">
+              Loading service...
+            </p>
           </div>
         </div>
       </div>
@@ -76,14 +78,17 @@ export default function ServiceDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       <Navbar />
 
       {/* Breadcrumb */}
-      <div className="bg-white border-b border-slate-200">
+      <div className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center gap-2 text-sm">
-            <Link href="/" className="text-slate-500 hover:text-teal-600">
+            <Link
+              href="/"
+              className="text-slate-500 dark:text-slate-400 hover:text-teal-600"
+            >
               Home
             </Link>
             <span className="material-icons text-slate-400 text-sm">
@@ -91,14 +96,16 @@ export default function ServiceDetailPage() {
             </span>
             <Link
               href="/services"
-              className="text-slate-500 hover:text-teal-600"
+              className="text-slate-500 dark:text-slate-400 hover:text-teal-600"
             >
               Services
             </Link>
             <span className="material-icons text-slate-400 text-sm">
               chevron_right
             </span>
-            <span className="text-slate-900 font-medium">{service.name}</span>
+            <span className="text-slate-900 dark:text-white font-medium">
+              {service.name}
+            </span>
           </div>
         </div>
       </div>
@@ -146,19 +153,19 @@ export default function ServiceDetailPage() {
             {/* Left Column */}
             <div className="lg:col-span-2">
               {/* Description */}
-              <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 mb-8">
-                <h2 className="text-2xl font-bold text-slate-900 mb-4">
+              <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8 mb-8">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">
                   About This Service
                 </h2>
-                <p className="text-slate-600 leading-relaxed">
+                <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
                   {service.description}
                 </p>
               </div>
 
               {/* Features */}
-              <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8">
-                <h2 className="text-2xl font-bold text-slate-900 mb-6">
-                  What's Included
+              <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700 p-8">
+                <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
+                  What&apos;s Included
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {service.features.map((feature, idx) => (
@@ -166,7 +173,9 @@ export default function ServiceDetailPage() {
                       <span className="material-icons text-teal-600 mt-0.5">
                         check_circle
                       </span>
-                      <span className="text-slate-700">{feature}</span>
+                      <span className="text-slate-700 dark:text-slate-300">
+                        {feature}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -175,21 +184,25 @@ export default function ServiceDetailPage() {
 
             {/* Right Column - Booking Card */}
             <div>
-              <div className="bg-white rounded-2xl shadow-lg border border-slate-200 p-8 sticky top-24">
-                <h3 className="text-2xl font-bold text-slate-900 mb-6">
+              <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700 p-8 sticky top-24">
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6">
                   Book This Service
                 </h3>
 
                 <div className="space-y-4 mb-6">
-                  <div className="flex items-center justify-between py-3 border-b border-slate-100">
-                    <span className="text-slate-600">Hourly Rate</span>
-                    <span className="text-xl font-bold text-slate-900">
+                  <div className="flex items-center justify-between py-3 border-b border-slate-100 dark:border-slate-700">
+                    <span className="text-slate-600 dark:text-slate-400">
+                      Hourly Rate
+                    </span>
+                    <span className="text-xl font-bold text-slate-900 dark:text-white">
                       ${service.base_hourly_rate}
                     </span>
                   </div>
-                  <div className="flex items-center justify-between py-3 border-b border-slate-100">
-                    <span className="text-slate-600">Daily Rate</span>
-                    <span className="text-xl font-bold text-slate-900">
+                  <div className="flex items-center justify-between py-3 border-b border-slate-100 dark:border-slate-700">
+                    <span className="text-slate-600 dark:text-slate-400">
+                      Daily Rate
+                    </span>
+                    <span className="text-xl font-bold text-slate-900 dark:text-white">
                       ${service.base_daily_rate}
                     </span>
                   </div>
@@ -202,7 +215,7 @@ export default function ServiceDetailPage() {
                   Book Now
                 </Link>
 
-                <div className="space-y-3 text-sm text-slate-600">
+                <div className="space-y-3 text-sm text-slate-600 dark:text-slate-400">
                   <div className="flex items-center gap-2">
                     <span className="material-icons text-teal-600 text-sm">
                       verified_user

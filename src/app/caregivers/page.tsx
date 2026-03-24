@@ -113,12 +113,14 @@ export default function CaregiversPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
         <Navbar />
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
             <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-slate-600">Loading caregivers...</p>
+            <p className="text-slate-600 dark:text-slate-400">
+              Loading caregivers...
+            </p>
           </div>
         </div>
       </div>
@@ -126,7 +128,7 @@ export default function CaregiversPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       <Navbar />
 
       {/* Hero Section */}
@@ -167,9 +169,11 @@ export default function CaregiversPage() {
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
             {/* Filters Sidebar */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 sticky top-24">
+              <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sticky top-24">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-lg font-bold text-slate-900">Filters</h3>
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+                    Filters
+                  </h3>
                   <button
                     onClick={resetFilters}
                     className="text-sm text-teal-600 hover:text-teal-700 font-semibold"
@@ -181,7 +185,7 @@ export default function CaregiversPage() {
                 <div className="space-y-6">
                   {/* Service Filter */}
                   <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                       Service Type
                     </label>
                     <select
@@ -189,7 +193,7 @@ export default function CaregiversPage() {
                       onChange={(e) =>
                         setFilters({ ...filters, service: e.target.value })
                       }
-                      className="w-full px-4 py-2 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none text-slate-900"
+                      className="w-full px-4 py-2 border-2 border-slate-200 dark:border-slate-600 rounded-lg focus:border-teal-600 focus:outline-none text-slate-900 dark:text-white dark:bg-slate-700"
                     >
                       <option value="all">All Services</option>
                       <option value="Baby Care">Baby Care</option>
@@ -202,7 +206,7 @@ export default function CaregiversPage() {
 
                   {/* Rating Filter */}
                   <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                       Minimum Rating
                     </label>
                     <div className="flex items-center gap-2">
@@ -220,7 +224,7 @@ export default function CaregiversPage() {
                         }
                         className="flex-1"
                       />
-                      <span className="text-sm font-semibold text-slate-900 w-12">
+                      <span className="text-sm font-semibold text-slate-900 dark:text-white w-12">
                         {filters.minRating}+
                       </span>
                     </div>
@@ -228,7 +232,7 @@ export default function CaregiversPage() {
 
                   {/* Rate Filter */}
                   <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                       Max Hourly Rate: ${filters.maxRate}
                     </label>
                     <input
@@ -249,7 +253,7 @@ export default function CaregiversPage() {
 
                   {/* Experience Filter */}
                   <div>
-                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                    <label className="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                       Min Experience: {filters.experience} years
                     </label>
                     <input
@@ -274,23 +278,23 @@ export default function CaregiversPage() {
             {/* Caregivers Grid */}
             <div className="lg:col-span-3">
               <div className="mb-6">
-                <p className="text-slate-600">
+                <p className="text-slate-600 dark:text-slate-400">
                   Showing {filteredCaregivers.length} of {caregivers.length}{" "}
                   caregivers
                 </p>
               </div>
 
               {filteredCaregivers.length === 0 ? (
-                <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center">
-                  <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-12 text-center">
+                  <div className="w-20 h-20 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-4">
                     <span className="material-icons text-slate-400 text-4xl">
                       search_off
                     </span>
                   </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
                     No caregivers found
                   </h3>
-                  <p className="text-slate-600 mb-4">
+                  <p className="text-slate-600 dark:text-slate-400 mb-4">
                     Try adjusting your filters or search query
                   </p>
                   <button
@@ -308,7 +312,7 @@ export default function CaregiversPage() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: index * 0.1 }}
-                      className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-lg transition-all"
+                      className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden hover:shadow-lg transition-all"
                     >
                       <div className="p-6">
                         <div className="flex items-start gap-4 mb-4">
@@ -321,7 +325,7 @@ export default function CaregiversPage() {
                             className="w-20 h-20 rounded-full object-cover border-2 border-teal-100"
                           />
                           <div className="flex-1">
-                            <h3 className="text-lg font-bold text-slate-900 mb-1">
+                            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-1">
                               {caregiver.name}
                             </h3>
                             <div className="flex items-center gap-2 mb-2">
@@ -332,26 +336,26 @@ export default function CaregiversPage() {
                                     className={`material-icons text-sm ${
                                       i < Math.floor(caregiver.avg_rating)
                                         ? "text-yellow-400"
-                                        : "text-slate-300"
+                                        : "text-slate-300 dark:text-slate-600"
                                     }`}
                                   >
                                     star
                                   </span>
                                 ))}
                               </div>
-                              <span className="text-sm text-slate-600">
+                              <span className="text-sm text-slate-600 dark:text-slate-400">
                                 {caregiver.avg_rating.toFixed(1)} (
                                 {caregiver.total_reviews})
                               </span>
                             </div>
-                            <p className="text-sm text-slate-600">
+                            <p className="text-sm text-slate-600 dark:text-slate-400">
                               {caregiver.experience} years experience •{" "}
                               {caregiver.total_bookings} bookings
                             </p>
                           </div>
                         </div>
 
-                        <p className="text-sm text-slate-600 mb-4 line-clamp-2">
+                        <p className="text-sm text-slate-600 dark:text-slate-400 mb-4 line-clamp-2">
                           {caregiver.bio}
                         </p>
 
@@ -368,14 +372,14 @@ export default function CaregiversPage() {
                             ))}
                         </div>
 
-                        <div className="flex items-center justify-between pt-4 border-t border-slate-200">
+                        <div className="flex items-center justify-between pt-4 border-t border-slate-200 dark:border-slate-700">
                           <div>
-                            <p className="text-sm text-slate-600">
+                            <p className="text-sm text-slate-600 dark:text-slate-400">
                               Starting from
                             </p>
                             <p className="text-2xl font-bold text-teal-600">
                               ${caregiver.hourly_rate}
-                              <span className="text-sm text-slate-600">
+                              <span className="text-sm text-slate-600 dark:text-slate-400">
                                 /hour
                               </span>
                             </p>

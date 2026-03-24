@@ -88,12 +88,14 @@ export default function ServicesPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
         <Navbar />
         <div className="flex items-center justify-center py-20">
           <div className="text-center">
             <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-slate-600">Loading services...</p>
+            <p className="text-slate-600 dark:text-slate-400">
+              Loading services...
+            </p>
           </div>
         </div>
       </div>
@@ -101,19 +103,24 @@ export default function ServicesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900">
       <Navbar />
 
-      <div className="bg-white border-b border-slate-200">
+      <div className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center gap-2 text-sm">
-            <Link href="/" className="text-slate-500 hover:text-teal-600">
+            <Link
+              href="/"
+              className="text-slate-500 dark:text-slate-400 hover:text-teal-600"
+            >
               Home
             </Link>
             <span className="material-icons text-slate-400 text-sm">
               chevron_right
             </span>
-            <span className="text-slate-900 font-medium">Services</span>
+            <span className="text-slate-900 dark:text-white font-medium">
+              Services
+            </span>
           </div>
         </div>
       </div>
@@ -144,7 +151,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section className="py-8 px-4 sm:px-6 lg:px-8 bg-white border-b border-slate-200 sticky top-16 z-40">
+      <section className="py-8 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-16 z-40">
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-wrap items-center justify-center gap-3">
             {categories.map((category) => (
@@ -154,7 +161,7 @@ export default function ServicesPage() {
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-full font-semibold text-sm transition-all ${
                   selectedCategory === category.id
                     ? "bg-teal-600 text-white shadow-lg"
-                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                    : "bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600"
                 }`}
               >
                 <span className="material-icons text-lg">{category.icon}</span>
@@ -179,7 +186,7 @@ export default function ServicesPage() {
                 className="group"
               >
                 <Link href={`/services/${service.slug}`}>
-                  <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-100 h-full flex flex-col">
+                  <div className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-100 dark:border-slate-700 h-full flex flex-col">
                     <div className="relative h-56 overflow-hidden">
                       <img
                         src={service.image}
@@ -201,17 +208,17 @@ export default function ServicesPage() {
                       </div>
                     </div>
                     <div className="p-6 flex-1 flex flex-col">
-                      <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-teal-600 transition-colors">
+                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-teal-600 transition-colors">
                         {service.name}
                       </h3>
-                      <p className="text-slate-600 mb-4 flex-1">
+                      <p className="text-slate-600 dark:text-slate-400 mb-4 flex-1">
                         {service.description}
                       </p>
                       <div className="space-y-2 mb-6">
                         {service.features?.slice(0, 3).map((feature, idx) => (
                           <div
                             key={idx}
-                            className="flex items-center gap-2 text-sm text-slate-600"
+                            className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400"
                           >
                             <span className="material-icons text-teal-600 text-sm">
                               check_circle
@@ -220,8 +227,8 @@ export default function ServicesPage() {
                           </div>
                         ))}
                       </div>
-                      <div className="flex items-center justify-between pt-4 border-t border-slate-100">
-                        <span className="text-sm font-semibold text-slate-500">
+                      <div className="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
+                        <span className="text-sm font-semibold text-slate-500 dark:text-slate-400">
                           Learn More
                         </span>
                         <span className="material-icons text-teal-600 group-hover:translate-x-2 transition-transform">
@@ -236,27 +243,27 @@ export default function ServicesPage() {
           </div>
           {filteredServices.length === 0 && (
             <div className="text-center py-16">
-              <div className="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-24 h-24 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="material-icons text-slate-400 text-5xl">
                   search_off
                 </span>
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-2">
+              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
                 No services found
               </h3>
-              <p className="text-slate-600">
+              <p className="text-slate-600 dark:text-slate-400">
                 Try selecting a different category
               </p>
             </div>
           )}
         </div>
       </section>
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-800">
         <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-slate-900 mb-4">
+          <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-4">
             Can&apos;t find what you&apos;re looking for?
           </h2>
-          <p className="text-xl text-slate-600 mb-8">
+          <p className="text-xl text-slate-600 dark:text-slate-400 mb-8">
             Contact our support team and we&apos;ll help you find the perfect
             caregiver
           </p>

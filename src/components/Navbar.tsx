@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { AnimatePresence, motion } from "framer-motion";
 import NotificationButton from "./NotificationButton";
 import BurgerCheckbox from "./BurgerCheckbox";
+import { ThemeToggle } from "./shared/ThemeToggle";
 
 const navLinks = [
   { href: "/services", label: "Services" },
@@ -58,7 +59,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+      <nav className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-50 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
@@ -71,7 +72,9 @@ export default function Navbar() {
                   health_and_safety
                 </span>
               </div>
-              <span className="text-xl font-bold text-slate-900">Care.xyz</span>
+              <span className="text-xl font-bold text-slate-900 dark:text-white">
+                Care.xyz
+              </span>
             </Link>
 
             {/* Desktop Nav Links */}
@@ -80,7 +83,7 @@ export default function Navbar() {
                 <Link
                   key={href}
                   href={href}
-                  className="text-slate-700 hover:text-teal-600 font-medium transition-colors"
+                  className="text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 font-medium transition-colors"
                 >
                   {label}
                 </Link>
@@ -94,20 +97,21 @@ export default function Navbar() {
               ) : session ? (
                 <>
                   <NotificationButton />
+                  <ThemeToggle />
                   {/* User Dropdown */}
                   <div className="relative hidden md:block" ref={dropdownRef}>
                     <button
                       onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                      className="flex items-center gap-3 hover:bg-slate-50 rounded-lg p-2 transition-colors"
+                      className="flex items-center gap-3 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg p-2 transition-colors"
                     >
                       <div className="w-10 h-10 bg-teal-600 rounded-full flex items-center justify-center text-white font-bold">
                         {session.user?.name?.charAt(0).toUpperCase() || "U"}
                       </div>
                       <div className="hidden md:block text-left">
-                        <p className="text-sm font-semibold text-slate-900">
+                        <p className="text-sm font-semibold text-slate-900 dark:text-white">
                           {session.user?.name}
                         </p>
-                        <p className="text-xs text-slate-500">
+                        <p className="text-xs text-slate-500 dark:text-slate-400">
                           {session.user?.role}
                         </p>
                       </div>
@@ -117,12 +121,12 @@ export default function Navbar() {
                     </button>
 
                     {isDropdownOpen && (
-                      <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-2xl border border-slate-200 py-2 animate-in fade-in slide-in-from-top-2 duration-200">
-                        <div className="px-4 py-3 border-b border-slate-100">
-                          <p className="text-sm font-semibold text-slate-900">
+                      <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-slate-800 rounded-xl shadow-2xl border border-slate-200 dark:border-slate-700 py-2 animate-in fade-in slide-in-from-top-2 duration-200">
+                        <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-700">
+                          <p className="text-sm font-semibold text-slate-900 dark:text-white">
                             {session.user?.name}
                           </p>
-                          <p className="text-xs text-slate-500">
+                          <p className="text-xs text-slate-500 dark:text-slate-400">
                             {session.user?.email}
                           </p>
                         </div>
@@ -130,7 +134,7 @@ export default function Navbar() {
                           <Link
                             href="/dashboard"
                             onClick={() => setIsDropdownOpen(false)}
-                            className="flex items-center gap-3 px-4 py-2 text-slate-700 hover:bg-teal-50 hover:text-teal-700 transition-colors"
+                            className="flex items-center gap-3 px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-700 dark:hover:text-teal-400 transition-colors"
                           >
                             <span className="material-icons text-xl">
                               dashboard
@@ -140,7 +144,7 @@ export default function Navbar() {
                           <Link
                             href="/my-bookings"
                             onClick={() => setIsDropdownOpen(false)}
-                            className="flex items-center gap-3 px-4 py-2 text-slate-700 hover:bg-teal-50 hover:text-teal-700 transition-colors"
+                            className="flex items-center gap-3 px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-700 dark:hover:text-teal-400 transition-colors"
                           >
                             <span className="material-icons text-xl">
                               event_note
@@ -150,7 +154,7 @@ export default function Navbar() {
                           <Link
                             href="/profile"
                             onClick={() => setIsDropdownOpen(false)}
-                            className="flex items-center gap-3 px-4 py-2 text-slate-700 hover:bg-teal-50 hover:text-teal-700 transition-colors"
+                            className="flex items-center gap-3 px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-700 dark:hover:text-teal-400 transition-colors"
                           >
                             <span className="material-icons text-xl">
                               person
@@ -161,7 +165,7 @@ export default function Navbar() {
                             <Link
                               href="/caregiver/schedule"
                               onClick={() => setIsDropdownOpen(false)}
-                              className="flex items-center gap-3 px-4 py-2 text-slate-700 hover:bg-teal-50 hover:text-teal-700 transition-colors"
+                              className="flex items-center gap-3 px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-700 dark:hover:text-teal-400 transition-colors"
                             >
                               <span className="material-icons text-xl">
                                 calendar_month
@@ -172,7 +176,7 @@ export default function Navbar() {
                           <Link
                             href="/settings"
                             onClick={() => setIsDropdownOpen(false)}
-                            className="flex items-center gap-3 px-4 py-2 text-slate-700 hover:bg-teal-50 hover:text-teal-700 transition-colors"
+                            className="flex items-center gap-3 px-4 py-2 text-slate-700 dark:text-slate-300 hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-700 dark:hover:text-teal-400 transition-colors"
                           >
                             <span className="material-icons text-xl">
                               settings
@@ -180,7 +184,7 @@ export default function Navbar() {
                             <span className="font-medium">Settings</span>
                           </Link>
                         </div>
-                        <div className="border-t border-slate-100 pt-2">
+                        <div className="border-t border-slate-100 dark:border-slate-700 pt-2">
                           <button
                             onClick={handleSignOut}
                             className="flex items-center gap-3 px-4 py-2 text-red-600 hover:bg-red-50 transition-colors w-full"
@@ -197,9 +201,10 @@ export default function Navbar() {
                 </>
               ) : (
                 <div className="hidden md:flex items-center gap-3">
+                  <ThemeToggle />
                   <Link
                     href="/login"
-                    className="px-4 py-2 text-slate-700 hover:text-teal-600 font-semibold transition-colors"
+                    className="px-4 py-2 text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 font-semibold transition-colors"
                   >
                     Sign In
                   </Link>
@@ -226,7 +231,7 @@ export default function Navbar() {
         {mobileOpen && (
           <motion.div
             key="mobile-menu"
-            className="md:hidden fixed inset-x-0 top-16 h-[calc(100dvh-4rem)] z-50 bg-white flex flex-col px-6 pt-6 pb-10 overflow-y-auto"
+            className="md:hidden fixed inset-x-0 top-16 h-[calc(100dvh-4rem)] z-50 bg-white dark:bg-slate-900 flex flex-col px-6 pt-6 pb-10 overflow-y-auto"
             initial={{ y: "-100%", opacity: 0 }}
             animate={{
               y: 0,
@@ -258,7 +263,7 @@ export default function Navbar() {
                 >
                   <Link
                     href={href}
-                    className="block py-2 text-base font-semibold text-slate-800 hover:text-teal-600 transition-colors"
+                    className="block py-2 text-base font-semibold text-slate-800 dark:text-slate-200 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
                     onClick={() => setMobileOpen(false)}
                   >
                     {label}
@@ -268,7 +273,7 @@ export default function Navbar() {
             </nav>
 
             <motion.div
-              className="mt-auto pt-8 border-t border-slate-200"
+              className="mt-auto pt-8 border-t border-slate-200 dark:border-slate-700"
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
@@ -285,10 +290,10 @@ export default function Navbar() {
                       {session.user?.name?.[0]?.toUpperCase()}
                     </div>
                     <div>
-                      <p className="text-sm font-semibold text-slate-900">
+                      <p className="text-sm font-semibold text-slate-900 dark:text-white">
                         {session.user?.name}
                       </p>
-                      <p className="text-xs text-slate-500">
+                      <p className="text-xs text-slate-500 dark:text-slate-400">
                         {session.user?.email}
                       </p>
                     </div>
@@ -296,14 +301,14 @@ export default function Navbar() {
                   <div className="flex flex-col gap-1">
                     <Link
                       href={dashboardHref}
-                      className="py-2 text-sm font-medium text-slate-700 hover:text-teal-600 transition-colors"
+                      className="py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
                       onClick={() => setMobileOpen(false)}
                     >
                       Dashboard
                     </Link>
                     <Link
                       href="/profile"
-                      className="py-2 text-sm font-medium text-slate-700 hover:text-teal-600 transition-colors"
+                      className="py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
                       onClick={() => setMobileOpen(false)}
                     >
                       My Profile
@@ -311,7 +316,7 @@ export default function Navbar() {
                     {session.user?.role === "CAREGIVER" && (
                       <Link
                         href="/caregiver/schedule"
-                        className="py-2 text-sm font-medium text-slate-700 hover:text-teal-600 transition-colors"
+                        className="py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-teal-600 dark:hover:text-teal-400 transition-colors"
                         onClick={() => setMobileOpen(false)}
                       >
                         My Schedule
@@ -326,13 +331,16 @@ export default function Navbar() {
                     >
                       Sign out
                     </button>
+                    <div className="pt-2">
+                      <ThemeToggle />
+                    </div>
                   </div>
                 </>
               ) : (
                 <div className="flex flex-col gap-3">
                   <Link
                     href="/login"
-                    className="py-3 text-center text-sm font-semibold text-slate-800 border border-slate-200 rounded-xl hover:bg-slate-50 transition-all"
+                    className="py-3 text-center text-sm font-semibold text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition-all"
                     onClick={() => setMobileOpen(false)}
                   >
                     Log in
@@ -344,6 +352,9 @@ export default function Navbar() {
                   >
                     Sign up
                   </Link>
+                  <div className="flex justify-center pt-2">
+                    <ThemeToggle />
+                  </div>
                 </div>
               )}
             </motion.div>
