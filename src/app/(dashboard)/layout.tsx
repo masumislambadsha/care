@@ -229,7 +229,7 @@ export default function DashboardLayout({
         </header>
 
         {/* Page Content */}
-        <main className="p-3 sm:p-6 mx-auto max-w-6xl bg-slate-50 dark:bg-slate-950 min-h-screen">
+        <main className="p-3 sm:p-6 mx-auto max-w-7xl bg-slate-50 dark:bg-slate-950 min-h-screen">
           {children}
         </main>
       </div>
