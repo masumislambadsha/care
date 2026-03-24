@@ -194,6 +194,7 @@ export default function CaregiverAvailabilityPage() {
               </h3>
               <div className="flex gap-2">
                 <button
+                
                   onClick={() => toggleDay(dayIndex, true)}
                   className="px-1 sm:px-3 py-1 sm:text-sm bg-green-100 hover:bg-green-200 text-green-700 font-semibold rounded-lg transition-all text-[10px]"
                 >
