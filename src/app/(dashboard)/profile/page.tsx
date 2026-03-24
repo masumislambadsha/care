@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -51,7 +51,7 @@ export default function ProfilePage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-600">Loading...</p>
+          <p className="text-slate-600 dark:text-slate-400">Loading...</p>
         </div>
       </div>
     );
@@ -141,16 +141,16 @@ export default function ProfilePage() {
     <>
       {/* Header */}
       <div className="mb-4 sm:mb-8">
-        <h1 className="text-lg sm:text-3xl font-bold text-slate-900 mb-1 sm:mb-2">
+        <h1 className="text-lg sm:text-3xl font-bold text-slate-900 dark:text-white mb-1 sm:mb-2">
           Profile
         </h1>
-        <p className="text-xs sm:text-sm text-slate-600">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
           Manage your account information
         </p>
       </div>
 
       {/* Profile Card */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
         {/* Cover */}
         <div className="h-32 bg-linear-to-r from-teal-500 to-blue-500"></div>
 
@@ -202,7 +202,7 @@ export default function ProfilePage() {
                 <h2 className="text-base sm:text-2xl font-bold text-slate-900">
                   {formData.name}
                 </h2>
-                <p className="text-xs sm:text-sm text-slate-600 truncate max-w-[140px] sm:max-w-none">
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 truncate max-w-[140px] sm:max-w-none">
                   {formData.email}
                 </p>
                 <span className="inline-block mt-1 px-2 py-0.5 bg-teal-100 text-teal-700 text-xs font-semibold rounded-full">
@@ -232,7 +232,7 @@ export default function ProfilePage() {
                     setFormData({ ...formData, name: e.target.value })
                   }
                   disabled={!isEditing}
-                  className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none text-slate-900 disabled:bg-slate-50"
+                  className="w-full px-4 py-3 border-2 border-slate-200 dark:border-slate-600 rounded-lg focus:border-teal-600 focus:outline-none text-slate-900 dark:text-white dark:bg-slate-700 disabled:bg-slate-50"
                 />
               </div>
 
@@ -244,7 +244,7 @@ export default function ProfilePage() {
                   type="email"
                   value={formData.email}
                   disabled
-                  className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg text-slate-900 bg-slate-50 cursor-not-allowed"
+                  className="w-full px-4 py-3 border-2 border-slate-200 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-700 cursor-not-allowed"
                 />
               </div>
 
@@ -260,7 +260,7 @@ export default function ProfilePage() {
                   }
                   disabled={!isEditing}
                   placeholder="+880 1XXX-XXXXXX"
-                  className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none text-slate-900 disabled:bg-slate-50"
+                  className="w-full px-4 py-3 border-2 border-slate-200 dark:border-slate-600 rounded-lg focus:border-teal-600 focus:outline-none text-slate-900 dark:text-white dark:bg-slate-700 disabled:bg-slate-50"
                 />
               </div>
 
@@ -272,7 +272,7 @@ export default function ProfilePage() {
                   type="text"
                   value={session?.user?.role || ""}
                   disabled
-                  className="w-full px-4 py-3 border-2 border-slate-200 rounded-lg text-slate-900 bg-slate-50"
+                  className="w-full px-4 py-3 border-2 border-slate-200 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white bg-slate-50 dark:bg-slate-700"
                 />
               </div>
             </div>
@@ -305,11 +305,11 @@ export default function ProfilePage() {
       {/* Additional Sections */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
         {/* Security */}
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
           <h3 className="text-lg font-bold text-slate-900 mb-4">Security</h3>
           <button className="w-full flex items-center justify-between p-4 border-2 border-slate-200 rounded-lg hover:border-teal-600 hover:bg-teal-50 transition-all group">
             <div className="flex items-center gap-3">
-              <span className="material-icons text-slate-600 group-hover:text-teal-600">
+              <span className="material-icons text-slate-600 dark:text-slate-400 group-hover:text-teal-600">
                 lock
               </span>
               <span className="font-semibold text-slate-900 group-hover:text-teal-700">
@@ -323,11 +323,11 @@ export default function ProfilePage() {
         </div>
 
         {/* Preferences */}
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
           <h3 className="text-lg font-bold text-slate-900 mb-4">Preferences</h3>
           <button className="w-full flex items-center justify-between p-4 border-2 border-slate-200 rounded-lg hover:border-teal-600 hover:bg-teal-50 transition-all group">
             <div className="flex items-center gap-3">
-              <span className="material-icons text-slate-600 group-hover:text-teal-600">
+              <span className="material-icons text-slate-600 dark:text-slate-400 group-hover:text-teal-600">
                 notifications
               </span>
               <span className="font-semibold text-slate-900 group-hover:text-teal-700">

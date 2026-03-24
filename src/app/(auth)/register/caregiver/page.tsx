@@ -412,7 +412,7 @@ export default function RegisterCaregiverPage() {
                     </label>
                     <input
                       type="file"
-                      accept="image/*"
+                    accept="image/*"
                       onChange={handleProfileImageUpload}
                       disabled={uploadingProfile}
                       className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-600 rounded-lg text-slate-900 dark:text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-teal-50 file:text-teal-700 hover:file:bg-teal-100"

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -78,7 +78,7 @@ export default function AdminBookingsPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-600">Loading bookings...</p>
+          <p className="text-slate-600 dark:text-slate-400">Loading bookings...</p>
         </div>
       </div>
     );
@@ -143,36 +143,36 @@ export default function AdminBookingsPage() {
     <>
       {/* Header */}
       <div className="mb-4 sm:mb-8">
-        <h1 className="text-lg sm:text-3xl font-bold text-slate-900 mb-2">
+        <h1 className="text-lg sm:text-3xl font-bold text-slate-900 dark:text-white mb-2">
           Booking Management
         </h1>
-        <p className="text-xs sm:text-sm text-slate-600">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
           Manage all platform bookings
         </p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-4 mb-4 sm:mb-8">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-4">
-          <p className="text-xs sm:text-sm text-slate-600 mb-1">Total</p>
-          <p className="text-lg sm:text-2xl font-bold text-slate-900">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-4">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-1">Total</p>
+          <p className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">
             {stats.total}
           </p>
         </div>
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-4">
-          <p className="text-xs sm:text-sm text-slate-600 mb-1">Confirmed</p>
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-4">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-1">Confirmed</p>
           <p className="text-lg sm:text-2xl font-bold text-blue-600">
             {stats.confirmed}
           </p>
         </div>
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-4">
-          <p className="text-xs sm:text-sm text-slate-600 mb-1">Ongoing</p>
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-4">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-1">Ongoing</p>
           <p className="text-lg sm:text-2xl font-bold text-purple-600">
             {stats.ongoing}
           </p>
         </div>
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-4">
-          <p className="text-xs sm:text-sm text-slate-600 mb-1">Revenue</p>
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-4">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-1">Revenue</p>
           <p className="text-lg sm:text-2xl font-bold text-teal-600">
             ${stats.totalRevenue.toFixed(0)}
           </p>
@@ -180,7 +180,7 @@ export default function AdminBookingsPage() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-6 mb-4 sm:mb-6">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-6 mb-4 sm:mb-6">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
           <div>
             <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-1 sm:mb-2">
@@ -191,7 +191,7 @@ export default function AdminBookingsPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by booking #, client, caregiver..."
-              className="w-full px-3 sm:px-4 py-2 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none transition-colors text-xs sm:text-sm text-slate-900"
+              className="w-full px-3 sm:px-4 py-2 border-2 border-slate-200 dark:border-slate-600 rounded-lg focus:border-teal-600 focus:outline-none transition-colors text-xs sm:text-sm text-slate-900 dark:text-white dark:bg-slate-700"
             />
           </div>
 
@@ -202,7 +202,7 @@ export default function AdminBookingsPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full px-3 sm:px-4 py-2 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none transition-colors text-xs sm:text-sm text-slate-900"
+              className="w-full px-3 sm:px-4 py-2 border-2 border-slate-200 dark:border-slate-600 rounded-lg focus:border-teal-600 focus:outline-none transition-colors text-xs sm:text-sm text-slate-900 dark:text-white dark:bg-slate-700"
             >
               <option value="all">All Status</option>
               <option value="CONFIRMED">Confirmed</option>
@@ -219,7 +219,7 @@ export default function AdminBookingsPage() {
             <select
               value={paymentFilter}
               onChange={(e) => setPaymentFilter(e.target.value)}
-              className="w-full px-3 sm:px-4 py-2 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none transition-colors text-xs sm:text-sm text-slate-900"
+              className="w-full px-3 sm:px-4 py-2 border-2 border-slate-200 dark:border-slate-600 rounded-lg focus:border-teal-600 focus:outline-none transition-colors text-xs sm:text-sm text-slate-900 dark:text-white dark:bg-slate-700"
             >
               <option value="all">All Payments</option>
               <option value="PAID">Paid</option>
@@ -232,10 +232,10 @@ export default function AdminBookingsPage() {
       </div>
 
       {/* Bookings Table */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-slate-50 border-b border-slate-200">
+            <thead className="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
               <tr>
                 <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-slate-700">
                   Booking #
@@ -263,7 +263,7 @@ export default function AdminBookingsPage() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
               {filteredBookings.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="px-6 py-12 text-center">
@@ -271,7 +271,7 @@ export default function AdminBookingsPage() {
                       <span className="material-icons text-slate-400 text-5xl mb-3">
                         event_busy
                       </span>
-                      <p className="text-slate-600 font-medium">
+                      <p className="text-slate-600 dark:text-white font-medium">
                         No bookings found
                       </p>
                     </div>
@@ -281,33 +281,33 @@ export default function AdminBookingsPage() {
                 filteredBookings.map((booking) => (
                   <tr
                     key={booking.id}
-                    className="hover:bg-slate-50 transition-colors"
+                    className="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
                   >
                     <td className="px-3 sm:px-6 py-3 sm:py-4">
-                      <p className="font-semibold text-xs sm:text-sm text-slate-900">
+                      <p className="font-semibold text-xs sm:text-sm text-slate-900 dark:text-white">
                         {booking.booking_number}
                       </p>
                     </td>
                     <td className="hidden sm:table-cell px-3 sm:px-6 py-3 sm:py-4">
-                      <p className="text-xs sm:text-sm text-slate-900">
+                      <p className="text-xs sm:text-sm text-slate-900 dark:text-white">
                         {booking.client_name}
                       </p>
                     </td>
                     <td className="hidden sm:table-cell px-3 sm:px-6 py-3 sm:py-4">
-                      <p className="text-xs sm:text-sm text-slate-900">
+                      <p className="text-xs sm:text-sm text-slate-900 dark:text-white">
                         {booking.caregiver_name}
                       </p>
                     </td>
                     <td className="px-3 sm:px-6 py-3 sm:py-4">
-                      <p className="text-xs sm:text-sm text-slate-900">
+                      <p className="text-xs sm:text-sm text-slate-900 dark:text-white">
                         {booking.service_name}
                       </p>
                     </td>
-                    <td className="hidden sm:table-cell px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-slate-600">
+                    <td className="hidden sm:table-cell px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
                       {new Date(booking.start_date).toLocaleDateString()}
                     </td>
                     <td className="px-3 sm:px-6 py-3 sm:py-4">
-                      <p className="font-semibold text-xs sm:text-sm text-slate-900">
+                      <p className="font-semibold text-xs sm:text-sm text-slate-900 dark:text-white">
                         $
                         {parseFloat(booking.total_amount.toString()).toFixed(2)}
                       </p>
@@ -340,7 +340,7 @@ export default function AdminBookingsPage() {
                           className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
                           title="View Details"
                         >
-                          <span className="material-icons text-slate-600 text-xl">
+                          <span className="material-icons text-slate-600 dark:text-slate-400 text-xl">
                             visibility
                           </span>
                         </button>
@@ -357,24 +357,24 @@ export default function AdminBookingsPage() {
       {/* Booking Details Modal */}
       {showDetailsModal && selectedBooking && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-slate-900">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-6 py-4 flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
                 Booking Details
               </h2>
               <button
                 onClick={() => setShowDetailsModal(false)}
                 className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-all"
               >
-                <span className="material-icons text-slate-600">close</span>
+                <span className="material-icons text-slate-600 dark:text-slate-400">close</span>
               </button>
             </div>
 
             <div className="p-6 space-y-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-slate-600">Booking Number</p>
-                  <p className="text-xl font-bold text-slate-900">
+                  <p className="text-sm text-slate-600 dark:text-slate-400">Booking Number</p>
+                  <p className="text-xl font-bold text-slate-900 dark:text-white">
                     {selectedBooking.booking_number}
                   </p>
                 </div>
@@ -397,37 +397,37 @@ export default function AdminBookingsPage() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-slate-50 rounded-lg p-4">
-                  <p className="text-sm text-slate-600 mb-1">Client</p>
-                  <p className="font-semibold text-slate-900">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-4">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">Client</p>
+                  <p className="font-semibold text-slate-900 dark:text-white">
                     {selectedBooking.client_name}
                   </p>
                 </div>
 
-                <div className="bg-slate-50 rounded-lg p-4">
-                  <p className="text-sm text-slate-600 mb-1">Caregiver</p>
-                  <p className="font-semibold text-slate-900">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-4">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">Caregiver</p>
+                  <p className="font-semibold text-slate-900 dark:text-white">
                     {selectedBooking.caregiver_name}
                   </p>
                 </div>
 
-                <div className="bg-slate-50 rounded-lg p-4">
-                  <p className="text-sm text-slate-600 mb-1">Service</p>
-                  <p className="font-semibold text-slate-900">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-4">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">Service</p>
+                  <p className="font-semibold text-slate-900 dark:text-white">
                     {selectedBooking.service_name}
                   </p>
                 </div>
 
-                <div className="bg-slate-50 rounded-lg p-4">
-                  <p className="text-sm text-slate-600 mb-1">Start Date</p>
-                  <p className="font-semibold text-slate-900">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-4">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">Start Date</p>
+                  <p className="font-semibold text-slate-900 dark:text-white">
                     {new Date(selectedBooking.start_date).toLocaleDateString()}
                   </p>
                 </div>
 
-                <div className="bg-slate-50 rounded-lg p-4">
-                  <p className="text-sm text-slate-600 mb-1">Total Amount</p>
-                  <p className="font-semibold text-slate-900">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-4">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">Total Amount</p>
+                  <p className="font-semibold text-slate-900 dark:text-white">
                     $
                     {parseFloat(
                       selectedBooking.total_amount.toString(),
@@ -435,9 +435,9 @@ export default function AdminBookingsPage() {
                   </p>
                 </div>
 
-                <div className="bg-slate-50 rounded-lg p-4">
-                  <p className="text-sm text-slate-600 mb-1">Created</p>
-                  <p className="font-semibold text-slate-900">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-4">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">Created</p>
+                  <p className="font-semibold text-slate-900 dark:text-white">
                     {new Date(selectedBooking.created_at).toLocaleDateString()}
                   </p>
                 </div>
@@ -446,7 +446,7 @@ export default function AdminBookingsPage() {
               {/* Status Update Actions */}
               {selectedBooking.status !== "COMPLETED" &&
                 selectedBooking.status !== "CANCELLED" && (
-                  <div className="flex gap-3 pt-4 border-t border-slate-200">
+                  <div className="flex gap-3 pt-4 border-t border-slate-200 dark:border-slate-700">
                     {selectedBooking.status === "CONFIRMED" && (
                       <button
                         onClick={() => {

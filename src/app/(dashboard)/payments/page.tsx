@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -69,7 +69,7 @@ export default function PaymentsPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-600">Loading payments...</p>
+          <p className="text-slate-600 dark:text-slate-400">Loading payments...</p>
         </div>
       </div>
     );
@@ -101,14 +101,14 @@ export default function PaymentsPage() {
         <h1 className="text-lg sm:text-3xl font-bold text-slate-900 mb-1 sm:mb-2">
           Payment History
         </h1>
-        <p className="text-xs sm:text-sm text-slate-600">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
           View all your payment transactions
         </p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-2 sm:gap-6 mb-4 sm:mb-8">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-2 sm:p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-2 sm:p-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-3">
             <div className="w-7 h-7 sm:w-12 sm:h-12 bg-teal-100 rounded-lg flex items-center justify-center shrink-0">
               <span className="material-icons text-teal-600 text-sm sm:text-2xl">
@@ -116,7 +116,7 @@ export default function PaymentsPage() {
               </span>
             </div>
             <div>
-              <p className="text-[10px] sm:text-xs text-slate-600 leading-tight">
+              <p className="text-[10px] sm:text-xs text-slate-600 dark:text-slate-400 leading-tight">
                 Total Spent
               </p>
               <p className="text-xs sm:text-2xl font-bold text-slate-900 leading-tight">
@@ -125,7 +125,7 @@ export default function PaymentsPage() {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-2 sm:p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-2 sm:p-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-3">
             <div className="w-7 h-7 sm:w-12 sm:h-12 bg-green-100 rounded-lg flex items-center justify-center shrink-0">
               <span className="material-icons text-green-600 text-sm sm:text-2xl">
@@ -133,7 +133,7 @@ export default function PaymentsPage() {
               </span>
             </div>
             <div>
-              <p className="text-[10px] sm:text-xs text-slate-600 leading-tight">
+              <p className="text-[10px] sm:text-xs text-slate-600 dark:text-slate-400 leading-tight">
                 Successful
               </p>
               <p className="text-xs sm:text-2xl font-bold text-slate-900 leading-tight">
@@ -142,7 +142,7 @@ export default function PaymentsPage() {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-2 sm:p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-2 sm:p-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-3">
             <div className="w-7 h-7 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
               <span className="material-icons text-blue-600 text-sm sm:text-2xl">
@@ -150,7 +150,7 @@ export default function PaymentsPage() {
               </span>
             </div>
             <div>
-              <p className="text-[10px] sm:text-xs text-slate-600 leading-tight">
+              <p className="text-[10px] sm:text-xs text-slate-600 dark:text-slate-400 leading-tight">
                 Transactions
               </p>
               <p className="text-xs sm:text-2xl font-bold text-slate-900 leading-tight">
@@ -162,7 +162,7 @@ export default function PaymentsPage() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-4 mb-4 sm:mb-6">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-4 mb-4 sm:mb-6">
         <div className="flex flex-wrap gap-2">
           {["all", "paid", "pending", "failed", "refunded"].map(
             (filterOption) => (
@@ -184,7 +184,7 @@ export default function PaymentsPage() {
 
       {/* Payments List */}
       {payments.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-12 text-center">
           <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="material-icons text-slate-400 text-4xl">
               receipt
@@ -193,37 +193,37 @@ export default function PaymentsPage() {
           <h3 className="text-xl font-bold text-slate-900 mb-2">
             No payments yet
           </h3>
-          <p className="text-slate-600">
+          <p className="text-slate-600 dark:text-slate-400">
             Your payment history will appear here
           </p>
         </div>
       ) : (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
                 <tr>
-                  <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-slate-600 uppercase">
+                  <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase">
                     Date
                   </th>
-                  <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-slate-600 uppercase">
+                  <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase">
                     Service
                   </th>
-                  <th className="hidden sm:table-cell px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-slate-600 uppercase">
+                  <th className="hidden sm:table-cell px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase">
                     Caregiver
                   </th>
-                  <th className="hidden md:table-cell px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-slate-600 uppercase">
+                  <th className="hidden md:table-cell px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase">
                     Transaction ID
                   </th>
-                  <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-slate-600 uppercase">
+                  <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase">
                     Amount
                   </th>
-                  <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-slate-600 uppercase">
+                  <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase">
                     Status
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-200">
+              <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
                 {payments
                   .filter((p) =>
                     filter === "all"
@@ -233,7 +233,7 @@ export default function PaymentsPage() {
                   .map((payment) => (
                     <tr
                       key={payment.id}
-                      className="hover:bg-slate-50 transition-colors"
+                      className="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
                     >
                       <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-slate-900">
                         {payment.created_at
@@ -250,10 +250,10 @@ export default function PaymentsPage() {
                       <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-semibold text-slate-900">
                         {payment.service_name}
                       </td>
-                      <td className="hidden sm:table-cell px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-slate-600">
+                      <td className="hidden sm:table-cell px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
                         {payment.caregiver_name}
                       </td>
-                      <td className="hidden md:table-cell px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-slate-600 font-mono">
+                      <td className="hidden md:table-cell px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-slate-600 dark:text-slate-400 font-mono">
                         {payment.transaction_id}
                       </td>
                       <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-bold text-teal-600">

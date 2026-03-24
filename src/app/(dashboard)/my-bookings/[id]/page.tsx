@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useSession } from "next-auth/react";
 import { useRouter, useParams } from "next/navigation";
@@ -146,7 +146,7 @@ export default function BookingDetailPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-600">Loading booking details...</p>
+          <p className="text-slate-600 dark:text-slate-400">Loading booking details...</p>
         </div>
       </div>
     );
@@ -187,7 +187,7 @@ export default function BookingDetailPage() {
         <h1 className="text-lg sm:text-3xl font-bold text-slate-900 mb-2">
           Booking Details
         </h1>
-        <p className="text-xs sm:text-sm text-slate-600">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
           Booking #{booking.booking_number}
         </p>
       </div>
@@ -197,7 +197,7 @@ export default function BookingDetailPage() {
         {/* Left Column - Main Details */}
         <div className="lg:col-span-2 space-y-3 sm:space-y-6">
           {/* Status Card */}
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-6">
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-6">
             <div className="flex items-center justify-between mb-4 sm:mb-6">
               <span
                 className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-semibold ${getStatusColor(
@@ -206,7 +206,7 @@ export default function BookingDetailPage() {
               >
                 {booking.status}
               </span>
-              <span className="text-xs sm:text-sm text-slate-600">
+              <span className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
                 Booked on {new Date(booking.created_at).toLocaleDateString()}
               </span>
             </div>
@@ -289,7 +289,7 @@ export default function BookingDetailPage() {
           </div>
 
           {/* Location Card */}
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center">
                 <span className="material-icons text-teal-600">
@@ -306,7 +306,7 @@ export default function BookingDetailPage() {
           </div>
 
           {/* Timeline */}
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
             <h3 className="text-lg font-bold text-slate-900 mb-4">
               Booking Timeline
             </h3>
@@ -324,7 +324,7 @@ export default function BookingDetailPage() {
                   <p className="font-semibold text-slate-900">
                     Booking Created
                   </p>
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-slate-600 dark:text-slate-400">
                     {new Date(booking.created_at).toLocaleString()}
                   </p>
                 </div>
@@ -357,7 +357,7 @@ export default function BookingDetailPage() {
                   <p className="font-semibold text-slate-900">
                     Service Scheduled
                   </p>
-                  <p className="text-sm text-slate-600">
+                  <p className="text-sm text-slate-600 dark:text-slate-400">
                     {new Date(booking.start_date).toLocaleString()}
                   </p>
                 </div>
@@ -376,7 +376,7 @@ export default function BookingDetailPage() {
                     <p className="font-semibold text-slate-900">
                       Service Completed
                     </p>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-slate-600 dark:text-slate-400">
                       {new Date(booking.end_date).toLocaleString()}
                     </p>
                   </div>
@@ -396,7 +396,7 @@ export default function BookingDetailPage() {
                     <p className="font-semibold text-slate-900">
                       Booking Cancelled
                     </p>
-                    <p className="text-sm text-slate-600">Refund processed</p>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">Refund processed</p>
                   </div>
                 </div>
               )}
@@ -407,7 +407,7 @@ export default function BookingDetailPage() {
         {/* Right Column - Summary & Actions */}
         <div className="space-y-6">
           {/* Price Summary */}
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
             <h3 className="text-lg font-bold text-slate-900 mb-4">
               Price Summary
             </h3>
@@ -428,7 +428,7 @@ export default function BookingDetailPage() {
           </div>
 
           {/* Actions */}
-          <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
             <h3 className="text-lg font-bold text-slate-900 mb-4">Actions</h3>
             <div className="space-y-3">
               {booking.status === "CONFIRMED" && !isCaregiver && (
@@ -482,7 +482,7 @@ export default function BookingDetailPage() {
       {/* Cancel Modal */}
       {showCancelModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl max-w-md w-full">
             <div className="border-b border-slate-200 px-6 py-4 flex items-center justify-between">
               <h2 className="text-xl font-bold text-slate-900">
                 Cancel Booking
@@ -491,7 +491,7 @@ export default function BookingDetailPage() {
                 onClick={() => setShowCancelModal(false)}
                 className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100"
               >
-                <span className="material-icons text-slate-600">close</span>
+                <span className="material-icons text-slate-600 dark:text-slate-400">close</span>
               </button>
             </div>
 
@@ -552,7 +552,7 @@ export default function BookingDetailPage() {
       {/* Review Modal */}
       {showReviewModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl max-w-md w-full">
             <div className="border-b border-slate-200 px-6 py-4 flex items-center justify-between">
               <h2 className="text-xl font-bold text-slate-900">
                 Leave a Review
@@ -561,13 +561,13 @@ export default function BookingDetailPage() {
                 onClick={() => setShowReviewModal(false)}
                 className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100"
               >
-                <span className="material-icons text-slate-600">close</span>
+                <span className="material-icons text-slate-600 dark:text-slate-400">close</span>
               </button>
             </div>
 
             <div className="p-6 space-y-4">
               <div>
-                <p className="text-sm text-slate-600 mb-2">
+                <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
                   Rate your experience with {booking.caregiver_name}
                 </p>
                 <div className="flex gap-2">

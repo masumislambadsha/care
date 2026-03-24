@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -108,7 +108,7 @@ export default function NotificationsPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-600">Loading notifications...</p>
+          <p className="text-slate-600 dark:text-slate-400">Loading notifications...</p>
         </div>
       </div>
     );
@@ -151,7 +151,7 @@ export default function NotificationsPage() {
       case "REVIEW_RECEIVED":
         return "bg-yellow-100 text-yellow-600";
       default:
-        return "bg-slate-100 text-slate-600";
+        return "bg-slate-100 text-slate-600 dark:text-slate-400";
     }
   };
 
@@ -162,24 +162,24 @@ export default function NotificationsPage() {
         <h1 className="text-lg sm:text-3xl font-bold text-slate-900 mb-2">
           Notifications
         </h1>
-        <p className="text-xs sm:text-sm text-slate-600">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
           Stay updated with your activities
         </p>
       </div>
 
       {/* Stats & Actions */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-6 mb-4 sm:mb-6">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-6 mb-4 sm:mb-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4 sm:gap-6">
             <div>
-              <p className="text-xs sm:text-sm text-slate-600">Total</p>
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Total</p>
               <p className="text-lg sm:text-2xl font-bold text-slate-900">
                 {notifications.length}
               </p>
             </div>
             <div className="w-px h-10 sm:h-12 bg-slate-200"></div>
             <div>
-              <p className="text-xs sm:text-sm text-slate-600">Unread</p>
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Unread</p>
               <p className="text-lg sm:text-2xl font-bold text-teal-600">
                 {unreadCount}
               </p>
@@ -198,7 +198,7 @@ export default function NotificationsPage() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-4 mb-4 sm:mb-6">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-4 mb-4 sm:mb-6">
         <div className="flex gap-2 sm:gap-3">
           <button
             onClick={() => setFilter("all")}
@@ -225,7 +225,7 @@ export default function NotificationsPage() {
 
       {/* Notifications List */}
       {filteredNotifications.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-12 text-center">
           <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="material-icons text-slate-400 text-4xl">
               notifications_none
@@ -236,7 +236,7 @@ export default function NotificationsPage() {
               ? "No unread notifications"
               : "No notifications yet"}
           </h3>
-          <p className="text-slate-600">
+          <p className="text-slate-600 dark:text-slate-400">
             {filter === "unread"
               ? "You're all caught up!"
               : "We'll notify you when something happens"}
@@ -247,7 +247,7 @@ export default function NotificationsPage() {
           {filteredNotifications.map((notification) => (
             <div
               key={notification.id}
-              className={`bg-white rounded-xl shadow-sm border transition-all ${
+              className={`bg-white dark:bg-slate-800 rounded-xl shadow-sm border transition-all ${
                 !notification.is_read
                   ? "border-teal-200 bg-teal-50"
                   : "border-slate-200 hover:border-slate-300"
@@ -282,7 +282,7 @@ export default function NotificationsPage() {
                         <span className="w-2 h-2 bg-teal-600 rounded-full flex-shrink-0 mt-2"></span>
                       )}
                     </div>
-                    <p className="text-slate-600 mb-3">
+                    <p className="text-slate-600 dark:text-slate-400 mb-3">
                       {notification.message}
                     </p>
                     <p className="text-sm text-slate-500">

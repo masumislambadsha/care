@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -110,7 +110,7 @@ export default function AdminUsersPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-600">Loading users...</p>
+          <p className="text-slate-600 dark:text-slate-400">Loading users...</p>
         </div>
       </div>
     );
@@ -165,48 +165,48 @@ export default function AdminUsersPage() {
     <>
       {/* Header */}
       <div className="mb-4 sm:mb-8">
-        <h1 className="text-lg sm:text-3xl font-bold text-slate-900 mb-2">
+        <h1 className="text-lg sm:text-3xl font-bold text-slate-900 dark:text-white mb-2">
           User Management
         </h1>
-        <p className="text-xs sm:text-sm text-slate-600">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
           Manage all platform users
         </p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-4 mb-4 sm:mb-8">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-4">
-          <p className="text-xs sm:text-sm text-slate-600 mb-1">Total Users</p>
-          <p className="text-lg sm:text-2xl font-bold text-slate-900">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-4">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-1">Total Users</p>
+          <p className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">
             {stats.total}
           </p>
         </div>
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-4">
-          <p className="text-xs sm:text-sm text-slate-600 mb-1">Clients</p>
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-4">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-1">Clients</p>
           <p className="text-lg sm:text-2xl font-bold text-green-600">
             {stats.clients}
           </p>
         </div>
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-4">
-          <p className="text-xs sm:text-sm text-slate-600 mb-1">Caregivers</p>
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-4">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-1">Caregivers</p>
           <p className="text-lg sm:text-2xl font-bold text-blue-600">
             {stats.caregivers}
           </p>
         </div>
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-4">
-          <p className="text-xs sm:text-sm text-slate-600 mb-1">Admins</p>
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-4">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-1">Admins</p>
           <p className="text-lg sm:text-2xl font-bold text-purple-600">
             {stats.admins}
           </p>
         </div>
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-4">
-          <p className="text-xs sm:text-sm text-slate-600 mb-1">Active</p>
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-4">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-1">Active</p>
           <p className="text-lg sm:text-2xl font-bold text-green-600">
             {stats.active}
           </p>
         </div>
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-4">
-          <p className="text-xs sm:text-sm text-slate-600 mb-1">Suspended</p>
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-4">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-1">Suspended</p>
           <p className="text-lg sm:text-2xl font-bold text-slate-400">
             {stats.suspended}
           </p>
@@ -214,7 +214,7 @@ export default function AdminUsersPage() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-6 mb-4 sm:mb-6">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-6 mb-4 sm:mb-6">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
           {/* Search */}
           <div>
@@ -226,7 +226,7 @@ export default function AdminUsersPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by name or email..."
-              className="w-full px-3 sm:px-4 py-2 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none transition-colors text-xs sm:text-sm text-slate-900"
+              className="w-full px-3 sm:px-4 py-2 border-2 border-slate-200 dark:border-slate-600 rounded-lg focus:border-teal-600 focus:outline-none transition-colors text-xs sm:text-sm text-slate-900 dark:text-white dark:bg-slate-700"
             />
           </div>
 
@@ -238,7 +238,7 @@ export default function AdminUsersPage() {
             <select
               value={roleFilter}
               onChange={(e) => setRoleFilter(e.target.value)}
-              className="w-full px-3 sm:px-4 py-2 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none transition-colors text-xs sm:text-sm text-slate-900"
+              className="w-full px-3 sm:px-4 py-2 border-2 border-slate-200 dark:border-slate-600 rounded-lg focus:border-teal-600 focus:outline-none transition-colors text-xs sm:text-sm text-slate-900 dark:text-white dark:bg-slate-700"
             >
               <option value="all">All Roles</option>
               <option value="CLIENT">Client</option>
@@ -255,7 +255,7 @@ export default function AdminUsersPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full px-3 sm:px-4 py-2 border-2 border-slate-200 rounded-lg focus:border-teal-600 focus:outline-none transition-colors text-xs sm:text-sm text-slate-900"
+              className="w-full px-3 sm:px-4 py-2 border-2 border-slate-200 dark:border-slate-600 rounded-lg focus:border-teal-600 focus:outline-none transition-colors text-xs sm:text-sm text-slate-900 dark:text-white dark:bg-slate-700"
             >
               <option value="all">All Status</option>
               <option value="ACTIVE">Active</option>
@@ -268,17 +268,17 @@ export default function AdminUsersPage() {
       {/* Users — mobile cards */}
       <div className="sm:hidden space-y-3">
         {filteredUsers.length === 0 ? (
-          <div className="bg-white rounded-xl border border-slate-200 p-8 text-center">
+          <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-8 text-center">
             <span className="material-icons text-slate-400 text-5xl mb-3 block">
               person_off
             </span>
-            <p className="text-slate-600 font-medium">No users found</p>
+            <p className="text-slate-600 dark:text-slate-400 font-medium">No users found</p>
           </div>
         ) : (
           filteredUsers.map((user) => (
             <div
               key={user.id}
-              className="bg-white rounded-xl border border-slate-200 p-3"
+              className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-3"
             >
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2 min-w-0">
@@ -288,7 +288,7 @@ export default function AdminUsersPage() {
                     </span>
                   </div>
                   <div className="min-w-0">
-                    <p className="font-semibold text-sm text-slate-900 truncate">
+                    <p className="font-semibold text-sm text-slate-900 dark:text-white truncate">
                       {user.name}
                     </p>
                     <p className="text-xs text-slate-500 truncate">
@@ -304,7 +304,7 @@ export default function AdminUsersPage() {
                     }}
                     className="p-1.5 hover:bg-slate-100 rounded-lg transition-colors"
                   >
-                    <span className="material-icons text-slate-600 text-lg">
+                    <span className="material-icons text-slate-600 dark:text-slate-400 text-lg">
                       visibility
                     </span>
                   </button>
@@ -350,10 +350,10 @@ export default function AdminUsersPage() {
       </div>
 
       {/* Users Table — sm and up */}
-      <div className="hidden sm:block bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="hidden sm:block bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-slate-50 border-b border-slate-200">
+            <thead className="bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-700">
               <tr>
                 <th className="px-6 py-4 text-left text-xs font-semibold text-slate-700">
                   User
@@ -372,7 +372,7 @@ export default function AdminUsersPage() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-200">
+            <tbody className="divide-y divide-slate-200 dark:divide-slate-700">
               {filteredUsers.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="px-6 py-12 text-center">
@@ -380,7 +380,7 @@ export default function AdminUsersPage() {
                       <span className="material-icons text-slate-400 text-5xl mb-3">
                         person_off
                       </span>
-                      <p className="text-slate-600 font-medium">
+                      <p className="text-slate-600 dark:text-slate-400 font-medium">
                         No users found
                       </p>
                     </div>
@@ -390,7 +390,7 @@ export default function AdminUsersPage() {
                 filteredUsers.map((user) => (
                   <tr
                     key={user.id}
-                    className="hover:bg-slate-50 transition-colors"
+                    className="hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
                   >
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
@@ -400,10 +400,10 @@ export default function AdminUsersPage() {
                           </span>
                         </div>
                         <div>
-                          <p className="font-semibold text-sm text-slate-900">
+                          <p className="font-semibold text-sm text-slate-900 dark:text-white">
                             {user.name}
                           </p>
-                          <p className="text-xs text-slate-600">{user.email}</p>
+                          <p className="text-xs text-slate-600 dark:text-slate-400">{user.email}</p>
                         </div>
                       </div>
                     </td>
@@ -421,7 +421,7 @@ export default function AdminUsersPage() {
                         {user.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-sm text-slate-600">
+                    <td className="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">
                       {new Date(user.created_at).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4">
@@ -434,7 +434,7 @@ export default function AdminUsersPage() {
                           className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
                           title="View Details"
                         >
-                          <span className="material-icons text-slate-600 text-xl">
+                          <span className="material-icons text-slate-600 dark:text-slate-400 text-xl">
                             visibility
                           </span>
                         </button>
@@ -474,16 +474,16 @@ export default function AdminUsersPage() {
       {/* User Details Modal */}
       {showDetailsModal && selectedUser && (
         <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center z-50 p-0 sm:p-4">
-          <div className="bg-white rounded-t-2xl sm:rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white border-b border-slate-200 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
-              <h2 className="text-lg sm:text-2xl font-bold text-slate-900">
+          <div className="bg-white dark:bg-slate-800 rounded-t-2xl sm:rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+              <h2 className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">
                 User Details
               </h2>
               <button
                 onClick={() => setShowDetailsModal(false)}
                 className="w-9 h-9 flex items-center justify-center rounded-full hover:bg-slate-100 transition-all"
               >
-                <span className="material-icons text-slate-600">close</span>
+                <span className="material-icons text-slate-600 dark:text-slate-400">close</span>
               </button>
             </div>
 
@@ -495,26 +495,26 @@ export default function AdminUsersPage() {
                   </span>
                 </div>
                 <div className="min-w-0">
-                  <h3 className="text-base sm:text-2xl font-bold text-slate-900 truncate">
+                  <h3 className="text-base sm:text-2xl font-bold text-slate-900 dark:text-white truncate">
                     {selectedUser.name}
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-600 truncate">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 truncate">
                     {selectedUser.email}
                   </p>
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                <div className="bg-slate-50 rounded-lg p-3 sm:p-4">
-                  <p className="text-xs sm:text-sm text-slate-600 mb-1">Role</p>
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-3 sm:p-4">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-1">Role</p>
                   <span
                     className={`px-2 py-0.5 rounded-full text-xs font-semibold ${getRoleBadgeColor(selectedUser.role)}`}
                   >
                     {selectedUser.role}
                   </span>
                 </div>
-                <div className="bg-slate-50 rounded-lg p-3 sm:p-4">
-                  <p className="text-xs sm:text-sm text-slate-600 mb-1">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-3 sm:p-4">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-1">
                     Status
                   </p>
                   <span
@@ -523,25 +523,25 @@ export default function AdminUsersPage() {
                     {selectedUser.status}
                   </span>
                 </div>
-                <div className="bg-slate-50 rounded-lg p-3 sm:p-4">
-                  <p className="text-xs sm:text-sm text-slate-600 mb-1">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-3 sm:p-4">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-1">
                     Phone
                   </p>
-                  <p className="text-sm font-semibold text-slate-900">
+                  <p className="text-sm font-semibold text-slate-900 dark:text-white">
                     {selectedUser.phone || "Not provided"}
                   </p>
                 </div>
-                <div className="bg-slate-50 rounded-lg p-3 sm:p-4">
-                  <p className="text-xs sm:text-sm text-slate-600 mb-1">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-3 sm:p-4">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-1">
                     Joined
                   </p>
-                  <p className="text-sm font-semibold text-slate-900">
+                  <p className="text-sm font-semibold text-slate-900 dark:text-white">
                     {new Date(selectedUser.created_at).toLocaleDateString()}
                   </p>
                 </div>
               </div>
 
-              <div className="flex gap-2 sm:gap-3 pt-3 sm:pt-4 border-t border-slate-200">
+              <div className="flex gap-2 sm:gap-3 pt-3 sm:pt-4 border-t border-slate-200 dark:border-slate-700">
                 {selectedUser.status === "ACTIVE" ? (
                   <button
                     onClick={() => {

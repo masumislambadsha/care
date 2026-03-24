@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -343,7 +343,7 @@ export default function AddressesPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-600">Loading addresses...</p>
+          <p className="text-slate-600 dark:text-slate-400">Loading addresses...</p>
         </div>
       </div>
     );
@@ -365,7 +365,7 @@ export default function AddressesPage() {
           <h1 className="text-lg sm:text-3xl font-bold text-slate-900 mb-1 sm:mb-2">
             Saved Addresses
           </h1>
-          <p className="text-xs sm:text-sm text-slate-600">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
             Manage your addresses for faster booking
           </p>
         </div>
@@ -381,7 +381,7 @@ export default function AddressesPage() {
 
       {/* Addresses Grid */}
       {addresses.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-12 text-center">
           <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="material-icons text-slate-400 text-4xl">
               location_on
@@ -390,7 +390,7 @@ export default function AddressesPage() {
           <h3 className="text-xl font-bold text-slate-900 mb-2">
             No saved addresses yet
           </h3>
-          <p className="text-slate-600 mb-6">
+          <p className="text-slate-600 dark:text-slate-400 mb-6">
             Add addresses to make booking faster
           </p>
           <button
@@ -406,7 +406,7 @@ export default function AddressesPage() {
           {addresses.map((address) => (
             <div
               key={address.id}
-              className={`bg-white rounded-xl shadow-sm border-2 p-6 hover:shadow-md transition-all ${
+              className={`bg-white dark:bg-slate-800 rounded-xl shadow-sm border-2 p-6 hover:shadow-md transition-all ${
                 address.is_default
                   ? "border-teal-600 bg-teal-50"
                   : "border-slate-200"
@@ -435,7 +435,7 @@ export default function AddressesPage() {
                     onClick={() => openEditModal(address)}
                     className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
                   >
-                    <span className="material-icons text-slate-600 text-xl">
+                    <span className="material-icons text-slate-600 dark:text-slate-400 text-xl">
                       edit
                     </span>
                   </button>
@@ -452,10 +452,10 @@ export default function AddressesPage() {
 
               <div className="space-y-2 mb-4">
                 <p className="text-slate-700">{address.address}</p>
-                <p className="text-sm text-slate-600">
+                <p className="text-sm text-slate-600 dark:text-slate-400">
                   {address.area}, {address.city}
                 </p>
-                <p className="text-sm text-slate-600">
+                <p className="text-sm text-slate-600 dark:text-slate-400">
                   {address.district}, {address.division}
                 </p>
               </div>
@@ -476,8 +476,8 @@ export default function AddressesPage() {
       {/* Add/Edit Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-6 py-4 flex items-center justify-between">
               <h2 className="text-2xl font-bold text-slate-900">
                 {editingAddress ? "Edit Address" : "Add New Address"}
               </h2>
@@ -485,7 +485,7 @@ export default function AddressesPage() {
                 onClick={() => setShowModal(false)}
                 className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-all"
               >
-                <span className="material-icons text-slate-600">close</span>
+                <span className="material-icons text-slate-600 dark:text-slate-400">close</span>
               </button>
             </div>
 

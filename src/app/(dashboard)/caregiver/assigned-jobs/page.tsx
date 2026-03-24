@@ -98,7 +98,9 @@ export default function AssignedJobsPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-600">Loading assigned jobs...</p>
+          <p className="text-slate-600 dark:text-slate-400">
+            Loading assigned jobs...
+          </p>
         </div>
       </div>
     );
@@ -123,17 +125,17 @@ export default function AssignedJobsPage() {
     <>
       {/* Header */}
       <div className="mb-4 sm:mb-8">
-        <h1 className="text-lg sm:text-3xl font-bold text-slate-900 mb-2">
+        <h1 className="text-lg sm:text-3xl font-bold text-slate-900 dark:text-white mb-2">
           Assigned Jobs
         </h1>
-        <p className="text-xs sm:text-sm text-slate-600">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
           Manage jobs assigned to you by clients
         </p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6 mb-4 sm:mb-8">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-6">
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="w-8 h-8 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center">
               <span className="material-icons text-base sm:text-2xl text-blue-600">
@@ -141,15 +143,17 @@ export default function AssignedJobsPage() {
               </span>
             </div>
             <div>
-              <p className="text-xs sm:text-sm text-slate-600">Pending</p>
-              <p className="text-lg sm:text-2xl font-bold text-slate-900">
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                Pending
+              </p>
+              <p className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">
                 {jobs.filter((j) => j.status === "CONFIRMED").length}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-6">
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="w-8 h-8 sm:w-12 sm:h-12 bg-purple-100 rounded-lg flex items-center justify-center">
               <span className="material-icons text-base sm:text-2xl text-purple-600">
@@ -157,15 +161,17 @@ export default function AssignedJobsPage() {
               </span>
             </div>
             <div>
-              <p className="text-xs sm:text-sm text-slate-600">Ongoing</p>
-              <p className="text-lg sm:text-2xl font-bold text-slate-900">
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                Ongoing
+              </p>
+              <p className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">
                 {jobs.filter((j) => j.status === "ONGOING").length}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-6">
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="w-8 h-8 sm:w-12 sm:h-12 bg-green-100 rounded-lg flex items-center justify-center">
               <span className="material-icons text-base sm:text-2xl text-green-600">
@@ -173,15 +179,17 @@ export default function AssignedJobsPage() {
               </span>
             </div>
             <div>
-              <p className="text-xs sm:text-sm text-slate-600">Completed</p>
-              <p className="text-lg sm:text-2xl font-bold text-slate-900">
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                Completed
+              </p>
+              <p className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">
                 {jobs.filter((j) => j.status === "COMPLETED").length}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-6">
           <div className="flex items-center gap-2 sm:gap-3">
             <div className="w-8 h-8 sm:w-12 sm:h-12 bg-teal-100 rounded-lg flex items-center justify-center">
               <span className="material-icons text-base sm:text-2xl text-teal-600">
@@ -189,8 +197,10 @@ export default function AssignedJobsPage() {
               </span>
             </div>
             <div>
-              <p className="text-xs sm:text-sm text-slate-600">Total Jobs</p>
-              <p className="text-lg sm:text-2xl font-bold text-slate-900">
+              <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
+                Total Jobs
+              </p>
+              <p className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">
                 {jobs.length}
               </p>
             </div>
@@ -199,7 +209,7 @@ export default function AssignedJobsPage() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-4 mb-4 sm:mb-6">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-4 mb-4 sm:mb-6">
         <div className="flex flex-wrap gap-2 sm:gap-3">
           {["all", "confirmed", "ongoing", "completed", "cancelled"].map(
             (filterOption) => (
@@ -209,7 +219,7 @@ export default function AssignedJobsPage() {
                 className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all ${
                   filter === filterOption
                     ? "bg-teal-600 text-white"
-                    : "bg-slate-100 text-slate-700 hover:bg-slate-200"
+                    : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-300 dark:hover:bg-slate-600"
                 }`}
               >
                 {filterOption.charAt(0).toUpperCase() + filterOption.slice(1)}
@@ -223,16 +233,16 @@ export default function AssignedJobsPage() {
       {jobs.filter((j) =>
         filter === "all" ? true : j.status.toLowerCase() === filter,
       ).length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center">
-          <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-12 text-center">
+          <div className="w-20 h-20 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="material-icons text-slate-400 text-4xl">
               work_off
             </span>
           </div>
-          <h3 className="text-xl font-bold text-slate-900 mb-2">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
             No assigned jobs
           </h3>
-          <p className="text-slate-600">
+          <p className="text-slate-600 dark:text-slate-400">
             Jobs assigned to you by clients will appear here
           </p>
         </div>
@@ -245,12 +255,12 @@ export default function AssignedJobsPage() {
             .map((job) => (
               <div
                 key={job.id}
-                className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-6 hover:shadow-md transition-all"
+                className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-6 hover:shadow-md transition-all"
               >
                 <div className="flex items-start justify-between mb-3 sm:mb-4 gap-2">
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2 mb-1">
-                      <h3 className="text-sm sm:text-lg font-bold text-slate-900">
+                      <h3 className="text-sm sm:text-lg font-bold text-slate-900 dark:text-white">
                         {job.service_name}
                       </h3>
                       <span
@@ -261,7 +271,7 @@ export default function AssignedJobsPage() {
                         {job.status}
                       </span>
                     </div>
-                    <p className="text-xs sm:text-sm text-slate-600 truncate">
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 truncate">
                       Job #{job.booking_number}
                     </p>
                   </div>
@@ -272,7 +282,7 @@ export default function AssignedJobsPage() {
                         2,
                       )}
                     </p>
-                    <p className="text-xs text-slate-500">Your earnings</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400">Your earnings</p>
                   </div>
                 </div>
 
@@ -282,8 +292,8 @@ export default function AssignedJobsPage() {
                       person
                     </span>
                     <div>
-                      <p className="text-xs text-slate-500">Client</p>
-                      <p className="text-sm font-semibold text-slate-900">
+                      <p className="text-xs text-slate-500 dark:text-slate-400">Client</p>
+                      <p className="text-sm font-semibold text-slate-900 dark:text-white">
                         {job.client_name}
                       </p>
                     </div>
@@ -294,8 +304,8 @@ export default function AssignedJobsPage() {
                       calendar_today
                     </span>
                     <div>
-                      <p className="text-xs text-slate-500">Start Date</p>
-                      <p className="text-sm font-semibold text-slate-900">
+                      <p className="text-xs text-slate-500 dark:text-slate-400">Start Date</p>
+                      <p className="text-sm font-semibold text-slate-900 dark:text-white">
                         {new Date(job.start_date).toLocaleDateString()}
                       </p>
                     </div>
@@ -306,8 +316,8 @@ export default function AssignedJobsPage() {
                       schedule
                     </span>
                     <div>
-                      <p className="text-xs text-slate-500">Duration</p>
-                      <p className="text-sm font-semibold text-slate-900">
+                      <p className="text-xs text-slate-500 dark:text-slate-400">Duration</p>
+                      <p className="text-sm font-semibold text-slate-900 dark:text-white">
                         {job.duration_value} {job.duration_type.toLowerCase()}
                       </p>
                     </div>
@@ -320,7 +330,7 @@ export default function AssignedJobsPage() {
                       setSelectedJob(job);
                       setShowDetailsModal(true);
                     }}
-                    className="flex-1 px-3 sm:px-4 py-1.5 sm:py-2 border-2 border-slate-200 text-slate-700 text-xs sm:text-sm font-semibold rounded-lg hover:border-teal-600 hover:text-teal-600 transition-all"
+                    className="flex-1 px-3 sm:px-4 py-1.5 sm:py-2 border-2 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-xs sm:text-sm font-semibold rounded-lg hover:border-teal-600 hover:text-teal-600 transition-all"
                   >
                     View Details
                   </button>
@@ -353,14 +363,16 @@ export default function AssignedJobsPage() {
       {/* Job Details Modal */}
       {showDetailsModal && selectedJob && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-slate-900">Job Details</h2>
+          <div className="bg-white dark:bg-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-6 py-4 flex items-center justify-between">
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Job Details</h2>
               <button
                 onClick={() => setShowDetailsModal(false)}
-                className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-all"
+                className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 dark:hover:bg-slate-700 transition-all"
               >
-                <span className="material-icons text-slate-600">close</span>
+                <span className="material-icons text-slate-600 dark:text-slate-400">
+                  close
+                </span>
               </button>
             </div>
 
@@ -373,17 +385,19 @@ export default function AssignedJobsPage() {
                 >
                   {selectedJob.status}
                 </span>
-                <span className="text-sm text-slate-600">
+                <span className="text-sm text-slate-600 dark:text-slate-400">
                   Job #{selectedJob.booking_number}
                 </span>
               </div>
 
-              <div className="bg-teal-50 rounded-xl p-4">
-                <h3 className="text-lg font-bold text-slate-900 mb-2">
+              <div className="bg-teal-50 dark:bg-teal-900/20 rounded-xl p-4">
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
                   {selectedJob.service_name}
                 </h3>
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-600">Your Earnings</span>
+                  <span className="text-slate-600 dark:text-slate-400">
+                    Your Earnings
+                  </span>
                   <span className="text-2xl font-bold text-teal-600">
                     $
                     {(
@@ -397,30 +411,30 @@ export default function AssignedJobsPage() {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-slate-50 rounded-lg p-4">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <span className="material-icons text-teal-600 text-sm">
                       person
                     </span>
-                    <span className="text-xs text-slate-600 font-semibold">
+                    <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">
                       CLIENT
                     </span>
                   </div>
-                  <p className="font-bold text-slate-900">
+                  <p className="font-bold text-slate-900 dark:text-white">
                     {selectedJob.client_name}
                   </p>
                 </div>
 
-                <div className="bg-slate-50 rounded-lg p-4">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <span className="material-icons text-teal-600 text-sm">
                       calendar_today
                     </span>
-                    <span className="text-xs text-slate-600 font-semibold">
+                    <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">
                       START DATE
                     </span>
                   </div>
-                  <p className="font-bold text-slate-900">
+                  <p className="font-bold text-slate-900 dark:text-white">
                     {new Date(selectedJob.start_date).toLocaleDateString(
                       "en-US",
                       {
@@ -433,54 +447,54 @@ export default function AssignedJobsPage() {
                   </p>
                 </div>
 
-                <div className="bg-slate-50 rounded-lg p-4">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <span className="material-icons text-teal-600 text-sm">
                       schedule
                     </span>
-                    <span className="text-xs text-slate-600 font-semibold">
+                    <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">
                       DURATION
                     </span>
                   </div>
-                  <p className="font-bold text-slate-900">
+                  <p className="font-bold text-slate-900 dark:text-white">
                     {selectedJob.duration_value}{" "}
                     {selectedJob.duration_type.toLowerCase()}
                   </p>
                 </div>
 
-                <div className="bg-slate-50 rounded-lg p-4">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <span className="material-icons text-teal-600 text-sm">
                       payment
                     </span>
-                    <span className="text-xs text-slate-600 font-semibold">
+                    <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">
                       PAYMENT
                     </span>
                   </div>
-                  <p className="font-bold text-slate-900">
+                  <p className="font-bold text-slate-900 dark:text-white">
                     {selectedJob.payment_status}
                   </p>
                 </div>
               </div>
 
-              <div className="bg-blue-50 rounded-lg p-4">
+              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="material-icons text-blue-600">
                     location_on
                   </span>
-                  <span className="text-xs text-blue-900 font-semibold">
+                  <span className="text-xs text-blue-900 dark:text-blue-200 font-semibold">
                     SERVICE LOCATION
                   </span>
                 </div>
-                <p className="text-sm text-blue-900">
+                <p className="text-sm text-blue-900 dark:text-blue-200">
                   {selectedJob.full_address || "Address not provided"}
                 </p>
               </div>
 
-              <div className="flex gap-3 pt-4 border-t border-slate-200">
+              <div className="flex gap-3 pt-4 border-t border-slate-200 dark:border-slate-700">
                 <button
                   onClick={() => setShowDetailsModal(false)}
-                  className="flex-1 px-4 py-3 border-2 border-slate-200 text-slate-700 font-semibold rounded-lg hover:border-teal-600 hover:text-teal-600 transition-all"
+                  className="flex-1 px-4 py-3 border-2 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-semibold rounded-lg hover:border-teal-600 hover:text-teal-600 transition-all"
                 >
                   Close
                 </button>

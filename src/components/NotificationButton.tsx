@@ -163,7 +163,11 @@ export default function NotificationButton() {
           </div>
 
           {/* Notifications List */}
-          <div className="overflow-y-auto flex-1">
+          <div className="overflow-y-auto flex-1"
+          onScroll={(e)=>{
+            e.stopPropagation()
+          }}
+          >
             {notifications.length === 0 ? (
               <div className="p-8 text-center">
                 <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-3">

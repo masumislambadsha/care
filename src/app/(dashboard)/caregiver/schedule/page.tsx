@@ -64,7 +64,7 @@ export default function CaregiverSchedulePage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-600">Loading schedule...</p>
+          <p className="text-slate-600 dark:text-slate-400">Loading schedule...</p>
         </div>
       </div>
     );
@@ -101,17 +101,17 @@ export default function CaregiverSchedulePage() {
     <>
       {/* Header */}
       <div className="mb-4 sm:mb-8">
-        <h1 className="text-lg sm:text-3xl font-bold text-slate-900 mb-2">
+        <h1 className="text-lg sm:text-3xl font-bold text-slate-900 dark:text-white mb-2">
           My Schedule
         </h1>
-        <p className="text-xs sm:text-sm text-slate-600">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
           Manage your upcoming appointments
         </p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-2 sm:gap-6 mb-4 sm:mb-8">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-2 sm:p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-2 sm:p-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-3">
             <div className="w-7 h-7 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center shrink-0">
               <span className="material-icons text-sm sm:text-2xl text-blue-600">
@@ -119,17 +119,17 @@ export default function CaregiverSchedulePage() {
               </span>
             </div>
             <div>
-              <p className="text-[10px] sm:text-sm text-slate-600 leading-tight">
+              <p className="text-[10px] sm:text-sm text-slate-600 dark:text-slate-400 leading-tight">
                 Today's
               </p>
-              <p className="text-xs sm:text-2xl font-bold text-slate-900 leading-tight">
+              <p className="text-xs sm:text-2xl font-bold text-slate-900 dark:text-white leading-tight">
                 {todayBookings.length}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-2 sm:p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-2 sm:p-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-3">
             <div className="w-7 h-7 sm:w-12 sm:h-12 bg-purple-100 rounded-lg flex items-center justify-center shrink-0">
               <span className="material-icons text-sm sm:text-2xl text-purple-600">
@@ -137,17 +137,17 @@ export default function CaregiverSchedulePage() {
               </span>
             </div>
             <div>
-              <p className="text-[10px] sm:text-sm text-slate-600 leading-tight">
+              <p className="text-[10px] sm:text-sm text-slate-600 dark:text-slate-400 leading-tight">
                 Upcoming
               </p>
-              <p className="text-xs sm:text-2xl font-bold text-slate-900 leading-tight">
+              <p className="text-xs sm:text-2xl font-bold text-slate-900 dark:text-white leading-tight">
                 {upcomingBookings.length}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-2 sm:p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-2 sm:p-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-3">
             <div className="w-7 h-7 sm:w-12 sm:h-12 bg-green-100 rounded-lg flex items-center justify-center shrink-0">
               <span className="material-icons text-sm sm:text-2xl text-green-600">
@@ -155,10 +155,10 @@ export default function CaregiverSchedulePage() {
               </span>
             </div>
             <div>
-              <p className="text-[10px] sm:text-sm text-slate-600 leading-tight">
+              <p className="text-[10px] sm:text-sm text-slate-600 dark:text-slate-400 leading-tight">
                 Completed
               </p>
-              <p className="text-xs sm:text-2xl font-bold text-slate-900 leading-tight">
+              <p className="text-xs sm:text-2xl font-bold text-slate-900 dark:text-white leading-tight">
                 {bookings.filter((b) => b.status === "COMPLETED").length}
               </p>
             </div>
@@ -167,35 +167,35 @@ export default function CaregiverSchedulePage() {
       </div>
 
       {/* Today's Schedule */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-6 mb-4 sm:mb-8">
-        <h2 className="text-base sm:text-xl font-bold text-slate-900 mb-3 sm:mb-6">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-6 mb-4 sm:mb-8">
+        <h2 className="text-base sm:text-xl font-bold text-slate-900 dark:text-white mb-3 sm:mb-6">
           Today's Schedule
         </h2>
         {todayBookings.length === 0 ? (
           <div className="text-center py-8 sm:py-12">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="material-icons text-slate-400 text-3xl sm:text-4xl">
                 event_available
               </span>
             </div>
-            <h3 className="text-base sm:text-lg font-semibold text-slate-900 mb-2">
+            <h3 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-white mb-2">
               No bookings today
             </h3>
-            <p className="text-sm text-slate-600">Enjoy your day off!</p>
+            <p className="text-sm text-slate-600 dark:text-slate-400">Enjoy your day off!</p>
           </div>
         ) : (
           <div className="space-y-3 sm:space-y-4">
             {todayBookings.map((booking) => (
               <div
                 key={booking.id}
-                className="border-l-4 border-teal-600 bg-teal-50 rounded-lg p-3 sm:p-4"
+                className="border-l-4 border-teal-600 bg-teal-50 dark:bg-teal-900/20 rounded-lg p-3 sm:p-4"
               >
                 <div className="flex items-start justify-between mb-2 gap-2">
                   <div className="min-w-0">
-                    <h4 className="text-sm sm:text-base font-bold text-slate-900 truncate">
+                    <h4 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white truncate">
                       {booking.service_name}
                     </h4>
-                    <p className="text-xs sm:text-sm text-slate-600">
+                    <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
                       Client: {booking.client_name}
                     </p>
                   </div>
@@ -207,7 +207,7 @@ export default function CaregiverSchedulePage() {
                     {booking.status}
                   </span>
                 </div>
-                <div className="grid grid-cols-3 gap-2 text-xs sm:text-sm text-slate-600">
+                <div className="grid grid-cols-3 gap-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
                   <div className="flex items-center gap-1">
                     <span className="material-icons text-xs sm:text-sm shrink-0">
                       schedule
@@ -241,35 +241,35 @@ export default function CaregiverSchedulePage() {
       </div>
 
       {/* Upcoming Bookings */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-6">
-        <h2 className="text-base sm:text-xl font-bold text-slate-900 mb-3 sm:mb-6">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-6">
+        <h2 className="text-base sm:text-xl font-bold text-slate-900 dark:text-white mb-3 sm:mb-6">
           Upcoming Bookings
         </h2>
         {upcomingBookings.length === 0 ? (
           <div className="text-center py-12">
-            <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-20 h-20 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="material-icons text-slate-400 text-4xl">
                 event_busy
               </span>
             </div>
-            <h3 className="text-lg font-semibold text-slate-900 mb-2">
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
               No upcoming bookings
             </h3>
-            <p className="text-slate-600">New bookings will appear here</p>
+            <p className="text-slate-600 dark:text-slate-400">New bookings will appear here</p>
           </div>
         ) : (
           <div className="space-y-4">
             {upcomingBookings.map((booking) => (
               <div
                 key={booking.id}
-                className="border border-slate-200 rounded-lg p-4 hover:border-teal-600 transition-all"
+                className="border border-slate-200 dark:border-slate-700 dark:bg-slate-700/50 rounded-lg p-4 hover:border-teal-600 transition-all"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h4 className="font-bold text-slate-900 mb-1">
+                    <h4 className="font-bold text-slate-900 dark:text-white mb-1">
                       {booking.service_name}
                     </h4>
-                    <p className="text-sm text-slate-600">
+                    <p className="text-sm text-slate-600 dark:text-slate-400">
                       Client: {booking.client_name}
                     </p>
                   </div>
@@ -283,14 +283,14 @@ export default function CaregiverSchedulePage() {
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
                   <div>
-                    <p className="text-slate-500 mb-1">Date</p>
-                    <p className="font-semibold text-slate-900">
+                    <p className="text-slate-500 dark:text-slate-400 mb-1">Date</p>
+                    <p className="font-semibold text-slate-900 dark:text-white">
                       {new Date(booking.start_date).toLocaleDateString()}
                     </p>
                   </div>
                   <div>
-                    <p className="text-slate-500 mb-1">Time</p>
-                    <p className="font-semibold text-slate-900">
+                    <p className="text-slate-500 dark:text-slate-400 mb-1">Time</p>
+                    <p className="font-semibold text-slate-900 dark:text-white">
                       {new Date(booking.start_date).toLocaleTimeString(
                         "en-US",
                         {
@@ -301,14 +301,14 @@ export default function CaregiverSchedulePage() {
                     </p>
                   </div>
                   <div>
-                    <p className="text-slate-500 mb-1">Duration</p>
-                    <p className="font-semibold text-slate-900">
+                    <p className="text-slate-500 dark:text-slate-400 mb-1">Duration</p>
+                    <p className="font-semibold text-slate-900 dark:text-white">
                       {booking.duration_value}{" "}
                       {booking.duration_type.toLowerCase()}
                     </p>
                   </div>
                   <div>
-                    <p className="text-slate-500 mb-1">Amount</p>
+                    <p className="text-slate-500 dark:text-slate-400 mb-1">Amount</p>
                     <p className="font-semibold text-teal-600">
                       ${booking.total_amount}
                     </p>

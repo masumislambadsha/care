@@ -132,7 +132,7 @@ export default function AdminVerificationsPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-600">Loading verifications...</p>
+          <p className="text-slate-600 dark:text-slate-400">Loading verifications...</p>
         </div>
       </div>
     );
@@ -142,17 +142,17 @@ export default function AdminVerificationsPage() {
     <>
       {/* Header */}
       <div className="mb-4 sm:mb-8">
-        <h1 className="text-lg sm:text-3xl font-bold text-slate-900 mb-2">
+        <h1 className="text-lg sm:text-3xl font-bold text-slate-900 dark:text-white mb-2">
           Caregiver Verifications
         </h1>
-        <p className="text-xs sm:text-sm text-slate-600">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
           Review and approve caregiver applications
         </p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-2 sm:gap-6 mb-4 sm:mb-8">
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-2 sm:p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-2 sm:p-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-3">
             <div className="w-7 h-7 sm:w-12 sm:h-12 bg-yellow-100 rounded-lg flex items-center justify-center shrink-0">
               <span className="material-icons text-sm sm:text-2xl text-yellow-600">
@@ -160,17 +160,17 @@ export default function AdminVerificationsPage() {
               </span>
             </div>
             <div>
-              <p className="text-[10px] sm:text-sm text-slate-600 leading-tight">
+              <p className="text-[10px] sm:text-sm text-slate-600 dark:text-slate-400 leading-tight">
                 Pending
               </p>
-              <p className="text-xs sm:text-2xl font-bold text-slate-900 leading-tight">
+              <p className="text-xs sm:text-2xl font-bold text-slate-900 dark:text-white leading-tight">
                 {caregivers.length}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-2 sm:p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-2 sm:p-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-3">
             <div className="w-7 h-7 sm:w-12 sm:h-12 bg-green-100 rounded-lg flex items-center justify-center shrink-0">
               <span className="material-icons text-sm sm:text-2xl text-green-600">
@@ -178,17 +178,17 @@ export default function AdminVerificationsPage() {
               </span>
             </div>
             <div>
-              <p className="text-[10px] sm:text-sm text-slate-600 leading-tight">
+              <p className="text-[10px] sm:text-sm text-slate-600 dark:text-slate-400 leading-tight">
                 Approved
               </p>
-              <p className="text-xs sm:text-2xl font-bold text-slate-900 leading-tight">
+              <p className="text-xs sm:text-2xl font-bold text-slate-900 dark:text-white leading-tight">
                 0
               </p>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-2 sm:p-6">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-2 sm:p-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-3">
             <div className="w-7 h-7 sm:w-12 sm:h-12 bg-red-100 rounded-lg flex items-center justify-center shrink-0">
               <span className="material-icons text-sm sm:text-2xl text-red-600">
@@ -196,10 +196,10 @@ export default function AdminVerificationsPage() {
               </span>
             </div>
             <div>
-              <p className="text-[10px] sm:text-sm text-slate-600 leading-tight">
+              <p className="text-[10px] sm:text-sm text-slate-600 dark:text-slate-400 leading-tight">
                 Rejected
               </p>
-              <p className="text-xs sm:text-2xl font-bold text-slate-900 leading-tight">
+              <p className="text-xs sm:text-2xl font-bold text-slate-900 dark:text-white leading-tight">
                 0
               </p>
             </div>
@@ -209,16 +209,16 @@ export default function AdminVerificationsPage() {
 
       {/* Pending Caregivers */}
       {caregivers.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-12 text-center">
           <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="material-icons text-slate-400 text-4xl">
               verified_user
             </span>
           </div>
-          <h3 className="text-xl font-bold text-slate-900 mb-2">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
             No pending verifications
           </h3>
-          <p className="text-slate-600">
+          <p className="text-slate-600 dark:text-slate-400">
             All caregiver applications have been reviewed
           </p>
         </div>
@@ -227,7 +227,7 @@ export default function AdminVerificationsPage() {
           {caregivers.map((caregiver) => (
             <div
               key={caregiver.id}
-              className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-6 hover:shadow-md transition-all"
+              className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-6 hover:shadow-md transition-all"
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="w-12 h-12 sm:w-16 sm:h-16 bg-teal-100 rounded-full flex items-center justify-center shrink-0">
@@ -240,30 +240,30 @@ export default function AdminVerificationsPage() {
                 </span>
               </div>
 
-              <h3 className="text-base sm:text-xl font-bold text-slate-900 mb-2">
+              <h3 className="text-base sm:text-xl font-bold text-slate-900 dark:text-white mb-2">
                 {caregiver.name}
               </h3>
 
               <div className="space-y-1.5 mb-3">
-                <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-600">
+                <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
                   <span className="material-icons text-xs sm:text-sm shrink-0">
                     email
                   </span>
                   <span className="truncate">{caregiver.email}</span>
                 </div>
-                <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-600">
+                <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
                   <span className="material-icons text-xs sm:text-sm shrink-0">
                     phone
                   </span>
                   <span>{caregiver.phone || "Not provided"}</span>
                 </div>
-                <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-600">
+                <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
                   <span className="material-icons text-xs sm:text-sm shrink-0">
                     work
                   </span>
                   <span>{caregiver.experience} yrs experience</span>
                 </div>
-                <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-600">
+                <div className="flex items-center gap-2 text-xs sm:text-sm text-slate-600 dark:text-slate-400">
                   <span className="material-icons text-xs sm:text-sm shrink-0">
                     attach_money
                   </span>
@@ -272,7 +272,7 @@ export default function AdminVerificationsPage() {
               </div>
 
               <div className="mb-3">
-                <p className="text-xs font-semibold text-slate-700 mb-1.5">
+                <p className="text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
                   Services Offered:
                 </p>
                 <div className="flex flex-wrap gap-1">
@@ -287,7 +287,7 @@ export default function AdminVerificationsPage() {
                       </span>
                     ))}
                   {caregiver.services_offered.length > 3 && (
-                    <span className="px-2 py-0.5 bg-slate-100 text-slate-600 text-xs rounded-full">
+                    <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 dark:text-slate-300 text-xs rounded-full">
                       +{caregiver.services_offered.length - 3} more
                     </span>
                   )}
@@ -311,16 +311,16 @@ export default function AdminVerificationsPage() {
       {/* Details Modal */}
       {showDetailsModal && selectedCaregiver && (
         <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center z-50 p-0 sm:p-4">
-          <div className="bg-white rounded-t-2xl sm:rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white border-b border-slate-200 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
-              <h2 className="text-lg sm:text-2xl font-bold text-slate-900">
+          <div className="bg-white dark:bg-slate-800 rounded-t-2xl sm:rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+              <h2 className="text-lg sm:text-2xl font-bold text-slate-900 dark:text-white">
                 Application Review
               </h2>
               <button
                 onClick={() => setShowDetailsModal(false)}
                 className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-all"
               >
-                <span className="material-icons text-slate-600">close</span>
+                <span className="material-icons text-slate-400 dark:text-slate-300">close</span>
               </button>
             </div>
 
@@ -333,45 +333,45 @@ export default function AdminVerificationsPage() {
                   </span>
                 </div>
                 <div>
-                  <h3 className="text-base sm:text-2xl font-bold text-slate-900">
+                  <h3 className="text-base sm:text-2xl font-bold text-slate-900 dark:text-white">
                     {selectedCaregiver.name}
                   </h3>
-                  <p className="text-slate-600">{selectedCaregiver.email}</p>
+                  <p className="text-slate-600 dark:text-slate-400">{selectedCaregiver.email}</p>
                 </div>
               </div>
 
               {/* Bio */}
-              <div className="bg-slate-50 rounded-lg p-4">
-                <p className="text-sm font-semibold text-slate-700 mb-2">Bio</p>
-                <p className="text-slate-900">{selectedCaregiver.bio}</p>
+              <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-4">
+                <p className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Bio</p>
+                <p className="text-slate-900 dark:text-white">{selectedCaregiver.bio}</p>
               </div>
 
               {/* Details Grid */}
               <div className="grid grid-cols-2 gap-3">
-                <div className="bg-slate-50 rounded-lg p-4">
-                  <p className="text-sm text-slate-600 mb-1">Experience</p>
-                  <p className="font-semibold text-slate-900">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-4">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">Experience</p>
+                  <p className="font-semibold text-slate-900 dark:text-white">
                     {selectedCaregiver.experience} years
                   </p>
                 </div>
 
-                <div className="bg-slate-50 rounded-lg p-4">
-                  <p className="text-sm text-slate-600 mb-1">Hourly Rate</p>
-                  <p className="font-semibold text-slate-900">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-4">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">Hourly Rate</p>
+                  <p className="font-semibold text-slate-900 dark:text-white">
                     ${selectedCaregiver.hourly_rate}/hour
                   </p>
                 </div>
 
-                <div className="bg-slate-50 rounded-lg p-4">
-                  <p className="text-sm text-slate-600 mb-1">Phone</p>
-                  <p className="font-semibold text-slate-900">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-4">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">Phone</p>
+                  <p className="font-semibold text-slate-900 dark:text-white">
                     {selectedCaregiver.phone || "Not provided"}
                   </p>
                 </div>
 
-                <div className="bg-slate-50 rounded-lg p-4">
-                  <p className="text-sm text-slate-600 mb-1">Applied</p>
-                  <p className="font-semibold text-slate-900">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-4">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">Applied</p>
+                  <p className="font-semibold text-slate-900 dark:text-white">
                     {new Date(
                       selectedCaregiver.created_at,
                     ).toLocaleDateString()}
@@ -381,7 +381,7 @@ export default function AdminVerificationsPage() {
 
               {/* Services */}
               <div>
-                <p className="text-sm font-semibold text-slate-700 mb-2">
+                <p className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                   Services Offered
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -398,7 +398,7 @@ export default function AdminVerificationsPage() {
 
               {/* Languages */}
               <div>
-                <p className="text-sm font-semibold text-slate-700 mb-2">
+                <p className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                   Languages
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -415,7 +415,7 @@ export default function AdminVerificationsPage() {
 
               {/* Certifications */}
               <div>
-                <p className="text-sm font-semibold text-slate-700 mb-2">
+                <p className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                   Certifications
                 </p>
                 <div className="space-y-2">
@@ -434,21 +434,21 @@ export default function AdminVerificationsPage() {
                       </div>
                     ))
                   ) : (
-                    <p className="text-slate-600">No certifications provided</p>
+                    <p className="text-slate-600 dark:text-slate-400">No certifications provided</p>
                   )}
                 </div>
               </div>
 
               {/* Uploaded Documents */}
-              <div className="border-t border-slate-200 pt-6">
-                <h3 className="text-lg font-bold text-slate-900 mb-4">
+              <div className="border-t border-slate-200 dark:border-slate-700 pt-6">
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">
                   Uploaded Documents
                 </h3>
 
                 {/* Profile Picture */}
                 {selectedCaregiver.profile_image_url && (
                   <div className="mb-4">
-                    <p className="text-sm font-semibold text-slate-700 mb-2">
+                    <p className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                       Profile Picture
                     </p>
                     <img
@@ -462,7 +462,7 @@ export default function AdminVerificationsPage() {
                 {/* NID Document */}
                 {selectedCaregiver.nid_document_url && (
                   <div className="mb-4">
-                    <p className="text-sm font-semibold text-slate-700 mb-2">
+                    <p className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                       NID/National ID Document
                     </p>
                     <a
@@ -484,7 +484,7 @@ export default function AdminVerificationsPage() {
                 {selectedCaregiver.certificate_urls &&
                   selectedCaregiver.certificate_urls.length > 0 && (
                     <div className="mb-4">
-                      <p className="text-sm font-semibold text-slate-700 mb-2">
+                      <p className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
                         Certificate Documents
                       </p>
                       <div className="space-y-2">
@@ -511,14 +511,14 @@ export default function AdminVerificationsPage() {
                   (!selectedCaregiver.certificate_urls ||
                     selectedCaregiver.certificate_urls.length === 0) &&
                   !selectedCaregiver.profile_image_url && (
-                    <p className="text-slate-600 text-center py-4">
-                      No documents uploaded
+                    <p className="text-slate-600 dark:text-slate-400 text-center py-4">
+                    No documents uploaded
                     </p>
                   )}
               </div>
 
               {/* Actions */}
-              <div className="flex gap-2 sm:gap-3 pt-3 sm:pt-4 border-t border-slate-200">
+              <div className="flex gap-2 sm:gap-3 pt-3 sm:pt-4 border-t border-slate-200 dark:border-slate-700">
                 <button
                   onClick={() => handleApprove(selectedCaregiver.user_id)}
                   disabled={isSubmitting}
@@ -544,15 +544,15 @@ export default function AdminVerificationsPage() {
       {/* Rejection Modal */}
       {showRejectionModal && selectedCaregiver && (
         <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center z-60 p-0 sm:p-4">
-          <div className="bg-white rounded-t-2xl sm:rounded-2xl max-w-md w-full">
-            <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-200">
-            <h3 className="text-base sm:text-xl font-bold text-slate-900">
+          <div className="bg-white dark:bg-slate-800 rounded-t-2xl sm:rounded-2xl max-w-md w-full">
+            <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-slate-200 dark:border-slate-700">
+            <h3 className="text-base sm:text-xl font-bold text-slate-900 dark:text-white">
               Reject Application
               </h3>
             </div>
 
             <div className="p-4 sm:p-6 space-y-4">
-              <p className="text-slate-600">
+              <p className="text-slate-600 dark:text-slate-400">
                 Please provide a reason for rejecting this application. This
                 will be sent to the applicant.
               </p>

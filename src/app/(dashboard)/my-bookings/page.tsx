@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -106,7 +106,7 @@ export default function MyBookingsPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-600">Loading bookings...</p>
+          <p className="text-slate-600 dark:text-slate-400">Loading bookings...</p>
         </div>
       </div>
     );
@@ -201,10 +201,10 @@ export default function MyBookingsPage() {
     <>
       {/* Header */}
       <div className="mb-4 sm:mb-8">
-        <h1 className="text-lg sm:text-3xl font-bold text-slate-900 mb-1 sm:mb-2">
+        <h1 className="text-lg sm:text-3xl font-bold text-slate-900 dark:text-white mb-1 sm:mb-2">
           My Bookings
         </h1>
-        <p className="text-xs sm:text-sm text-slate-600">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
           {isCaregiver
             ? "Manage your service bookings"
             : "Track and manage your care bookings"}
@@ -212,7 +212,7 @@ export default function MyBookingsPage() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-4 mb-4 sm:mb-6">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-4 mb-4 sm:mb-6">
         <div className="flex flex-wrap gap-2">
           {["all", "confirmed", "ongoing", "completed", "cancelled"].map(
             (filterOption) => (
@@ -236,16 +236,16 @@ export default function MyBookingsPage() {
       {bookings.filter((b) =>
         filter === "all" ? true : b.status.toLowerCase() === filter,
       ).length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 sm:p-8 text-center">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 sm:p-8 text-center">
           <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-3">
             <span className="material-icons text-slate-400 text-3xl">
               event_busy
             </span>
           </div>
-          <h3 className="text-base sm:text-xl font-bold text-slate-900 mb-2">
+          <h3 className="text-base sm:text-xl font-bold text-slate-900 dark:text-white mb-2">
             No bookings found
           </h3>
-          <p className="text-xs sm:text-sm text-slate-600 mb-4">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-4">
             {isCaregiver
               ? "You don't have any bookings yet. Keep your profile updated!"
               : "You haven't made any bookings yet. Start by finding a caregiver."}
@@ -269,7 +269,7 @@ export default function MyBookingsPage() {
             .map((booking) => (
               <div
                 key={booking.id}
-                className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-6 hover:shadow-md transition-all"
+                className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-6 hover:shadow-md transition-all"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div className="min-w-0 flex-1 mr-2">
@@ -395,7 +395,7 @@ export default function MyBookingsPage() {
       {/* Review Modal */}
       {showReviewModal && selectedBooking && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl max-w-md w-full">
             <div className="border-b border-slate-200 px-6 py-4 flex items-center justify-between">
               <h2 className="text-xl font-bold text-slate-900">
                 Leave a Review
@@ -404,13 +404,13 @@ export default function MyBookingsPage() {
                 onClick={() => setShowReviewModal(false)}
                 className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100"
               >
-                <span className="material-icons text-slate-600">close</span>
+                <span className="material-icons text-slate-600 dark:text-slate-400">close</span>
               </button>
             </div>
 
             <div className="p-6 space-y-4">
               <div>
-                <p className="text-sm text-slate-600 mb-2">
+                <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
                   Rate your experience with {selectedBooking.caregiver_name}
                 </p>
                 <div className="flex gap-2">
@@ -475,7 +475,7 @@ export default function MyBookingsPage() {
       {/* Cancel Booking Modal */}
       {showCancelModal && selectedBooking && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl max-w-md w-full">
             <div className="border-b border-slate-200 px-6 py-4 flex items-center justify-between">
               <h2 className="text-xl font-bold text-slate-900">
                 Cancel Booking
@@ -484,7 +484,7 @@ export default function MyBookingsPage() {
                 onClick={() => setShowCancelModal(false)}
                 className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100"
               >
-                <span className="material-icons text-slate-600">close</span>
+                <span className="material-icons text-slate-600 dark:text-slate-400">close</span>
               </button>
             </div>
 
@@ -545,9 +545,9 @@ export default function MyBookingsPage() {
       {/* Booking Details Modal */}
       {showDetailsModal && selectedBooking && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             {/* Modal Header */}
-            <div className="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+            <div className="sticky top-0 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-6 py-4 flex items-center justify-between">
               <h2 className="text-2xl font-bold text-slate-900">
                 Booking Details
               </h2>
@@ -555,7 +555,7 @@ export default function MyBookingsPage() {
                 onClick={() => setShowDetailsModal(false)}
                 className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-all"
               >
-                <span className="material-icons text-slate-600">close</span>
+                <span className="material-icons text-slate-600 dark:text-slate-400">close</span>
               </button>
             </div>
 
@@ -570,7 +570,7 @@ export default function MyBookingsPage() {
                 >
                   {selectedBooking.status}
                 </span>
-                <span className="text-sm text-slate-600">
+                <span className="text-sm text-slate-600 dark:text-slate-400">
                   Booking #{selectedBooking.booking_number}
                 </span>
               </div>
@@ -581,7 +581,7 @@ export default function MyBookingsPage() {
                   {selectedBooking.service_name}
                 </h3>
                 <div className="flex items-center justify-between">
-                  <span className="text-slate-600">Total Amount</span>
+                  <span className="text-slate-600 dark:text-slate-400">Total Amount</span>
                   <span className="text-2xl font-bold text-teal-600">
                     ${selectedBooking.total_amount}
                   </span>
@@ -590,12 +590,12 @@ export default function MyBookingsPage() {
 
               {/* Details Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-slate-50 rounded-lg p-4">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <span className="material-icons text-teal-600 text-sm">
                       person
                     </span>
-                    <span className="text-xs text-slate-600 font-semibold">
+                    <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">
                       {isCaregiver ? "CLIENT" : "CAREGIVER"}
                     </span>
                   </div>
@@ -606,12 +606,12 @@ export default function MyBookingsPage() {
                   </p>
                 </div>
 
-                <div className="bg-slate-50 rounded-lg p-4">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <span className="material-icons text-teal-600 text-sm">
                       calendar_today
                     </span>
-                    <span className="text-xs text-slate-600 font-semibold">
+                    <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">
                       START DATE
                     </span>
                   </div>
@@ -628,12 +628,12 @@ export default function MyBookingsPage() {
                   </p>
                 </div>
 
-                <div className="bg-slate-50 rounded-lg p-4">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <span className="material-icons text-teal-600 text-sm">
                       schedule
                     </span>
-                    <span className="text-xs text-slate-600 font-semibold">
+                    <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">
                       DURATION
                     </span>
                   </div>
@@ -643,12 +643,12 @@ export default function MyBookingsPage() {
                   </p>
                 </div>
 
-                <div className="bg-slate-50 rounded-lg p-4">
+                <div className="bg-slate-50 dark:bg-slate-700/50 rounded-lg p-4">
                   <div className="flex items-center gap-2 mb-2">
                     <span className="material-icons text-teal-600 text-sm">
                       payment
                     </span>
-                    <span className="text-xs text-slate-600 font-semibold">
+                    <span className="text-xs text-slate-600 dark:text-slate-400 font-semibold">
                       PAYMENT
                     </span>
                   </div>

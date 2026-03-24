@@ -133,7 +133,7 @@ export default function CaregiverAvailabilityPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-600">Loading availability...</p>
+          <p className="text-slate-600 dark:text-slate-400">Loading availability...</p>
         </div>
       </div>
     );
@@ -143,16 +143,16 @@ export default function CaregiverAvailabilityPage() {
     <>
       {/* Header */}
       <div className="mb-4 sm:mb-8">
-        <h1 className="text-lg sm:text-3xl font-bold text-slate-900 mb-2">
+        <h1 className="text-lg sm:text-3xl font-bold text-slate-900 dark:text-white mb-2">
           Manage Availability
         </h1>
-        <p className="text-xs sm:text-sm text-slate-600">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
           Set your available hours for each day of the week
         </p>
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-3 sm:p-6 mb-4 sm:mb-6">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-3 sm:p-6 mb-4 sm:mb-6">
         <div className="flex flex-wrap items-center gap-2 sm:gap-4">
           <button
             onClick={() => toggleAllDays(true)}
@@ -174,7 +174,7 @@ export default function CaregiverAvailabilityPage() {
               onChange={(e) => setVacationMode(e.target.checked)}
               className="w-5 h-5 text-teal-600 border-2 border-slate-300 rounded focus:ring-teal-600"
             />
-            <label htmlFor="vacation" className="font-semibold text-slate-700">
+            <label htmlFor="vacation" className="font-semibold text-slate-700 dark:text-slate-300">
               Vacation Mode (Block all bookings)
             </label>
           </div>
@@ -186,10 +186,10 @@ export default function CaregiverAvailabilityPage() {
         {schedule.map((daySchedule, dayIndex) => (
           <div
             key={daySchedule.day}
-            className="bg-white rounded-xl shadow-sm border border-slate-200 p-6"
+            className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6"
           >
             <div className="flex gap-3 items-center justify-between mb-4">
-              <h3 className="text-sm  sm:text-lg font-bold text-slate-900">
+              <h3 className="text-sm  sm:text-lg font-bold text-slate-900 dark:text-white">
                 {daySchedule.day}
               </h3>
               <div className="flex gap-2">
@@ -217,7 +217,7 @@ export default function CaregiverAvailabilityPage() {
                   className={`p-2 rounded-lg text-xs font-semibold transition-all ${
                     slot.available
                       ? "bg-green-100 text-green-700 hover:bg-green-200"
-                      : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                      : "bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-600"
                   }`}
                   title={formatHour(slot.hour)}
                 >
@@ -226,7 +226,7 @@ export default function CaregiverAvailabilityPage() {
               ))}
             </div>
 
-            <div className="mt-3 text-xs text-slate-600">
+            <div className="mt-3 text-xs text-slate-600 dark:text-slate-400">
               Click on hour blocks to toggle availability
             </div>
           </div>
@@ -234,16 +234,16 @@ export default function CaregiverAvailabilityPage() {
       </div>
 
       {/* Legend */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 mb-6">
-        <h3 className="text-sm font-bold text-slate-900 mb-3">Legend</h3>
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 mb-6">
+        <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-3">Legend</h3>
         <div className="flex flex-wrap gap-4">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-green-100 rounded-lg"></div>
-            <span className="text-sm text-slate-600">Available</span>
+            <span className="text-sm text-slate-600 dark:text-slate-400">Available</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-slate-100 rounded-lg"></div>
-            <span className="text-sm text-slate-600">Unavailable</span>
+            <div className="w-8 h-8 bg-slate-100 dark:bg-slate-700 rounded-lg"></div>
+            <span className="text-sm text-slate-600 dark:text-slate-400">Unavailable</span>
           </div>
         </div>
       </div>

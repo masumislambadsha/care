@@ -100,7 +100,7 @@ export default function CaregiverReviewsPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-600">Loading reviews...</p>
+          <p className="text-slate-600 dark:text-slate-400">Loading reviews...</p>
         </div>
       </div>
     );
@@ -110,10 +110,10 @@ export default function CaregiverReviewsPage() {
     <>
       {/* Header */}
       <div className="mb-4 sm:mb-8">
-        <h1 className="text-lg sm:text-3xl font-bold text-slate-900 mb-2">
+        <h1 className="text-lg sm:text-3xl font-bold text-slate-900 dark:text-white mb-2">
           My Reviews
         </h1>
-        <p className="text-xs sm:text-sm text-slate-600">
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
           See what clients say about you
         </p>
       </div>
@@ -148,8 +148,8 @@ export default function CaregiverReviewsPage() {
         </div>
 
         {/* Rating Distribution */}
-        <div className="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <h3 className="font-bold text-slate-900 mb-4">Rating Distribution</h3>
+        <div className="lg:col-span-2 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6">
+          <h3 className="font-bold text-slate-900 dark:text-white mb-4">Rating Distribution</h3>
           <div className="space-y-3">
             {[
               { stars: 5, count: stats.fiveStars },
@@ -160,14 +160,14 @@ export default function CaregiverReviewsPage() {
             ].map((item) => (
               <div key={item.stars} className="flex items-center gap-3">
                 <div className="flex items-center gap-1 w-20">
-                  <span className="text-sm font-semibold text-slate-900">
+                  <span className="text-sm font-semibold text-slate-900 dark:text-white">
                     {item.stars}
                   </span>
                   <span className="material-icons text-yellow-400 text-sm">
                     star
                   </span>
                 </div>
-                <div className="flex-1 h-3 bg-slate-100 rounded-full overflow-hidden">
+                <div className="flex-1 h-3 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
                   <div
                     className="h-full bg-yellow-400 rounded-full transition-all"
                     style={{
@@ -175,7 +175,7 @@ export default function CaregiverReviewsPage() {
                     }}
                   ></div>
                 </div>
-                <span className="text-sm text-slate-600 w-12 text-right">
+                <span className="text-sm text-slate-600 dark:text-slate-400 w-12 text-right">
                   {item.count}
                 </span>
               </div>
@@ -186,16 +186,16 @@ export default function CaregiverReviewsPage() {
 
       {/* Reviews List */}
       {reviews.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center">
-          <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-12 text-center">
+          <div className="w-20 h-20 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="material-icons text-slate-400 text-4xl">
               rate_review
             </span>
           </div>
-          <h3 className="text-xl font-bold text-slate-900 mb-2">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
             No reviews yet
           </h3>
-          <p className="text-slate-600">
+          <p className="text-slate-600 dark:text-slate-400">
             Complete bookings to receive reviews from clients
           </p>
         </div>
@@ -204,7 +204,7 @@ export default function CaregiverReviewsPage() {
           {reviews.map((review) => (
             <div
               key={review.id}
-              className="bg-white rounded-xl shadow-sm border border-slate-200 p-6"
+              className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6"
             >
               <div className="flex items-start gap-4">
                 <img
@@ -218,10 +218,10 @@ export default function CaregiverReviewsPage() {
                 <div className="flex-1">
                   <div className="flex items-start justify-between mb-2">
                     <div>
-                      <h4 className="font-bold text-slate-900">
+                      <h4 className="font-bold text-slate-900 dark:text-white">
                         {review.client_name}
                       </h4>
-                      <p className="text-sm text-slate-600">
+                      <p className="text-sm text-slate-600 dark:text-slate-400">
                         {new Date(review.created_at).toLocaleDateString(
                           "en-US",
                           {
@@ -247,7 +247,7 @@ export default function CaregiverReviewsPage() {
                       ))}
                     </div>
                   </div>
-                  <p className="text-slate-700 leading-relaxed">
+                  <p className="text-slate-700 dark:text-slate-300 leading-relaxed">
                     {review.comment}
                   </p>
                 </div>

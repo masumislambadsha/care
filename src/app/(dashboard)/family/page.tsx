@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -156,7 +156,7 @@ export default function FamilyMembersPage() {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-slate-600">Loading family members...</p>
+          <p className="text-slate-600 dark:text-slate-400">Loading family members...</p>
         </div>
       </div>
     );
@@ -170,7 +170,7 @@ export default function FamilyMembersPage() {
           <h1 className="text-lg sm:text-3xl font-bold text-slate-900 mb-1 sm:mb-2">
             Family Members
           </h1>
-          <p className="text-xs sm:text-sm text-slate-600">
+          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">
             Manage your family members for easier booking
           </p>
         </div>
@@ -186,7 +186,7 @@ export default function FamilyMembersPage() {
 
       {/* Family Members Grid */}
       {members.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-12 text-center">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-12 text-center">
           <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="material-icons text-slate-400 text-4xl"
             style={{fontSize:"25px"}}>
@@ -196,7 +196,7 @@ export default function FamilyMembersPage() {
           <h3 className="text-xl font-bold text-slate-900 mb-2">
             No family members yet
           </h3>
-          <p className="text-slate-600 mb-6">
+          <p className="text-slate-600 dark:text-slate-400 mb-6">
             Add family members to make booking easier
           </p>
           <button
@@ -213,7 +213,7 @@ export default function FamilyMembersPage() {
           {members.map((member) => (
             <div
               key={member.id}
-              className="bg-white rounded-xl shadow-sm border border-slate-200 p-6 hover:shadow-md transition-all"
+              className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-6 hover:shadow-md transition-all"
             >
               <div className="flex items-start justify-between mb-4">
                 <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center">
@@ -236,12 +236,12 @@ export default function FamilyMembersPage() {
               </h3>
 
               <div className="space-y-2">
-                <div className="flex items-center gap-2 text-slate-600">
+                <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                   <span className="material-icons text-sm">cake</span>
                   <span className="text-sm">{member.age} years old</span>
                 </div>
 
-                <div className="flex items-center gap-2 text-slate-600">
+                <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
                   <span className="material-icons text-sm">
                     family_restroom
                   </span>
@@ -249,7 +249,7 @@ export default function FamilyMembersPage() {
                 </div>
 
                 {member.special_needs && (
-                  <div className="flex items-start gap-2 text-slate-600 mt-3 pt-3 border-t border-slate-200">
+                  <div className="flex items-start gap-2 text-slate-600 dark:text-slate-400 mt-3 pt-3 border-t border-slate-200">
                     <span className="material-icons text-sm">info</span>
                     <div>
                       <p className="text-xs font-semibold text-slate-700 mb-1">
@@ -268,8 +268,8 @@ export default function FamilyMembersPage() {
       {/* Add/Edit Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
-            <div className="sticky top-0 bg-white border-b border-slate-200 px-6 py-4 flex items-center justify-between">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
+            <div className="sticky top-0 bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-6 py-4 flex items-center justify-between">
               <h2 className="text-2xl font-bold text-slate-900">
                 {editingMember ? "Edit Family Member" : "Add Family Member"}
               </h2>
@@ -277,7 +277,7 @@ export default function FamilyMembersPage() {
                 onClick={() => setShowModal(false)}
                 className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-all"
               >
-                <span className="material-icons text-slate-600">close</span>
+                <span className="material-icons text-slate-600 dark:text-slate-400">close</span>
               </button>
             </div>
 

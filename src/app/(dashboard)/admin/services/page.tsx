@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -353,7 +353,7 @@ export default function AdminServicesPage() {
         return true;
       }).length === 0 && (
         <div className="text-center py-12">
-          <span className="material-icons text-6xl text-slate-300 dark:text-slate-600 mb-4">
+          <span className="material-icons text-6xl text-slate-300 dark:text-slate-600 dark:text-slate-400 mb-4">
             medical_services
           </span>
           <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
