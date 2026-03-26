@@ -104,7 +104,7 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 overflow-x-hidden">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-950 overflow-x-hidden">
       <Navbar />
 
       
@@ -135,7 +135,7 @@ export default function AboutPage() {
       </section>
 
       
-      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white">
+      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-900">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 items-center">
             <motion.div
@@ -144,19 +144,19 @@ export default function AboutPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.7 }}
             >
-              <p className="text-teal-600 font-semibold text-xs uppercase tracking-widest mb-3">
+              <p className="text-teal-600 dark:text-teal-400 font-semibold text-xs uppercase tracking-widest mb-3">
                 Our Mission
               </p>
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-5 leading-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-5 leading-tight">
                 Making quality care accessible to every family
               </h2>
-              <p className="text-slate-600 text-sm sm:text-base mb-4">
+              <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base mb-4">
                 We believe every family deserves access to safe, professional,
                 and compassionate care — regardless of their circumstances. Our
                 platform removes the barriers that make finding care stressful
                 and uncertain.
               </p>
-              <p className="text-slate-600 text-sm sm:text-base">
+              <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base">
                 From newborns to seniors, from routine childcare to specialized
                 medical support, we match families with caregivers who are not
                 just qualified, but genuinely caring.
@@ -187,17 +187,17 @@ export default function AboutPage() {
       </section>
 
       
-      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
+      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-950">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3"
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-3"
               data-aos="fade-up"
             >
               What we stand for
             </h2>
             <p
-              className="text-slate-600 text-sm sm:text-base"
+              className="text-slate-600 dark:text-slate-300 text-sm sm:text-base"
               data-aos="fade-up"
               data-aos-delay="100"
             >
@@ -211,7 +211,7 @@ export default function AboutPage() {
                 whileHover={{ y: -4 }}
                 data-aos="fade-up"
                 data-aos-delay={i * 80}
-                className="bg-white rounded-2xl p-6 shadow-sm border border-slate-100 text-center"
+                className="bg-white dark:bg-slate-900 rounded-2xl p-6 shadow-sm border border-slate-100 dark:border-slate-800 text-center"
               >
                 <div
                   className={`w-14 h-14 ${value.color} rounded-2xl flex items-center justify-center mx-auto mb-4`}
@@ -220,10 +220,10 @@ export default function AboutPage() {
                     {value.icon}
                   </span>
                 </div>
-                <h3 className="font-bold text-slate-900 text-base mb-2">
+                <h3 className="font-bold text-slate-900 dark:text-white text-base mb-2">
                   {value.title}
                 </h3>
-                <p className="text-slate-600 text-sm">{value.desc}</p>
+                <p className="text-slate-600 dark:text-slate-300 text-sm">{value.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -261,17 +261,17 @@ export default function AboutPage() {
       </section>
 
       
-      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white">
+      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-900">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-12">
             <h2
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3"
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-3"
               data-aos="fade-up"
             >
               Our journey
             </h2>
             <p
-              className="text-slate-600 text-sm sm:text-base"
+              className="text-slate-600 dark:text-slate-300 text-sm sm:text-base"
               data-aos="fade-up"
               data-aos-delay="100"
             >
@@ -279,7 +279,7 @@ export default function AboutPage() {
             </p>
           </div>
           <div className="relative">
-            <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-teal-100" />
+            <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-teal-100 dark:bg-teal-900/50" />
             <div className="space-y-8">
               {milestones.map((m, i) => (
                 <motion.div
@@ -293,11 +293,11 @@ export default function AboutPage() {
                   <div className="w-12 h-12 bg-teal-600 text-white rounded-full flex items-center justify-center font-bold text-xs shrink-0 shadow-md shadow-teal-200 z-10">
                     {m.year.slice(2)}
                   </div>
-                  <div className="bg-slate-50 rounded-2xl p-4 flex-1 border border-slate-100">
-                    <p className="text-teal-600 font-bold text-xs mb-1">
+                  <div className="bg-slate-50 dark:bg-slate-800 rounded-2xl p-4 flex-1 border border-slate-100 dark:border-slate-700">
+                    <p className="text-teal-600 dark:text-teal-400 font-bold text-xs mb-1">
                       {m.year}
                     </p>
-                    <p className="text-slate-700 text-sm">{m.event}</p>
+                    <p className="text-slate-700 dark:text-slate-300 text-sm">{m.event}</p>
                   </div>
                 </motion.div>
               ))}
@@ -307,17 +307,17 @@ export default function AboutPage() {
       </section>
 
       
-      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50">
+      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-slate-50 dark:bg-slate-950">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-3"
+              className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-3"
               data-aos="fade-up"
             >
               Meet the team
             </h2>
             <p
-              className="text-slate-600 text-sm sm:text-base"
+              className="text-slate-600 dark:text-slate-300 text-sm sm:text-base"
               data-aos="fade-up"
               data-aos-delay="100"
             >
@@ -331,7 +331,7 @@ export default function AboutPage() {
                 whileHover={{ y: -6 }}
                 data-aos="fade-up"
                 data-aos-delay={i * 80}
-                className="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 text-center"
+                className="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-sm border border-slate-100 dark:border-slate-800 text-center"
               >
                 
                 <img
@@ -340,13 +340,13 @@ export default function AboutPage() {
                   className="w-full h-48 object-cover"
                 />
                 <div className="p-5">
-                  <h3 className="font-bold text-slate-900 text-base mb-0.5">
+                  <h3 className="font-bold text-slate-900 dark:text-white text-base mb-0.5">
                     {member.name}
                   </h3>
-                  <p className="text-teal-600 font-semibold text-xs mb-3">
+                  <p className="text-teal-600 dark:text-teal-400 font-semibold text-xs mb-3">
                     {member.role}
                   </p>
-                  <p className="text-slate-600 text-xs leading-relaxed">
+                  <p className="text-slate-600 dark:text-slate-300 text-xs leading-relaxed">
                     {member.bio}
                   </p>
                 </div>
@@ -357,16 +357,16 @@ export default function AboutPage() {
       </section>
 
       
-      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white">
+      <section className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-white dark:bg-slate-900">
         <div className="max-w-3xl mx-auto text-center">
           <h2
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 mb-4"
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4"
             data-aos="fade-up"
           >
             Ready to find the right care?
           </h2>
           <p
-            className="text-slate-600 text-sm sm:text-base mb-8"
+            className="text-slate-600 dark:text-slate-300 text-sm sm:text-base mb-8"
             data-aos="fade-up"
             data-aos-delay="100"
           >
